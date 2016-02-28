@@ -1,0 +1,34 @@
+<html>
+    <head> 
+        <title>Solicitud de reportes::Inicio</title>
+        <meta charset="UTF-8">
+        <link rel="Stylesheet" href="css/reset.css">
+        <link rel="Stylesheet" href="css/style.css">
+    </head>
+    
+    <body>
+       <header>
+            <div class = "header"> 
+                 <h1>Solicitud de Reportes Fundacite</h1>
+                 <h2>Bienvenido</h2>
+             </div>
+        </header>
+        <section>
+           <div class = "loginpanel">
+               
+                <form action="reporte_usr.html" method="POST" >
+                    <h2>Ingresar</h2>
+                    <p><label for="ci">CI:</label><br><input class="ingresar" id="ci" type="text" name="cedula"></p>
+                    <p><label for="pw">Contraseña:</label><br><input class="ingresar" id="pw" type="password" name="pass"></p>
+                    <p><input type="radio" name="Usuario" id = "usr_est" value="normal"><label for="usr_est" >Estudiante</label>
+                    <input type="radio" name="Usuario" id ="usr_inst" value="normal"><label for ="usr_inst">Instructor</label>
+                    <a href="logintecnico.html">Entrar tecnico</a>
+                    <p><input type="submit" value="Entrar"></p> 
+                </form>     
+           </div>
+         </section>
+         <footer>
+            <p>Solicitud de reportes para la academia de software libre FUNDACITE, contacto: 0123456789</p>
+         </footer>    
+    </body>
+    </html>

@@ -1,0 +1,162 @@
+/*
+Paleta de colores: 
+primary-1  #EEF4FA 
+primary-2  #83909B 
+primary-0  #4E5D6A 
+primary-3  #232C34 
+primary-4  #0B141C 
+
+ Cuerpo */ 
+ 
+body
+{
+background: #EEF4FA;
+}
+
+ /* Cabezera */
+ 
+.header
+{
+    color: #0B141C ;
+    text-align: center;
+    font-family:  'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding-bottom: 10px; 
+}
+
+.header h1
+{
+     padding-top: 3px;
+     font-size:  32px;
+}
+
+.header h2
+{
+     padding-top: 3px;
+     font-size:  25px;
+}
+
+/* Barra de Navegacion */ 
+
+.menu ul
+{
+    text-align: center ;
+    list-style-type:  none ;
+    margin:  0;
+    padding: 0 ;
+    overflow: hidden;
+    background-color: #4E5D6A ;
+}
+
+.menu ul li{
+    display: inline-block ;
+}
+
+.menu ul li a
+{
+    font-size: 20px;
+    display: block;
+    padding:  12px 14px ;
+    color:  #fff ;
+    text-align:  center ;
+    text-decoration: none ;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.menu ul li a:hover
+{
+    background-color: #232C34 ;  
+}
+
+#current{
+     background-color: #232C34 ;  
+}
+
+/* Panel de Login */ 
+
+.loginpanel 
+{
+   text-align: center;
+   padding-top: 10% ;
+}
+
+.loginpanel form
+{
+   background-color: #4E5D6A ;
+   position: relative;
+   padding-top: 2%;
+   padding-bottom: 2%;
+   margin-right: 30%;
+   margin-left:  30%;
+   border-radius: 30px;
+}
+
+.loginpanel form input
+{
+    margin-top: 4px ;
+    margin-bottom: 4px ;
+    font-size: 18px;
+}
+
+.loginpanel form p
+{
+    color:  #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    font-size: 20px;
+    margin-left: 2px;
+    margin-right: 2px;   
+}
+
+.loginpanel form h2
+{
+    color:  #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    font-size: 30px;
+    margin-left: 2px;
+    margin-right: 2px; 
+    margin-bottom: 10px;  
+}
+
+.ingresar
+{
+    position:  relative;
+    width: 80%;
+    padding-left: 4px;
+    margin-left: 2%;
+    margin-right: 5%;
+}
+
+.loginpanel form p a
+{
+    color: #fff;
+}
+
+a
+{
+  text-decoration: none;   
+}
+
+a:hover
+{
+    color: deepskyblue;
+}
+
+/* Pie de pagina */ 
+
+footer
+{
+   position:fixed;
+   left:0px;
+   bottom:0px;
+   height:35px;
+   width:100%;
+   background:#4E5D6A;
+}
+
+footer p
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;    
+    text-align: center;
+    font-size: 14px ;
+    color: #fff ;
+    padding-top: 10px ;
+}
