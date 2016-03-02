@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html>
     <head> 
-        <title>Solicitud de reportes::Inicio</title>
+        <title>Solicitud de reportes::Entrar tecnico</title>
         <meta charset="UTF-8">
         <link rel="Stylesheet" href="css/reset.css">
         <link rel="Stylesheet" href="css/style.css">
     </head>
-
+    
     <body>
     <div class = "container">
        <header>
-                 <h1>Solicitud de Reportes Fundacite</h1>
-                 <h2>Bienvenido</h2>
+             <h1>Solicitud de Reportes Fundacite</h1>
+             <h2>Bienvenido</h2>
         </header>
         <section>
            <div class = "loginpanel">
-                <form action="reporte_usr.html" method="POST" >
+               
+                <form action="reporte_tec.html" method="POST" >
                     <h2>Ingresar</h2>
                     <div><label for="ci">CI:</label></div><div><input class="ingresar" id="ci" type="text" name="cedula"></div>
                     <div><label for="pw">Contraseña:</label></div><div><input class="ingresar" id="pw" type="password" name="pass"></div>
-                    <div><input type="radio" name="Usuario" id = "usr_est" value="normal"><label for="usr_est" >Estudiante</label>
-                    <input type="radio" name="Usuario" id ="usr_inst" value="normal"><label for ="usr_inst">Instructor</label>
-                    <a href="logintecnico.html">Entrar tecnico</a></div>
                     <div><input type="submit" value="Entrar"></div>
                 </form>     
            </div>
          </section>
          <footer>
             <p>Solicitud de reportes para la academia de software libre FUNDACITE, contacto: 0123456789</p>
-         </footer> 
-        </div>
+         </footer>    
+      </div>
     </body>
 </html>

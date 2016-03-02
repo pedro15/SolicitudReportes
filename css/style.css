@@ -15,7 +15,7 @@ background: #EEF4FA;
 
  /* Cabezera */
  
-.header
+header
 {
     color: #0B141C ;
     text-align: center;
@@ -23,13 +23,13 @@ background: #EEF4FA;
     padding-bottom: 10px; 
 }
 
-.header h1
+header h1
 {
      padding-top: 3px;
      font-size:  32px;
 }
 
-.header h2
+header h2
 {
      padding-top: 3px;
      font-size:  25px;
@@ -97,7 +97,7 @@ background: #EEF4FA;
     font-size: 18px;
 }
 
-.loginpanel form p
+.loginpanel form div
 {
     color:  #fff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
@@ -125,7 +125,7 @@ background: #EEF4FA;
     margin-right: 5%;
 }
 
-.loginpanel form p a
+.loginpanel form div a
 {
     color: #fff;
 }
