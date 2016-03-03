@@ -7,11 +7,17 @@ primary-3  #232C34
 primary-4  #0B141C 
 
  Cuerpo */ 
- 
+
+a{
+    text-decoration: none;
+}
+
 body
 {
 background: #EEF4FA;
+margin-bottom: 40px;
 }
+
 
  /* Cabezera */
  
@@ -130,24 +136,97 @@ header h2
     color: #fff;
 }
 
-a
+/* seccion de reporte */ 
+
+.reportuser
 {
-  text-decoration: none;   
+  
+   margin-top: 4px ;
+   width: 80% ;
+   margin-right: 10% ;
+   margin-left: 10% ;
+   padding: 15px;
+   background: #83909B  ;
+   border-radius: 5px ;
+   outline-width: 1px ;
+   outline-color: #232C34 ;
+   color: #232C34 ;  
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
+   
 }
 
-a:hover
+.reportusercontent p
 {
-    color: deepskyblue;
+  font-size: 14pt ;   
 }
+
+.reportusercontent h1
+{
+   font-size: 18pt;
+}
+
+.reportusercontent
+{
+  
+    width: 70%;
+    margin-right: 30% ;
+}
+
+.reportusercontent div h1
+{
+    font-size: 22px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.reportadminmenu
+{
+    float:  right;
+    width: 22% ;
+    margin-right: 8% ;    
+}
+
+.reportadminmenu ul li
+{
+    text-align: center;
+    display: inline-block;
+}
+
+.reportadminmenu ul li a
+{
+    display: block;
+    margin: 10px;
+}
+
+.descripcionreporte
+{
+    font-style: italic;
+    font-size: 12pt;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.reportuser form h2{
+    text-align: center;
+}
+
+.reportuser form div{
+    text-align: center;
+    margin : 5px;
+}
+
+
 
 /* Pie de pagina */ 
 
+
+
 footer
 {
-   position:fixed;
+   position:  fixed ;
    left:0px;
    bottom:0px;
-   height:35px;
+   height: 30px;
    width:100%;
    background:#4E5D6A;
 }
@@ -160,3 +239,4 @@ footer p
     color: #fff ;
     padding-top: 10px ;
 }
+

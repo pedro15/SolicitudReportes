@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head> 
         <title>Solicitud de reportes::Inicio</title>
@@ -21,6 +22,31 @@
             </div>     
         </nav>
         <section>
+            <div class="reportuser">
+                <form action="#" method="POST" >
+                    <h2>Realizar solicitud de mantenimiento</h2>
+                    <div><label for="ci">CI:</label><input id="ci" type="text" name="cedula"></div>
+
+                    <div>Sexo</div>
+                    <div><input type="radio" name="sexo" id ="male" value="normal"><label for ="male">Masculino</label>
+                    <input type="radio" name="sexo" id ="female" value="normal"><label for ="female">Femenino</label></div>
+                    <div>Categoria</div>
+                    <div>
+                         <select name = "cat">
+                            <option>Software</option>
+                            <option>Hardware</option>
+                     </select>
+                     </div>
+                     <div><label for = "desc">Descripcion</label></div>
+                     <div>
+                        <textarea rows="10" cols="50" id="desc">
+                            Descripcion aqui
+                        </textarea>
+                      </div>
+                      
+                    <div><input type="submit" value="Enviar"></div>
+                </form>    
+             </div>
          </section>
          <footer>
             <p>Solicitud de reportes para la academia de software libre FUNDACITE, contacto: 0123456789</p>
