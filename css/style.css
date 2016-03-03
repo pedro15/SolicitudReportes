@@ -147,9 +147,9 @@ header h2
    margin-left: 10% ;
    padding: 15px;
    background: #83909B  ;
-   border-radius: 5px ;
+   border : solid ;
+   border-radius: 7px ;
    outline-width: 1px ;
-   outline-color: #232C34 ;
    color: #232C34 ;  
    font-family: Verdana, Geneva, Tahoma, sans-serif;
    
@@ -183,7 +183,8 @@ header h2
 {
     float:  right;
     width: 22% ;
-    margin-right: 8% ;    
+    margin-right: 8% ;
+    text-align: center ; 
 }
 
 .reportadminmenu ul li
@@ -211,9 +212,14 @@ header h2
 }
 
 .reportuser form div{
-    text-align: center;
-    margin : 5px;
+  padding: 4px;
 }
+
+.reportuser form{
+  font-style: bold;
+  font-size: 14pt;
+}
+
 
 
 
@@ -238,5 +244,10 @@ footer p
     font-size: 14px ;
     color: #fff ;
     padding-top: 10px ;
+}
+
+textarea{
+  width: 50em;
+  height: 10em;
 }
 

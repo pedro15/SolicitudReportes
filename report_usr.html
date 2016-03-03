@@ -25,11 +25,33 @@
             <div class="reportuser">
                 <form action="#" method="POST" >
                     <h2>Realizar solicitud de mantenimiento</h2>
-                    <div><label for="ci">CI:</label><input id="ci" type="text" name="cedula"></div>
+                    <div><label for="title">Problema:</label><input id="title" type="text" name="titulo"></div>
+                     <div>Labloratorio</div>
+                    <div>
+                         <select name = "lab">
+                            <option value="lab1">Laboratorio 1</option>
+                            <option>Laboratorio 2</option>
+                            <option value="lab3">Laboratorio 3</option>
+                            <option>Laboratorio 4</option>
+                            <option>Laboratorio 5</option>
+                            <option>Laboratorio 6</option>
+                            <option>Laboratorio 7</option>
+                            <option>Laboratorio 8</option>
+                     </select>
 
-                    <div>Sexo</div>
-                    <div><input type="radio" name="sexo" id ="male" value="normal"><label for ="male">Masculino</label>
-                    <input type="radio" name="sexo" id ="female" value="normal"><label for ="female">Femenino</label></div>
+                      <div>Equipo</div>
+                    <div>
+                         <select name = "machine">
+                            <option>Equipo 1</option>
+                            <option>Equipo 2</option>
+                            <option>Equipo 3</option>
+                            <option>Equipo 4</option>
+                            <option>Equipo 5</option>
+                            <option>Equipo 6</option>
+                            <option>Equipo 7</option>
+                            <option>Equipo 8</option>
+                     </select>
+
                     <div>Categoria</div>
                     <div>
                          <select name = "cat">
@@ -39,11 +61,9 @@
                      </div>
                      <div><label for = "desc">Descripcion</label></div>
                      <div>
-                        <textarea rows="10" cols="50" id="desc">
-                            Descripcion aqui
-                        </textarea>
+                        <textarea id="desc"></textarea>
                       </div>
-                      
+                     
                     <div><input type="submit" value="Enviar"></div>
                 </form>    
              </div>
