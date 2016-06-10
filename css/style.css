@@ -189,10 +189,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
    margin-right: 10% ;
    margin-left: 10% ;
    padding: 15px;
+<<<<<<< HEAD
    background: #7DA2C3  ;
    border : solid ;
    border-radius: 7px ;
    border: 2px #0F395E solid;
+=======
+   background: #83909B  ;
+   border : solid ;
+   border-radius: 7px ;
+   outline-width: 1px ;
+   color: #232C34 ;  
+>>>>>>> 159ec3ec17943020031acaa229e5c7215d545a21
    font-family: Verdana, Geneva, Tahoma, sans-serif;
    
 }
@@ -255,12 +263,21 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .reportuser form div{
   padding: 4px;
+<<<<<<< HEAD
+=======
+}
+
+.reportuser form{
+  font-style: bold;
+  font-size: 14pt;
+>>>>>>> 159ec3ec17943020031acaa229e5c7215d545a21
 }
 
 .reportuser form{
   font-style: bold;
   font-size: 14pt;
 }
+
 
 /* Pie de pagina */ 
 
