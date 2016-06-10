@@ -6,9 +6,8 @@
         <link rel="Stylesheet" href="css/reset.css">
         <link rel="Stylesheet" href="css/style.css">
     </head>
-
     <body>
-    <div class = "container">
+    <div>
        <header>
                  <h1>Solicitud de Reportes Fundacite</h1>
                  <h2>Bienvenido</h2>
@@ -16,7 +15,9 @@
         <section>
            <div class = "loginpanel">
                 <form action="report_usr.html" method="POST" >
-                    <h2>Ingresar</h2>
+                    <div class="loginheader" >
+                        <h2>Ingresar</h2>
+                    </div>
                     <div>
                         <label for="ci">CI:</label>
                     </div>
@@ -24,21 +25,14 @@
                         <input class="ingresar" id="ci" type="text" name="cedula">
                     </div>
                     <div><label for="pw">Contraseña:</label></div><div><input class="ingresar" id="pw" type="password" name="pass"></div>
-
                     <div>
                         <input type="radio" name="Usuario" id = "usr_est" value="normal">
                         <label for="usr_est" >Estudiante</label>
-                        
                         <input type="radio" name="Usuario" id ="usr_inst" value="normal">
                         <label for ="usr_inst">Instructor</label>
-
-
                         <input type="radio" value="tecnico" id = "User" name="Usuario" ><label for ="User">Tecnico</label>
-
-                        <a href="logintec.html">Entrar tecnico</a>
-
                     </div>
-                    <div><input type="submit" value="Entrar"></div>
+                    <div class="sendbtn" ><input type="submit" value="Entrar"  ></div>
                 </form>     
            </div>
          </section>

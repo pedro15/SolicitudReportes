@@ -6,7 +6,7 @@ primary-0  #4E5D6A
 primary-3  #232C34 
 primary-4  #0B141C 
 
- Cuerpo */ 
+Cuerpo */ 
 
 a{
     text-decoration: none;
@@ -14,7 +14,7 @@ a{
 
 body
 {
-background: #EEF4FA;
+background: #fff;
 margin-bottom: 40px;
 }
 
@@ -50,7 +50,8 @@ header h2
     margin:  0;
     padding: 0 ;
     overflow: hidden;
-    background-color: #4E5D6A ;
+    background-color: #0F395E ;
+    
 }
 
 .menu ul li{
@@ -61,23 +62,44 @@ header h2
 {
     font-size: 20px;
     display: block;
-    padding:  12px 14px ;
+    padding:  12px 12px ;
     color:  #fff ;
     text-align:  center ;
     text-decoration: none ;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
 }
 
 .menu ul li a:hover
 {
-    background-color: #232C34 ;  
+    background-color: #285883 ;
 }
 
 #current{
-     background-color: #232C34 ;  
+     background-color: #285883 ;
+     border-left: 2px solid #ED6D56;
 }
 
 /* Panel de Login */ 
+
+
+
+.loginheader
+{
+background: #e07072; /* Navegadores viejos */
+background: -moz-linear-gradient(top, #e07072 0%, #d35658 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #e07072 0%,#d35658 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #e07072 0%,#d35658 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e07072', endColorstr='#d35658',GradientType=0 ); /* IE6-9 */
+    
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    position:  relative;
+    margin-top: 0.10pt;
+    height: 30%;
+    width : 100%
+
+}
 
 .loginpanel 
 {
@@ -87,17 +109,32 @@ header h2
 
 .loginpanel form
 {
-   background-color: #4E5D6A ;
+   
+background: #e0e0e0; /* Navegadores viejos */
+background: -moz-linear-gradient(top,  #ffffff 0%, #e0e0e0 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #ffffff 0%,#e0e0e0 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #ffffff 0%,#e0e0e0 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e0e0e0',GradientType=0 ); /* IE6-9 */
+
+
    position: relative;
-   padding-top: 2%;
    padding-bottom: 2%;
    margin-right: 30%;
    margin-left:  30%;
-   border-radius: 30px;
+   border : solid 1px #696969 ;
+   border-radius: 15px;
+   /* Sombra */
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.55);
 }
 
 .loginpanel form input
 {
+	background-color: #fff ;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.30);
+    border-radius: 5px ;
+    box-sizing: border-box ;
+    border : none ;
+    border : 1px solid #505050 ;
     margin-top: 4px ;
     margin-bottom: 4px ;
     font-size: 18px;
@@ -105,21 +142,30 @@ header h2
 
 .loginpanel form div
 {
-    color:  #fff;
+    color: #4D4D4D;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-    font-size: 20px;
-    margin-left: 2px;
-    margin-right: 2px;   
+    font-size: 20px; 
 }
 
 .loginpanel form h2
 {
-    color:  #fff;
+    color:  #e0e0e0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
     font-size: 30px;
+    font-weight: 500;
     margin-left: 2px;
     margin-right: 2px; 
     margin-bottom: 10px;  
+}
+
+.loginpanel div label
+{
+    font-weight: 500;
+}
+
+.sendbtn input
+{
+    background: #696969;
 }
 
 .ingresar
@@ -131,10 +177,7 @@ header h2
     margin-right: 5%;
 }
 
-.loginpanel form div a
-{
-    color: #fff;
-}
+
 
 /* seccion de reporte */ 
 
@@ -146,11 +189,10 @@ header h2
    margin-right: 10% ;
    margin-left: 10% ;
    padding: 15px;
-   background: #83909B  ;
+   background: #7DA2C3  ;
    border : solid ;
    border-radius: 7px ;
-   outline-width: 1px ;
-   color: #232C34 ;  
+   border: 2px #0F395E solid;
    font-family: Verdana, Geneva, Tahoma, sans-serif;
    
 }
@@ -220,12 +262,7 @@ header h2
   font-size: 14pt;
 }
 
-
-
-
 /* Pie de pagina */ 
-
-
 
 footer
 {
@@ -234,7 +271,7 @@ footer
    bottom:0px;
    height: 30px;
    width:100%;
-   background:#4E5D6A;
+   background:#0F395E;
 }
 
 footer p
@@ -250,4 +287,3 @@ textarea{
   width: 50em;
   height: 10em;
 }
-
