@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <link rel="Stylesheet" href="css/reset.css">
         <link rel="Stylesheet" href="css/style.css">
+        <script type="text/javascript" src="js/app.js"></script>
     </head>
     <body>
     <div>
@@ -13,28 +14,33 @@
                  <h2>Bienvenido</h2>
         </header>
         <section>
-           <div class = "loginpanel">
-                <form action="report_usr.html" method="POST" >
-                    <div class="loginheader" >
-                        <h2>Ingresar</h2>
+             <div class="LoginPanel">
+                 <div class="LoginHeader">
+                    <h2>Ingresar</h2>
+                 </div>
+                        
+                <form name="loginform" action="#" method="POST" onsubmit="return validatelogin();" >
+
+                    <div class="LoginWarning" id ="lwargning">
+                       
                     </div>
-                    <div>
-                        <label for="ci">CI:</label>
+
+                    <div class="LoginPanelField" >
+                        <div><label>CI</label></div>
+                        <input type="text" name="cilogin" value="" id="ci" > 
                     </div>
-                    <div>
-                        <input class="ingresar" id="ci" type="text" name="cedula">
+
+                    <div class="LoginPanelField" >
+                        <div><label>Contraseña</label></div>
+                        <input type="password" name="passlogin" value="" id = "pw" >
                     </div>
-                    <div><label for="pw">Contraseña:</label></div><div><input class="ingresar" id="pw" type="password" name="pass"></div>
-                    <div>
-                        <input type="radio" name="Usuario" id = "usr_est" value="normal">
-                        <label for="usr_est" >Estudiante</label>
-                        <input type="radio" name="Usuario" id ="usr_inst" value="normal">
-                        <label for ="usr_inst">Instructor</label>
-                        <input type="radio" value="tecnico" id = "User" name="Usuario" ><label for ="User">Tecnico</label>
+
+                    <div class = "BtnNormalCenter">
+                        <input type="submit" name="sendlogin" value="Entrar" >
                     </div>
-                    <div class="sendbtn" ><input type="submit" value="Entrar"  ></div>
-                </form>     
-           </div>
+
+                </form>       
+            </div>
          </section>
          <footer>
             <p>Solicitud de reportes para la academia de software libre FUNDACITE, contacto: 0123456789</p>
