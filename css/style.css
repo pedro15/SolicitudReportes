@@ -102,7 +102,7 @@ body
     background: #fff;
 }
 
-header
+header h1 , header h2
 {
     text-align: center;
     font-family: sans-serif;
@@ -118,7 +118,98 @@ header h2
     font-size: 25pt;
 }
 
+.logosindex
+{
+    margin-top: 2%;
+    position: relative;
+    display: inline-block;    
+}
+
 /* cabecera */
+
+header .indexpage
+{
+      text-align: center;
+}
+
+header .indexpage h1 , header .indexpage h2
+{
+    margin-top: 15px;
+}
+
+/* Barra de navegacion */
+
+.wrapper
+{
+  text-align: center;
+  background-image: -webkit-linear-gradient(top, #1f628d , #0F395E);
+  background-image: -moz-linear-gradient(top, #1f628d , #0F395E );
+  background-image: -ms-linear-gradient(top, #1f628d , #0F395E);
+  background-image: -o-linear-gradient(top, #1f628d , #0F395E);
+  background-image: linear-gradient(to bottom,  #1f628d , #0F395E);
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.wrapper ul li
+{
+    float: left;
+    padding-left: 5px;
+}
+
+
+.wrapper ul li a:hover
+{
+  color: #000;
+  background: #ff9191;
+  background-image: -webkit-linear-gradient(top, #ff9191, #e64747);
+  background-image: -moz-linear-gradient(top, #ff9191, #e64747);
+  background-image: -ms-linear-gradient(top, #ff9191, #e64747);
+  background-image: -o-linear-gradient(top, #ff9191, #e64747);
+  background-image: linear-gradient(to bottom, #ff9191, #e64747);
+
+
+  text-shadow:  0px 0px 11px rgba(255, 255, 300, 1);
+
+}
+
+
+.wrapper ul li a
+{
+display: block;
+padding: 8px 6px;
+background: #3a7c9e;
+background: -moz-linear-gradient(top,  #3a7c9e 0%, #258dc8 100%);
+background: -webkit-linear-gradient(top,  #3a7c9e 0%,#258dc8 100%); 
+background: linear-gradient(to bottom,  #3a7c9e 0%,#258dc8 100%); 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3a7c9e', endColorstr='#258dc8',GradientType=0 ); 
+    
+    font-family: sans-serif;
+    font-size: 16pt;
+    
+    color: #fff;
+    text-decoration: none;
+    padding-left: 8px;
+    padding-right: 8px;
+   
+    margin-left: 2px;
+    margin-right: 2px;    
+}
+
+.NavUserinfo 
+{
+    margin-top: 5px;
+    float:  right;
+}
+
+.NavUserinfo p
+{
+    padding: 5px;
+    font-family: sans-serif;
+    color: #fff;
+}
 
 
 /* Login */ 
@@ -131,10 +222,10 @@ header h2
     background: linear-gradient(to bottom,  #ffffff 0%,#e0e0e0 100%); 
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e0e0e0',GradientType=0 ); 
    position: relative;
-   padding-bottom: 2%;
+   padding-bottom: 1.5%;
    margin-right: 30%;
    margin-left:  30%;
-   margin-top: 8%;
+   margin-top: 4%;
    border : solid 1px #696969 ;
    border-radius: 15px;
    /* Sombra */
