@@ -318,6 +318,42 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3a7c9e', end
     margin-right: 4px;
 }
 
+/* Checkpoint */ 
+
+.loadingcheckpoint
+{
+background: #f7f7f7;
+background: -moz-linear-gradient(top,  #f7f7f7 0%, #ffffff 100%);
+background: -webkit-linear-gradient(top,  #f7f7f7 0%,#ffffff 100%);
+background: linear-gradient(to bottom,  #f7f7f7 0%,#ffffff 100%); 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#ffffff',GradientType=0 ); 
+height:  100%;
+position: fixed;
+width: 100%;
+cursor: wait;
+}
+
+.loadingcheckpoint div
+{
+    text-align: center;
+    margin-top: 20%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16pt;
+}
+
+/* Contenido */
+
+.content
+{
+height: 100%;
+width: 100%;
+position: fixed;
+background: #f7f7f7;
+background: -moz-linear-gradient(top,  #f7f7f7 0%, #ffffff 100%);
+background: -webkit-linear-gradient(top,  #f7f7f7 0%,#ffffff 100%);
+background: linear-gradient(to bottom,  #f7f7f7 0%,#ffffff 100%); 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#ffffff',GradientType=0 );
+}
 /* Pie de pagina */ 
 
 footer
