@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head> 
-        <title>Solicitud de reportes::Usuario</title>
+        <title>Solicitud de reportes::Tecnico</title>
         <meta charset="UTF-8">
         <link rel="Stylesheet" href="css/reset.css">
         <link rel="Stylesheet" href="css/style.css">
@@ -12,9 +12,11 @@
         <nav>
             <div class="wrapper" > 
             <ul>
-                <li><a href="user_normal.php?opc=1">Reportar Falla</a></li>
-               <li><a href="user_normal.php?opc=2">Perfil</a></li>
-               <li><a href="user_normal.php?opc=3">Salir</a></li>
+               <li><a href="user_tec.php?opc=1">Reportar Falla</a></li>
+               <li><a href="user_tec.php?opc=2">Administrar fallas</a></li>
+               <li><a href="user_tec.php?opc=3">Estadisticas</a></li>
+               <li><a href="user_tec.php?opc=4">Perfil</a></li>
+               <li><a href="user_tec.php?opc=5">Perfil</a></li>
             </ul>
 
             <div class="NavUserinfo" id="navuserinfo" > 
@@ -45,11 +47,17 @@
                                 include 'Report.php';
                             }else if ($_GET['opc'] == 2 )
                             {
-                              echo '<br>Perfil</br>';
+                                echo '<br>Administrar fallas</br>';
                             }else if ($_GET['opc'] == 3 )
                             {
-                                echo '<br>salir</br>';
-                            } 
+                                echo '<br>Estadisticas</br>';
+                            }else if ($_GET['opc'] == 4 )
+                            {
+                                echo '<br>Perfil</br>';
+                            }else if ($_GET['opc'] == 5 )
+                            {
+                                echo '<br>Salir</br>';
+                            }
                         }else
                         {
                             echo 'Seleccione una opcion';

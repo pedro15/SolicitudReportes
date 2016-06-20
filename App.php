@@ -8,43 +8,99 @@
         error_reporting(0); // ocultar errores por defecto
         return mysqli_connect($config['host'], $config['username'] , $config['password'] , $config['database']) ;
     }
-    
     // Entrar al sistema
-    function login( $username , $password )
+    function login( $ci , $password )
     {
          $link = Connectdb();
          
-         $sql =  "SELECT * FROM usuarios WHERE usuario = '" . $username . "' AND clave = '" . $password ."'"; ; 
+         $sql =  "SELECT * FROM usuario WHERE cedula = '" . $ci . "' AND clave = '" . $password ."'"; ; 
 
         if (!$link){
-            die("Error al conectar a la base de datos") ;
+            header("Location: index.php");
+            die();
         }
-       
         $res =  mysqli_query($link, $sql) or trigger_error("SQL ERROR: " . mysqli_error($link) );
         
         if (mysqli_num_rows($res) <= 0 )
-        {
-            echo '<script>'
-                 . 'alert(" Datos incorrectos");'
-                    . 'window.location.href = "index.html"; </script>';
-           
+        {            
+            return false;
         }else
         {
             while ( $row = mysqli_fetch_assoc($res) )
             {
-                echo '<p>Bienvenido: ' . $row['nombre'] . " " . $row['apellido'] . "</p> <p>ci: " . $row['cedula'] . '</p>' ;
+                session_start();
+                $_SESSION['ciuser'] = $ci;
+                return true;
             }
         } 
     }
+    // 
+    function redirect_user( $ci )
+    {
+        $link = Connectdb();
+         if (!$link){
+            header("Location: index.php");
+            die();
+        }
+        
+         $verifydbsql = "SELECT tipo FROM usuario WHERE cedula = '" . $ci . "'" ;
+         
+         $result = mysqli_query($link, $verifydbsql);
+        
+         if (mysqli_num_rows($result) > 0 )
+         {
+                
+                 $type = getuserdata($ci, 'tipo');
+                 echo $type;
+                 switch ($type)
+                 {
+                     case 1:
+                         header("Location: user_normal.php?opc=1");
+                         die();
+                         break;
+                     case 2:
+                         header("Location: user_tec.php?opc=1");
+                         die();
+                         break;
+                 }
+         }else{
+            header("Location: index.php");
+            die();
+         }
+    }
     
+    function getuserdata($ci , $field)
+    {
+        $link = Connectdb();
+         if (!$link){
+            header("Location: index.php");
+            die();
+        }
+         $verifydbsql = "SELECT * FROM usuario WHERE cedula = '" . $ci . "'" ;
+         $result = mysqli_query($link, $verifydbsql) ;
+         
+         if (mysqli_num_rows($result) > 0 )
+         {
+            while ( $row_ = mysqli_fetch_assoc($result) )
+            {
+                return $row_[$field];
+            }
+         }else
+         {
+             return null ;
+         }
+    }
+    
+   
+    // registrar usuario
     function register_user ($nombre , $apellido , $cedula , $usuario , $clave)
     {
         $link = Connectdb();
-        if (!$link)
-        {
-            die("Error al conectar a la base de datos");
-        }
-        
+         if (!$link)
+         {
+            header("Location: index.php");
+            die();
+         }
         if ($nombre != "" && $apellido != "" && $cedula != "" && $usuario != "" && $clave != "")
         {
             
@@ -108,4 +164,3 @@
             
         }
     }
-?>

@@ -11,7 +11,7 @@ return array
     
     'password' => "", // Clave de la base de datos
     
-    'database' => "testmysql" // Nombre de la base de datos
+    'database' => "solicitud_reporte" // Nombre de la base de datos
     
 );
 
