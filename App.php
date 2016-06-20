@@ -26,13 +26,10 @@
             return false;
         }else
         {
-            while ( $row = mysqli_fetch_assoc($res) )
-            {
                 session_start();
                 $_SESSION['ciuser'] = $ci;
                 return true;
-            }
-        } 
+        }
     }
     // 
     function redirect_user( $ci )
@@ -54,6 +51,10 @@
                  echo $type;
                  switch ($type)
                  {
+                     case 0:
+                         $_SESSION['message'] = "Usted se encuentra desabilitado en el sistema";
+                         closesystem();
+                         break;
                      case 1:
                          header("Location: user_normal.php?opc=1");
                          die();
@@ -64,8 +65,7 @@
                          break;
                  }
          }else{
-            header("Location: index.php");
-            die();
+             closesystem();
          }
     }
     
@@ -73,8 +73,7 @@
     {
         $link = Connectdb();
          if (!$link){
-            header("Location: index.php");
-            die();
+             closesystem();
         }
          $verifydbsql = "SELECT * FROM usuario WHERE cedula = '" . $ci . "'" ;
          $result = mysqli_query($link, $verifydbsql) ;
@@ -98,8 +97,7 @@
         $link = Connectdb();
          if (!$link)
          {
-            header("Location: index.php");
-            die();
+             closesystem();
          }
         if ($nombre != "" && $apellido != "" && $cedula != "" && $usuario != "" && $clave != "")
         {
@@ -163,4 +161,16 @@
                 break;
             
         }
+    }
+    
+    function logout()
+    {
+        session_destroy();
+        closesystem();
+    }
+    
+    function closesystem()
+    {
+            header("Location: index.php");
+            die();
     }

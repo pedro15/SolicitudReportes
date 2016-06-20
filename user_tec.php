@@ -29,8 +29,7 @@
                         $name = getuserdata($ci, 'nombre');
                         echo '<p>Hola, ' . $name . '</p>' ;
                     }else{
-                        header("Location: index.php");
-                        die();
+                        closesystem();
                     }
                 ?>
             </div>
@@ -56,7 +55,7 @@
                                 echo '<br>Perfil</br>';
                             }else if ($_GET['opc'] == 5 )
                             {
-                                echo '<br>Salir</br>';
+                                logout();
                             }
                         }else
                         {

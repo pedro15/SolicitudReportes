@@ -26,9 +26,9 @@
                         $ci = $_SESSION['ciuser'];
                         $name = getuserdata($ci, 'nombre');
                         echo '<p>Hola, ' . $name . '</p>' ;
-                    }else{
-                        header("Location: index.php");
-                        die();
+                    }else
+                    {
+                        closesystem();
                     }
                 ?>
             </div>
@@ -48,7 +48,7 @@
                               echo '<br>Perfil</br>';
                             }else if ($_GET['opc'] == 3 )
                             {
-                                echo '<br>salir</br>';
+                                logout();
                             } 
                         }else
                         {
