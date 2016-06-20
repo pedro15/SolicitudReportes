@@ -174,3 +174,8 @@
             header("Location: index.php");
             die();
     }
+    
+    function displayalert($text)
+    {
+        echo '<script type = "text/javascript" >alert("' . $text .'");</script>';
+    }
