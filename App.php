@@ -214,7 +214,6 @@
              return true ;
          }else
          {
-             echo mysql_errno($link);
              return false ;
          }
             

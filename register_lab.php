@@ -14,9 +14,6 @@
            {
                echo 'Error al agregar los datos';
            }
-        }else
-        {
-            echo 'Llene los datos a continuacion';
         }
     }
 ?>

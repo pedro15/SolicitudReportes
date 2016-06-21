@@ -24,15 +24,12 @@
                 echo 'Error al agregar los datos';
             
             }
-        }else
-        {
-            echo 'Llene los datos a continuacion';
         }
     }
 ?>
 </div>
 
-<form method="POST" action="#" onsubmit="" name="formregpc" >
+<form method="POST" action="#" name="formregpc" >
     <h1>Registrar Equipo</h1>
     <div>
     <label>Laboratorio:</label>
