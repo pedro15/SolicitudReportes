@@ -1,15 +1,5 @@
--- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 20-06-2016 a las 18:24:38
--- Versión del servidor: 5.7.9
--- Versión de PHP: 5.6.15
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,6 +16,11 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `equipo`
 --
 
+CREATE DATABASE IF NOT EXISTS `solicitud_reporte` ;
+
+USE `solicitud_reporte`;
+
+
 DROP TABLE IF EXISTS `equipo`;
 CREATE TABLE IF NOT EXISTS `equipo` (
   `num_equipo` int(11) NOT NULL AUTO_INCREMENT,
@@ -37,8 +32,8 @@ CREATE TABLE IF NOT EXISTS `equipo` (
   `fuente_poder` varchar(45) DEFAULT NULL,
   `num_laboratorio` int(11) NOT NULL,
   PRIMARY KEY (`num_equipo`),
-  UNIQUE KEY `num_laboratorio` (`num_laboratorio`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  KEY `lab_num` (`num_laboratorio`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -103,6 +98,13 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `correo` text,
   PRIMARY KEY (`cedula`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`cedula`, `nombre`, `clave`, `pregunta_seguridad`, `tipo`, `correo`) VALUES
+(23724512, 'Pedro Duran', '123', 'Hola', 2, 'Correo@dominio');
 
 --
 -- Restricciones para tablas volcadas
