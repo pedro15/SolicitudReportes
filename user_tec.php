@@ -13,10 +13,10 @@
             <div class="wrapper" > 
             <ul>
                <li><a href="user_tec.php?opc=1">Reportar Falla</a></li>
-               <li><a href="user_tec.php?opc=2">Administrar fallas</a></li>
-               <li><a href="user_tec.php?opc=3">Estadisticas</a></li>
+               <li><a href="user_tec.php?opc=2">Registrar equipo</a></li>
+               <li><a href="user_tec.php?opc=3">Registrar Laboratorio</a></li>
                <li><a href="user_tec.php?opc=4">Perfil</a></li>
-               <li><a href="user_tec.php?opc=5">Perfil</a></li>
+               <li><a href="user_tec.php?opc=5">Salir</a></li>
             </ul>
 
             <div class="NavUserinfo" id="navuserinfo" > 
@@ -46,10 +46,10 @@
                                 include 'Report.php';
                             }else if ($_GET['opc'] == 2 )
                             {
-                                echo '<br>Administrar fallas</br>';
+                                include 'register_pc.php';
                             }else if ($_GET['opc'] == 3 )
                             {
-                                echo '<br>Estadisticas</br>';
+                                include 'register_lab.php';
                             }else if ($_GET['opc'] == 4 )
                             {
                                 echo '<br>Perfil</br>';

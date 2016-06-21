@@ -5,7 +5,7 @@
     function Connectdb()
     {
         $config = include('db_config.php');
-        error_reporting(0); // ocultar errores por defecto
+        // ocultar errores por defecto
         return mysqli_connect($config['host'], $config['username'] , $config['password'] , $config['database']) ;
     }
     // Entrar al sistema
@@ -179,3 +179,73 @@
     {
         echo '<script type = "text/javascript" >alert("' . $text .'");</script>';
     }
+    
+    function checkdataexist ($table , $row , $data ) 
+    {
+        $link = Connectdb();
+         if (!$link){
+             closesystem();
+        }
+         $verifydbsql = "SELECT * FROM " . $table . " WHERE " . $row . " = '" . $data . "'" ;
+         $result = mysqli_query($link, $verifydbsql) ;
+         
+         if (mysqli_num_rows($result) > 0 )
+         {
+             return true ;
+         }else
+         {
+             return false;
+         }
+    }
+    
+    function RegisterPC ($labnum , $id , $cpu , $gpu , $ram , $hdd , $power , $motherboard )
+    {
+        if (!checkdataexist("equipo", "num_equipo" , $id) )
+        {
+         $link = Connectdb();
+         if (!$link)
+         {
+             closesystem();
+         }
+         $sql = "INSERT INTO `equipo` (`num_equipo`, `cpu`, `gpu`, `ram`, `hdd`, `tarjeta_madre`, `fuente_poder`, `num_laboratorio`)" . 
+                 "VALUES ('" . $id ."','" . $cpu ."','" . $gpu . "','" . $ram . "','" . $hdd . "','" . $motherboard . "',' " . $power ." ','" . $labnum . "');" ;
+         if (mysqli_query($link, $sql) )
+         {
+             return true ;
+         }else
+         {
+             echo mysql_errno($link);
+             return false ;
+         }
+            
+        }else
+        {
+            return false ;
+        }
+    }
+    
+    function RegisterLab($labnum , $descripcion)
+    {
+        if (!checkdataexist("laboratorio", "numero" , $labnum) )
+        {
+        
+        $link = Connectdb();
+         if (!$link)
+         {
+             closesystem();
+         }
+         
+         $sql = "INSERT INTO `laboratorio` (`numero`, `descripcion`) VALUES ('" . $labnum . " ', '" . $descripcion ." ');";
+         
+          if (mysqli_query($link, $sql) )
+         {
+             return true ;
+         }else
+         {
+             return false ;
+         }
+        }else
+        {
+            return false ;
+        }
+     }

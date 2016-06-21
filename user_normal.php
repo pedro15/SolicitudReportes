@@ -36,7 +36,12 @@
             </div>
         </nav>
         <section>
-            <div class="content">
+            <div class="contentbg">
+           
+                <div class="content" >
+                    <div class = "Alert">
+                        <p>Hola</p>
+                    </div>
                     <?php
                         if (isset($_GET['opc']))
                         {
@@ -55,6 +60,7 @@
                             echo 'Seleccione una opcion';
                         }
                     ?>
+                </div>
             </div>
          </section>
          <footer>
