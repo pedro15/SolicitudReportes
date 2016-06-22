@@ -200,15 +200,20 @@
     
     function RegisterPC ($labnum , $id , $cpu , $gpu , $ram , $hdd , $power , $motherboard )
     {
-        if (!checkdataexist("equipo", "num_equipo" , $id) )
-        {
          $link = Connectdb();
          if (!$link)
          {
              closesystem();
          }
-         $sql = "INSERT INTO `equipo` (`num_equipo`, `cpu`, `gpu`, `ram`, `hdd`, `tarjeta_madre`, `fuente_poder`, `num_laboratorio`)" . 
-                 "VALUES ('" . $id ."','" . $cpu ."','" . $gpu . "','" . $ram . "','" . $hdd . "','" . $motherboard . "',' " . $power ." ','" . $labnum . "');" ;
+        
+         $verifydbsql = "SELECT * FROM equipo WHERE num_equipo = '" . $id . "' AND num_laboratorio = '" . $labnum . "'" ;
+         $result = mysqli_query($link, $verifydbsql) ;
+        
+        if (mysqli_num_rows($result) <= 0 )
+        {
+        
+         $sql = "INSERT INTO `equipo` (`id` , `num_equipo`, `cpu`, `gpu`, `ram`, `hdd`, `tarjeta_madre`, `fuente_poder`, `num_laboratorio`)" . 
+                 "VALUES (NULL,'" . $id ."','" . $cpu ."','" . $gpu . "','" . $ram . "','" . $hdd . "','" . $motherboard . "',' " . $power ." ','" . $labnum . "');" ;
          if (mysqli_query($link, $sql) )
          {
              return true ;

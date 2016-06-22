@@ -1,3 +1,8 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.1
+-- Versión del servidor: 5.7.9
+-- Versión de PHP: 5.6.15
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -9,21 +14,17 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `solicitud_reporte`
 --
-
--- --------------------------------------------------------
+CREATE DATABASE IF NOT EXISTS `solicitud_reporte` ;
+USE `solicitud_reporte` ;
 
 --
 -- Estructura de tabla para la tabla `equipo`
 --
 
-CREATE DATABASE IF NOT EXISTS `solicitud_reporte` ;
-
-USE `solicitud_reporte`;
-
-
 DROP TABLE IF EXISTS `equipo`;
 CREATE TABLE IF NOT EXISTS `equipo` (
-  `num_equipo` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `num_equipo` int(11) NOT NULL,
   `cpu` varchar(45) DEFAULT NULL,
   `gpu` varchar(45) DEFAULT NULL,
   `ram` varchar(45) DEFAULT NULL,
@@ -31,9 +32,10 @@ CREATE TABLE IF NOT EXISTS `equipo` (
   `tarjeta_madre` varchar(45) DEFAULT NULL,
   `fuente_poder` varchar(45) DEFAULT NULL,
   `num_laboratorio` int(11) NOT NULL,
-  PRIMARY KEY (`num_equipo`),
-  KEY `lab_num` (`num_laboratorio`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  KEY `lab_num` (`num_laboratorio`),
+  KEY `num_equipo` (`num_equipo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -120,7 +122,7 @@ ALTER TABLE `equipo`
 -- Filtros para la tabla `falla`
 --
 ALTER TABLE `falla`
-  ADD CONSTRAINT `falla_ibfk_3` FOREIGN KEY (`numero_equipo`) REFERENCES `equipo` (`num_equipo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `falla_ibfk_1` FOREIGN KEY (`numero_equipo`) REFERENCES `equipo` (`num_equipo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `reporte`
