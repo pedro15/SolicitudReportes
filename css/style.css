@@ -90,6 +90,7 @@
      font-weight:bold; font-style:none; 
      font-family:sans-serif; 	 
 }
+
 .TextboxNormal:focus
 {
      outline:none;
@@ -130,8 +131,6 @@
 
 /* Cuerpo */ 
 
-
-
 h1
 {
     margin: 10px;
@@ -159,6 +158,7 @@ header h1
 header h2
 {
     font-size: 25pt;
+    padding:  5px;
 }
 
 .Alert
@@ -322,10 +322,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3a7c9e', end
     outline:  none;
 }
 
+.LoginPanelField div
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 .LoginPanelField label
 {
     position:  relative;
     margin-left: 5%;
+    font-size: 14pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .LoginHeader

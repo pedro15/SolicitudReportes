@@ -7,13 +7,18 @@
         <link rel="Stylesheet" href="css/style.css">
         <script type="text/javascript" src="js/app.js"></script>
     </head>
-    <body>
-       
+    <body style="
+        background:
+        url('images/fundacite01.png') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;">
     <div>
        <header>
           <div class="indexpage">
            <img class="loginicons_r" id="logofundacite" alt="fundacite logo" src="images/BannerIcons.png" width="920" height="160">
-          <h1>Solicitud de Reportes Fundacite</h1>
+          <h1>Sistema Automatizado de Solicitud de Soporte Tecnico</h1>
           <h2>Bienvenido</h2>
           </div>
         </header>
@@ -38,12 +43,12 @@
 
                     <div class="LoginPanelField" >
                         <div><label for = "ci" >CI</label></div>
-                        <input type="text" name="cilogin" value="" id="ci" > 
+                        <input type="text" name="cilogin" value="" id="ci" placeholder="Ej: 123456789" > 
                     </div>
 
                     <div class="LoginPanelField" >
                         <div><label for = "pw">Contraseña</label></div>
-                        <input type="password" name="passlogin" value="" id = "pw" >
+                        <input type="password" name="passlogin" value="" id = "pw" placeholder="**********" >
                     </div>
 
                     <div class = "BtnNormalCenter">
