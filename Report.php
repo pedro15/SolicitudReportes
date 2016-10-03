@@ -1,26 +1,22 @@
-    <form method="POST" action="#" onsubmit="" name="formreport" >
-        <label>Laboratorio: </label>
-        <?php
-            $sql = "SELECT * FROM laboratorio" ;
-            $result = mysqli_query(Connectdb(), $sql);
-            if ($result && mysqli_num_rows($result) > 0 )
-            {
-        ?>
-        <select name="labsfields" id="lab" >
-                <?php
-                        while ($row = mysqli_fetch_assoc($result))
-                        {
-                             echo '<option value= "' . $row['numero'] .'" >' . $row['numero'] . '</option>'   ;
-                        }
-                ?>
-        </select>
-        <?php  
-            }else
-            {
-                echo '<p>No se encuentran laboratorios</p>' ;
-            }
-        ?>
-        
-        <p style="font-size: 72pt; text-align: center" >EN CONSTRUCCION</p>
-       
-    </form>
+<div class = "Alert">
+
+</div>
+<form method="POST" action="#"  name="formregpc" >
+    <h1>Registrar Falla</h1>
+    <div>
+    <Label>Tipo</Label>
+    <select name= "TipoFalla" id="tipoFalla" class="ComboboxNormal" >
+        <option value = "Hardware" >Hardware</option>
+        <option value = "Softwate" >Softwate</option>
+    </select>
+    </div>
+
+    <Label>Descripcion</Label>
+    <div>
+    <textarea maxlength = "450" rows="12" cols="10"  class="TextboxAncho"name="DescripcionF" id="descripcionF" placeholder="Descripcion de Falla" >
+    </textarea>
+    </div>
+    <div class="BtnNormalCenter">
+         <input type="submit" value="Registrar Reporte">
+    </div>
+</form>

@@ -7,17 +7,15 @@
         <link rel="Stylesheet" href="css/style.css">
         <script type="text/javascript" src="js/app.js"></script>
     </head>
-    <body style="
-        background:
-        url('images/fundacite01.png') no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;">
+    <body>
     <div>
+    <img class="bannerheader" id="membretefundacite" alt="Membrete" src="images/MembreteFundacite.png">
+    <img class="bannerheader_der" id="membretefundacite" alt="Membrete" src="images/200.png">
+    </div>
+    <div class="fundacitebackground">
        <header>
           <div class="indexpage">
-           <img class="loginicons_r" id="logofundacite" alt="fundacite logo" src="images/BannerIcons.png" width="920" height="160">
+           <img class="LoginHeaderIcon" id="logofundacite" alt="fundacite logo" src="images/BannerIcons.png" width="128" height="128">
           <h1>Sistema Automatizado de Solicitud de Soporte Tecnico</h1>
           <h2>Bienvenido</h2>
           </div>

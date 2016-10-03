@@ -228,9 +228,9 @@
         }
     }
     
-    function RegisterLab($labnum , $descripcion)
+    function RegisterLab($descripcion)
     {
-        if (!checkdataexist("laboratorio", "numero" , $labnum) )
+        if (!checkdataexist("laboratorio", "descripcion" , $descripcion) )
         {
         
         $link = Connectdb();
@@ -239,7 +239,7 @@
              closesystem();
          }
          
-         $sql = "INSERT INTO `laboratorio` (`numero`, `descripcion`) VALUES ('" . $labnum . " ', '" . $descripcion ." ');";
+         $sql = "INSERT INTO `laboratorio` (`descripcion`) VALUES ('". $descripcion ."');";
          
           if (mysqli_query($link, $sql) )
          {

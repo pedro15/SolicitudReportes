@@ -44,7 +44,7 @@
         <?php
             while ( $row =  mysqli_fetch_assoc($resultlab))
             {
-                echo '<option value= "' . $row['numero'] .'" >' . $row['numero'] . '</option>'   ;
+                echo '<option value= "' . $row['numero'] .'" >' . $row['descripcion'] . '</option>'   ;
             }
         ?>
     </select>

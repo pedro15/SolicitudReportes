@@ -8,13 +8,17 @@
         <script type="text/javascript" src="js/app.js"></script>
     </head>
     <body>
+     <div>
+    <img class="bannerheader" id="membretefundacite" alt="Membrete" src="images/MembreteFundacite.png">
+    <img class="bannerheader_der" id="membretefundacite" alt="Membrete" src="images/200.png">
+    </div>
     <div>
         <nav>
             <div class="wrapper" > 
             <ul>
                <li><a href="user_tec.php?opc=1">Reportar Falla</a></li>
-               <li><a href="user_tec.php?opc=2">Registrar equipo</a></li>
-               <li><a href="user_tec.php?opc=3">Registrar Laboratorio</a></li>
+               <li><a href="user_tec.php?opc=2">Registrar Laboratorio</a></li>
+               <li><a href="user_tec.php?opc=3">Registrar Equipo</a></li>
                <li><a href="user_tec.php?opc=4">Perfil</a></li>
                <li><a href="user_tec.php?opc=5">Salir</a></li>
             </ul>
@@ -46,10 +50,10 @@
                                 include 'Report.php';
                             }else if ($_GET['opc'] == 2 )
                             {
-                                include 'register_pc.php';
+                                include 'register_lab.php';
                             }else if ($_GET['opc'] == 3 )
                             {
-                                include 'register_lab.php';
+                                include 'register_pc.php';
                             }else if ($_GET['opc'] == 4 )
                             {
                                 echo '<br>Perfil</br>';
