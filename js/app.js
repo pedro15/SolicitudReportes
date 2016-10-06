@@ -1,3 +1,4 @@
+// Validar Login
 function validatelogin() 
 {
     var ci = document.getElementById("ci").value;

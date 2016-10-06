@@ -22,6 +22,6 @@
     <h1>Registrar Laboratorio</h1>
     <div><input class="TextboxAncho"  type="text"  name="DescLab" id="desclab" placeholder="Descripcion" ></div>
     <div class="BtnNormalCenter">
-         <input type="submit" value="Registrar">
+         <input type="submit" value="Registrar Laboratorio">
     </div>
 </form>

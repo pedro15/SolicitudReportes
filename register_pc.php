@@ -75,6 +75,6 @@
      <input class="TextboxAncho" type="text" name="FuentePoder" id="fuente" placeholder="Fuente de Poder" >
     </div>
     <div class="BtnNormalCenter">
-         <input type="submit" value="Registrar">
+         <input type="submit" value="Registrar Equipo">
     </div>
 </form>

@@ -50,7 +50,7 @@
                     </div>
 
                     <div class = "BtnNormalCenter">
-                        <input type="submit" name="sendlogin" value="Entrar" >
+                        <input type="submit" name="sendlogin" value="Ingresar" >
                     </div>
                 </form>       
             </div>

@@ -254,7 +254,7 @@ header .indexpage h1 , header .indexpage h2
 .wrapper ul li
 {
     float: left;
-    padding-left: 5px;
+    padding-left: 2px;
 }
 
 
@@ -267,35 +267,40 @@ header .indexpage h1 , header .indexpage h2
   background-image: -ms-linear-gradient(top, #ff9191, #e64747);
   background-image: -o-linear-gradient(top, #ff9191, #e64747);
   background-image: linear-gradient(to bottom, #ff9191, #e64747);
-
-  font-weight: 500;
-
   text-shadow:  0px 0px 11px rgba(255, 255, 300, 1);
-
 }
 
 
 .wrapper ul li a
 {
-display: block;
-padding: 8px 6px;
-background: #3a7c9e;
-background: -moz-linear-gradient(top,  #3a7c9e 0%, #258dc8 100%);
-background: -webkit-linear-gradient(top,  #3a7c9e 0%,#258dc8 100%); 
-background: linear-gradient(to bottom,  #3a7c9e 0%,#258dc8 100%); 
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3a7c9e', endColorstr='#258dc8',GradientType=0 ); 
-    
+    display: block;
+    list-style: none;
+    padding: 8px 6px;
+    background: #3a7c9e;
+    background: -moz-linear-gradient(top,  #3a7c9e 0%, #258dc8 100%);
+    background: -webkit-linear-gradient(top,  #3a7c9e 0%,#258dc8 100%); 
+    background: linear-gradient(to bottom,  #3a7c9e 0%,#258dc8 100%); 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3a7c9e', endColorstr='#258dc8',GradientType=0 ); 
     font-family: sans-serif;
     font-size: 16pt;
-    
     color: #fff;
     text-decoration: none;
-    padding-left: 8px;
-    padding-right: 8px;
-   
-    margin-left: 2px;
-    margin-right: 2px;    
     font-family: sans-serif;
+}
+
+.wrapper li ul 
+{
+    list-style:  none;
+    display:  none;
+    position:  absolute;
+    min-width: 140px;
+}
+
+.wrapper li:hover > ul
+{
+    display: inline;
+    position:  fixed;
+    margin: 0;
 }
 
 .NavUserinfo 
@@ -310,7 +315,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3a7c9e', end
     font-family: sans-serif;
     color: #fff;
 }
-
 
 /* Login */ 
 
@@ -334,18 +338,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3a7c9e', end
 
 .LoginPanelField input
 {
-    position:  relative;
-    margin-left: 2% ;
-    margin-right: 2%;
-    width: 90%;
-
-    border-color: rgba(42,42,42,.34); 
-
+     position:  relative;
+     margin-left: 2% ;
+     margin-right: 2%;
+     width: 90%;
+     border-color: rgba(42,42,42,.34); 
      padding-top: 4px;
      padding-bottom: 4px;
      padding-left: 3%;
      padding-right: 3%;
-
      font-size:15px; 
      text-align:left; 
      border-style:solid; 
@@ -354,7 +355,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3a7c9e', end
      box-shadow: 0px 0px 4px 0px rgba(42,42,42,.34); 
      font-weight:bold; font-style:none; 
      font-family:sans-serif; 
-
 }
 .LoginPanelField input:focus
 {
@@ -387,7 +387,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3a7c9e', end
     position:  relative;
     height: 30%;
     width : 100%;
-    
     padding-top: 5px;
     padding-bottom: 8px;
     text-align: center;

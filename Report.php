@@ -1,7 +1,7 @@
 <div class = "Alert">
 
 </div>
-<form method="POST" action="#"  name="formregpc" >
+<form method="POST" action="#"  name="formreport" >
     <h1>Registrar Falla</h1>
     <div>
     <Label>Tipo</Label>
@@ -17,6 +17,6 @@
     </textarea>
     </div>
     <div class="BtnNormalCenter">
-         <input type="submit" value="Registrar Reporte">
+         <input type="submit" value="Registrar Falla">
     </div>
 </form>
