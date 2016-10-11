@@ -5,9 +5,9 @@
         <meta charset="UTF-8">
         <link rel="Stylesheet" href="css/reset.css">
         <link rel="Stylesheet" href="css/style.css">
-        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/Timer.js"></script>
     </head>
-    <body>
+    <body onload= "resetTimer()">
      <div>
     <img class="bannerheader" id="membretefundacite" alt="Membrete" src="images/MembreteFundacite.png">
     <img class="bannerheader_der" id="membretefundacite" alt="Membrete" src="images/200.png">
@@ -16,9 +16,18 @@
         <nav>
             <div class="wrapper" > 
             <ul>
-                <li><a href="user_normal.php?opc=1">Reportar Falla</a></li>
-               <li><a href="user_normal.php?opc=2">Perfil</a></li>
-               <li><a href="user_normal.php?opc=3">Salir</a></li>
+                <li><a href="">Fallas</a>
+                    <ul>
+                         <li><a href="user_normal.php?opc=1">Reportar Falla</a></li>
+                         <li><a href="user_normal.php?opc=2">Consultar fallas</a></li>
+                    </ul>
+                </li>
+               <li><a href="">Herramientas</a>
+                    <ul>
+                        <li><a href="user_normal.php?opc=3">Creditos</a></li>
+                    </ul>
+               </li>
+               <li><a href="user_normal.php?opc=4">Salir</a></li>
             </ul>
 
             <div class="NavUserinfo" id="navuserinfo" > 
@@ -29,23 +38,16 @@
                     {
                         $ci = $_SESSION['ciuser'];
                         $name = getuserdata($ci, 'nombre');
-                        echo '<p>Hola, ' . $name . '</p>' ;
-                    }else
-                    {
+                        echo '<p>Bienvenido, ' . $name . '</p>' ;
+                    }else{
                         closesystem();
                     }
                 ?>
             </div>
-            
             </div>
         </nav>
         <section>
-            <div class="contentbg">
-           
-                <div class="content" >
-                    <div class = "Alert">
-                        <p>Hola</p>
-                    </div>
+            <div class="content" >
                     <?php
                         if (isset($_GET['opc']))
                         {
@@ -54,17 +56,17 @@
                                 include 'Report.php';
                             }else if ($_GET['opc'] == 2 )
                             {
-                              echo '<br>Perfil</br>';
+                                
                             }else if ($_GET['opc'] == 3 )
                             {
-                                logout();
-                            } 
-                        }else
-                        {
-                            echo 'Seleccione una opcion';
+                                include 'credits.php';
+                               
+                            }else if ($_GET['opc'] == 4 )
+                            {
+                                 logout();
+                            }
                         }
                     ?>
-                </div>
             </div>
          </section>
          <footer>

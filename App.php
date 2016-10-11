@@ -63,6 +63,10 @@
                          header("Location: user_tec.php?opc=1");
                          die();
                          break;
+                     case 3:
+                         header("Location: user_admin.php?opc=1");
+                        die();
+                     break;
                  }
          }else{
              closesystem();

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head> 
-        <title>Solicitud de reportes::Tecnico</title>
+        <title>Solicitud de reportes::Administrador</title>
         <meta charset="UTF-8">
         <link rel="Stylesheet" href="css/reset.css">
         <link rel="Stylesheet" href="css/style.css">
@@ -18,31 +18,42 @@
             <ul>
                 <li><a href="">Fallas</a>
                     <ul>
-                         <li><a href="user_tec.php?opc=1">Reportar Falla</a></li>
-                         <li><a href="user_tec.php?opc=2">Consultar fallas</a></li>
+                         <li><a href="user_admin.php?opc=1">Reportar Falla</a></li>
+                         <li><a href="user_admin.php?opc=2">Consultar fallas</a></li>
                     </ul>
                 </li>
 
                 <li><a href="">Registro</a>
                     <ul>
-                          <li><a href="user_tec.php?opc=3">Registrar Laboratorio</a></li>
-                          <li><a href="user_tec.php?opc=4">Registrar Equipo</a></li>
+                          <li><a href="user_admin.php?opc=3">Registrar Laboratorio</a></li>
+                          <li><a href="user_admin.php?opc=4">Registrar Equipo</a></li>
                     </ul>
                 </li>
 
                 <li><a href="">Estadisticas</a>
                     <ul>
-                        <li><a href="user_tec.php?opc=5">Solicitudes de soporte tecnico</a></li>
-                        <li><a href="user_tec.php?opc=6">Equipos</a></li>
+                        <li><a href="user_admin.php?opc=5">Solicitudes de soporte tecnico</a></li>
+                        <li><a href="user_admin.php?opc=6">Equipos</a></li>
                     </ul>
                </li>
+
+                <li><a href="">Administrar tecnicos</a>
+                    <ul>
+                        <li><a href="user_admin.php?opc=7">Agregar tecnico</a></li>
+                        <li><a href="user_admin.php?opc=8">Modificar tecnico</a></li>
+                        <li><a href="user_admin.php?opc=9">Eliminar tecnico</a></li>
+                    </ul>
+               </li>
+
                <li><a href="">Herramientas</a>
                     <ul>
-                        <li><a href="user_tec.php?opc=7">Manual de usuario</a></li>
-                        <li><a href="user_tec.php?opc=8">Creditos</a></li>
+                        <li><a href="user_admin.php?opc=10">Respaldo</a></li>
+                        <li><a href="user_admin.php?opc=11">Restauracion</a></li>
+                        <li><a href="user_admin.php?opc=12">Manual de usuario</a></li>
+                        <li><a href="user_admin.php?opc=13">Creditos</a></li>
                     </ul>
                </li>
-               <li><a href="user_tec.php?opc=9">Salir</a></li>
+               <li><a href="user_admin.php?opc=14">Salir</a></li>
             </ul>
 
             <div class="NavUserinfo" id="navuserinfo" > 
@@ -59,7 +70,6 @@
                     }
                 ?>
             </div>
-            
             </div>
         </nav>
         <section>
@@ -69,35 +79,44 @@
                         {
                             if ($_GET['opc'] == 1 )
                             {
-                                include 'Report.php';
+                               include 'Report.php';
                             }else if ($_GET['opc'] == 2 )
                             {
-                                echo '<br>consultar fallas</br>' ;
+                               echo 'consultar fallas';
                             }else if ($_GET['opc'] == 3 )
                             {
-                                include 'register_lab.php';
-                               
+                               include 'register_lab.php';
                             }else if ($_GET['opc'] == 4 )
                             {
-                                 include 'register_pc.php';
-
+                                include 'register_pc.php';
                             }else if ($_GET['opc'] == 5)
                             {
-                                   echo '<br>solicitudes de soporte tecnico</br>' ;
-                              
+                                 echo 'solicitud de soporte tecnico';
                             }else if ($_GET['opc'] == 6)
                             {
-                                  echo '<br>equipos</br>' ;
-                              
+                                 echo 'equipos';
                             }else if ($_GET['opc'] == 7)
                             {
-                                  echo '<br>Manual de usuario</br>';
-                               
+                                echo 'agregar tecnico';
                             }else if ($_GET['opc'] == 8)
                             {
-                                 include 'credits.php';
-                                
+                                echo 'modificar tecnico';
                             }else if ($_GET['opc'] == 9)
+                            {
+                                echo 'eliminar tecnico';
+                            }else if ($_GET['opc'] == 10)
+                            {
+                                 include 'backup.php';
+                            }else if ($_GET['opc'] == 11)
+                            {
+                                 include 'restore.php';
+                            }else if ($_GET['opc'] == 12)
+                            {
+                                echo 'manual de usuario';
+                            }else if ($_GET['opc'] == 13)
+                            {
+                                echo 'creditos';
+                            }else if ($_GET['opc'] == 14)
                             {
                                  logout();
                             }
