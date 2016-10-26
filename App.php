@@ -2,6 +2,19 @@
 // Modulos del software
 // 
     // Conectar a la base de datos
+
+    function WriteName()
+    {
+        if (isset( $_SESSION['ciuser'] ))
+                    {
+                        $ci = $_SESSION['ciuser'];
+                        $name = getuserdata($ci, 'nombre');
+                        echo 'Bienvenido, ' . $name;
+                    }else{
+                        closesystem();
+        }
+    }
+
     function Connectdb()
     {
         $config = include('db_config.php');
@@ -257,3 +270,4 @@
             return false ;
         }
      }
+

@@ -1,10 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- Versión del servidor: 5.7.9
--- Versión de PHP: 5.6.15
+-- version 4.5.5.1
+-- http://www.phpmyadmin.net
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 14-10-2016 a las 04:06:47
+-- Versión del servidor: 5.7.11
+-- Versión de PHP: 5.6.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,27 +17,23 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `solicitud_reporte`
 --
-CREATE DATABASE IF NOT EXISTS `solicitud_reporte` ;
-USE `solicitud_reporte` ;
+
+-- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `equipo`
 --
 
-DROP TABLE IF EXISTS `equipo`;
-CREATE TABLE IF NOT EXISTS `equipo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `num_equipo` int(11) NOT NULL,
+CREATE TABLE `equipo` (
+  `id` int(11) NOT NULL,
+  `num_equipo` varchar(11) NOT NULL,
   `cpu` varchar(45) DEFAULT NULL,
   `gpu` varchar(45) DEFAULT NULL,
   `ram` varchar(45) DEFAULT NULL,
   `hdd` varchar(45) DEFAULT NULL,
   `tarjeta_madre` varchar(45) DEFAULT NULL,
   `fuente_poder` varchar(45) DEFAULT NULL,
-  `num_laboratorio` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `lab_num` (`num_laboratorio`),
-  KEY `num_equipo` (`num_equipo`)
+  `num_laboratorio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -43,14 +42,11 @@ CREATE TABLE IF NOT EXISTS `equipo` (
 -- Estructura de tabla para la tabla `falla`
 --
 
-DROP TABLE IF EXISTS `falla`;
-CREATE TABLE IF NOT EXISTS `falla` (
+CREATE TABLE `falla` (
   `id` int(11) NOT NULL,
+  `numero_equipo` varchar(11) NOT NULL,
   `descripcion` text,
-  `tipo_falla` varchar(45) DEFAULT NULL,
-  `numero_equipo` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `numero_equipo` (`numero_equipo`)
+  `tipo_falla` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -59,11 +55,9 @@ CREATE TABLE IF NOT EXISTS `falla` (
 -- Estructura de tabla para la tabla `laboratorio`
 --
 
-DROP TABLE IF EXISTS `laboratorio`;
-CREATE TABLE IF NOT EXISTS `laboratorio` (
+CREATE TABLE `laboratorio` (
   `numero` int(11) NOT NULL,
-  `descripcion` text,
-  PRIMARY KEY (`numero`)
+  `descripcion` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -72,16 +66,12 @@ CREATE TABLE IF NOT EXISTS `laboratorio` (
 -- Estructura de tabla para la tabla `reporte`
 --
 
-DROP TABLE IF EXISTS `reporte`;
-CREATE TABLE IF NOT EXISTS `reporte` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `reporte` (
+  `id` int(11) NOT NULL,
   `id_falla` int(11) NOT NULL,
   `cedula_usuario` int(11) NOT NULL,
   `fecha` date DEFAULT NULL,
-  `estado` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_falla` (`id_falla`),
-  UNIQUE KEY `cedula_usuario` (`cedula_usuario`)
+  `estado` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -90,15 +80,13 @@ CREATE TABLE IF NOT EXISTS `reporte` (
 -- Estructura de tabla para la tabla `usuario`
 --
 
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE IF NOT EXISTS `usuario` (
+CREATE TABLE `usuario` (
   `cedula` int(11) NOT NULL,
   `nombre` text,
   `clave` text,
   `pregunta_seguridad` text,
   `tipo` int(11) DEFAULT NULL,
-  `correo` text,
-  PRIMARY KEY (`cedula`)
+  `correo` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -109,14 +97,71 @@ INSERT INTO `usuario` (`cedula`, `nombre`, `clave`, `pregunta_seguridad`, `tipo`
 (23724512, 'Pedro Duran', '123', 'Hola', 2, 'Correo@dominio');
 
 --
--- Restricciones para tablas volcadas
+-- Índices para tablas volcadas
 --
 
 --
--- Filtros para la tabla `equipo`
+-- Indices de la tabla `equipo`
 --
 ALTER TABLE `equipo`
-  ADD CONSTRAINT `equipo_ibfk_1` FOREIGN KEY (`num_laboratorio`) REFERENCES `laboratorio` (`numero`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `lab_num` (`num_laboratorio`),
+  ADD KEY `num_equipo` (`num_equipo`);
+
+--
+-- Indices de la tabla `falla`
+--
+ALTER TABLE `falla`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `numero_equipo` (`numero_equipo`);
+
+--
+-- Indices de la tabla `laboratorio`
+--
+ALTER TABLE `laboratorio`
+  ADD PRIMARY KEY (`numero`);
+
+--
+-- Indices de la tabla `reporte`
+--
+ALTER TABLE `reporte`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_falla` (`id_falla`),
+  ADD UNIQUE KEY `cedula_usuario` (`cedula_usuario`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`cedula`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `equipo`
+--
+ALTER TABLE `equipo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT de la tabla `falla`
+--
+ALTER TABLE `falla`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `laboratorio`
+--
+ALTER TABLE `laboratorio`
+  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `reporte`
+--
+ALTER TABLE `reporte`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Restricciones para tablas volcadas
+--
 
 --
 -- Filtros para la tabla `falla`
@@ -128,8 +173,8 @@ ALTER TABLE `falla`
 -- Filtros para la tabla `reporte`
 --
 ALTER TABLE `reporte`
-  ADD CONSTRAINT `reporte_ibfk_1` FOREIGN KEY (`id_falla`) REFERENCES `falla` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `reporte_ibfk_2` FOREIGN KEY (`cedula_usuario`) REFERENCES `usuario` (`cedula`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `reporte_ibfk_2` FOREIGN KEY (`cedula_usuario`) REFERENCES `usuario` (`cedula`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reporte_ibfk_3` FOREIGN KEY (`id_falla`) REFERENCES `falla` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

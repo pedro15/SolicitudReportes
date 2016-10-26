@@ -12,10 +12,11 @@
         $hdd = $_POST['HDD'];
         $mother = $_POST['Motherboard'];
         $power = $_POST['FuentePoder'];
-        
+
         if ($lab && $numpc && $cpu && $gpu && $ram && $hdd && $mother && $power)
         {
-            if( RegisterPC($lab, $numpc, $cpu, $gpu, $ram, $hdd, $power, $mother) )
+            $uniqueid = $lab . "_" . $numpc;
+            if( RegisterPC($lab, $uniqueid, $cpu, $gpu, $ram, $hdd, $power, $mother) )
             {
                 echo 'Agregado correctamente';
             }else
@@ -74,7 +75,7 @@
     <!-- <label for="fuente" >Fuente de Poder:</label> -->
      <input class="TextboxAncho" type="text" name="FuentePoder" id="fuente" placeholder="Fuente de Poder" >
     </div>
-    <div class="BtnNormalCenter">
+     <div class="BtnNormal">
          <input type="submit" value="Registrar Equipo">
     </div>
 </form>
