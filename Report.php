@@ -15,23 +15,23 @@
     }
 ?>
 </div>
-<form method="POST" action="#"  name="formreport" >
-    <h1>Registrar Falla</h1>
-    <div>
-    <input class="TextboxAncho"  type="text"  name="NumEquipo" id="numequipo" placeholder="Numero equipo" >
-    <Label>Tipo</Label>
-    <select name= "TipoFalla" id="tipoFalla" class="ComboboxNormal" >
+
+<form class = "form-horizontal" method="POST" action="#"  name="formreport" >
+    <div class = "form-group" style = "margin-right: 25%; margin-left: 25%;">
+    <div class = "text-center">
+        <h3>Registrar Falla</h3>
+    </div>
+    <input class="form-control"  type="text"  name="NumEquipo" id="numequipo" placeholder="Numero equipo" >
+    <Label style = "padding: 5px;">Tipo</Label>
+    <select name= "TipoFalla" id="tipoFalla" class="form-control" >
         <option value = "Hardware" >Hardware</option>
         <option value = "Softwate" >Softwate</option>
     </select>
-    </div>
-
-    <Label>Descripcion</Label>
-    <div>
-    <textarea maxlength = "450" rows="12" cols="10"  class="TextboxAncho"name="DescripcionF" id="descripcionF" placeholder="Descripcion de Falla" >
+    <Label style = "padding: 5px;">Descripcion</Label>
+    <textarea maxlength = "450" rows="12" cols="10"  class="form-control"name="DescripcionF" id="descripcionF" placeholder="Descripcion de Falla" >
     </textarea>
+    <div class = "text-center" style = "padding: 5px;">
+            <input class= "btn btn-primary" type="submit" value="Registrar Falla">
     </div>
-    <div class="BtnNormalCenter">
-         <input type="submit" value="Registrar Falla">
     </div>
 </form>

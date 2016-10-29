@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="Stylesheet" href="css/reset.css">
+         <link href="chartist-js\chartist.min.css" rel="stylesheet" type="text/css" />
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link rel="Stylesheet" href="css/style.css">
         <script type="text/javascript" src="js/Timer.js"></script>
@@ -100,7 +101,7 @@
                                 include 'register_pc.php';
                             }else if ($_GET['opc'] == 5)
                             {
-                                 echo 'solicitud de soporte tecnico';
+                                 include 'estadisticas_solicitud.php' ;
                             }else if ($_GET['opc'] == 6)
                             {
                                  echo 'equipos';
