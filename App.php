@@ -1,8 +1,4 @@
 <?php
-// Modulos del software
-// 
-    // Conectar a la base de datos
-
     function WriteName()
     {
         if (isset( $_SESSION['ciuser'] ))
@@ -44,7 +40,7 @@
                 return true;
         }
     }
-    // 
+
     function redirect_user( $ci )
     {
         $link = Connectdb();
@@ -107,7 +103,6 @@
          }
     }
     
-   
     // registrar usuario
     function register_user ($nombre , $apellido , $cedula , $usuario , $clave)
     {
@@ -269,4 +264,4 @@
         {
             return false ;
         }
-     }
+}

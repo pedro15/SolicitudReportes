@@ -1,5 +1,9 @@
+<!--  
+    Interfaz para reporte de fallas
+!-->
 <div class = "Alert">
 <?php
+    include_once('Laboratory.php');
     if (isset($_POST['TipoFalla']) && isset($_POST['NumEquipo']) && isset($_POST['DescripcionF']) )
     {
         $_TipoFalla = $_POST['TipoFalla'];
@@ -13,6 +17,7 @@
             echo 'Error al registrar falla'; 
         }
     }
+    $labs = Laboratory::GetAll();
 ?>
 </div>
 
@@ -21,7 +26,28 @@
     <div class = "text-center">
         <h3>Registrar Falla</h3>
     </div>
-    <input class="form-control"  type="text"  name="NumEquipo" id="numequipo" placeholder="Numero equipo" >
+    <Label style = "padding: 5px;">Laboratorio:</Label>
+    <?php
+
+      if ( mysqli_num_rows($labs) > 0 )
+      {
+        echo '<select name= "NumEquipo" id="numequipo" class="form-control" >' ;
+        while($row =  mysqli_fetch_assoc($labs))
+        {
+            $content = "<option value =" . "Hardware" . ">" . $row['descripcion'] . "</option>";
+            echo($content);
+        }
+        echo '</select>';
+      }else
+      {
+          echo("No se encuentran laboratorios registrados");
+      }
+     ?>
+    <Label style = "padding: 5px;">Equipo</Label>
+    <select name= "NumEquipo" id="numequipo" class="form-control" >
+        <option value = "Hardware" >Hardware</option>
+       
+    </select>
     <Label style = "padding: 5px;">Tipo</Label>
     <select name= "TipoFalla" id="tipoFalla" class="form-control" >
         <option value = "Hardware" >Hardware</option>
