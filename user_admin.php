@@ -8,6 +8,7 @@
          <link href="chartist-js\chartist.min.css" rel="stylesheet" type="text/css" />
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link rel="Stylesheet" href="css/style.css">
+        <script src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/Timer.js"></script>
     </head>
     <body onload= "resetTimer()">
@@ -143,7 +144,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.min.js"></script>
+    
     <script src="bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>

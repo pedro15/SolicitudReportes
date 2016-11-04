@@ -4,7 +4,7 @@
     class Laboratory
     {
         public $descripcion = "";
-
+        
         public function isOnDatabase()
         {
             $Link = Program::Connect();
@@ -34,7 +34,7 @@
                {
                    Program::LogOut();
                }
-
+               
                $sql = "SELECT * FROM `laboratorio`;";
                $res = mysqli_query($link,$sql);
                return $res;

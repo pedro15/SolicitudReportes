@@ -24,6 +24,32 @@
             }
             return Program::CheckDataExist($link,"equipo" , "num_equipo" , $this->idpc);
         }
+
+        public static function GetFromLab($lab)
+        {
+              $link = Program::Connect();
+              if (!$link)
+              {
+                  Program::LogOut();
+              }
+              $sql = "SELECT * FROM `equipo` WHERE `num_laboratorio` = " . $lab;
+              $res = mysqli_query($link,$sql);
+              return $res;
+        }
+
+        public static function GetAll()
+        {
+               $link = Program::Connect();
+               if (!$link)
+               {
+                   Program::LogOut();
+               }
+               
+               $sql = "SELECT * FROM `equipo`;";
+               $res = mysqli_query($link,$sql);
+               return $res;
+        }
+
         // Registra el equipo en la base de datos
         public function Register()
         {

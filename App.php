@@ -17,6 +17,9 @@
         // ocultar errores por defecto
         return mysqli_connect($config['host'], $config['username'] , $config['password'] , $config['database']) ;
     }
+
+    
+
     // Entrar al sistema
     function login( $ci , $password )
     {
