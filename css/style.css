@@ -140,3 +140,19 @@ background-color: #246691;
 {
   resize: none;
 }
+
+.center-form
+{
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.text-center
+{
+  text-align:  center;
+}
+
+.m-5
+{
+  margin: 5px;
+}

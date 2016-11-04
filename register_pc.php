@@ -1,5 +1,7 @@
-<div class = "Alert" id = "alertform">
+<div class = "container">
 <?php
+    include_once('Computer.php');
+    include_once('Laboratory.php');
     if ( isset( $_POST['Lab']) && isset( $_POST['IDPC']) && isset( $_POST['CPU']) 
             && isset( $_POST['GPU']) && isset( $_POST['RAM']) && isset( $_POST['HDD']) && isset( $_POST['Motherboard'])
             && isset( $_POST['FuentePoder']))
@@ -12,70 +14,94 @@
         $hdd = $_POST['HDD'];
         $mother = $_POST['Motherboard'];
         $power = $_POST['FuentePoder'];
-
-        if ($lab && $numpc && $cpu && $gpu && $ram && $hdd && $mother && $power)
+        $pc = new Computer($numpc,$cpu,$gpu,$ram,$hdd,$power,$mother,$lab);
+        if($pc->Register())
         {
-            $uniqueid = $lab . "_" . $numpc;
-            if( RegisterPC($lab, $uniqueid, $cpu, $gpu, $ram, $hdd, $power, $mother) )
-            {
-                echo 'Agregado correctamente';
-            }else
-            {
-            
-                echo 'Error al agregar los datos';
-            
-            }
+            ?>
+            <div class="alert alert-success">
+            <?php
+                echo 'Registrado correctamente';
+            ?>
+            </div>
+        <?php
+        }else if (isset($_SESSION['UserAlert']))
+        {
+            ?>
+            <div class="alert alert-danger">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <?php
+                echo($_SESSION['UserAlert']);
+            ?>
+            </div>
+            <?php
         }
     }
-?>
+    $labs = Laboratory::GetAll();
+    ?>
 </div>
 
-<form method="POST" action="#" name="formregpc" >
-    <h1>Registrar Equipo</h1>
-    <div>
-    <label>Laboratorio:</label>
-    <?php
-        $link = Connectdb();
-        $sql = "SELECT * FROM laboratorio" ;
-        $resultlab = mysqli_query($link, $sql);
-        if ($resultlab && mysqli_num_rows($resultlab) > 0 ) 
-        {
-    ?>
-    <select name= "Lab" id="labid" class="ComboboxNormal" >
-        <?php
-            while ( $row =  mysqli_fetch_assoc($resultlab))
-            {
-                echo '<option value= "' . $row['numero'] .'" >' . $row['descripcion'] . '</option>'   ;
-            }
-        ?>
-    </select>
-    <?php
-        }else
-        {
-            echo '<label>No se encuentran laboratorios</label>';
-        }
-    ?>
-    <input class="TextboxNormal"  type="text"  name="IDPC" id="idpc" placeholder="Numero PC" >
-    </div>
-    <div>
-    <!-- <label for="cpu" >CPU:</label> -->
-    <input class="TextboxAncho"  type="text"  name="CPU" id="cpu" placeholder="CPU" >
-    <!-- <label for="gpu" >GPU:</label> -->
-    <input class="TextboxAncho" ype="text" name="GPU" id="gpu" placeholder="GPU" >
-    </div>
-    <div>
-    <!-- <label for="ram" >Memoria RAM:</label> -->
-    <input class="TextboxAncho" type="text" name="RAM" id="ram" placeholder="Memoria RAM" >
-    <!-- <label for="hdd" >Disco Duro:</label> -->
-    <input class="TextboxAncho" type="text" name="HDD" id="hdd" placeholder="Disco Duro" >
-    </div>
-    <div>
-    <!-- <label for="motherboard" >Tarjeta Madre:</label> -->
-     <input class="TextboxAncho" type="text" name="Motherboard" id="motherboard" placeholder="Tarjeta Madre" >
-    <!-- <label for="fuente" >Fuente de Poder:</label> -->
-     <input class="TextboxAncho" type="text" name="FuentePoder" id="fuente" placeholder="Fuente de Poder" >
-    </div>
-     <div class="BtnNormal">
-         <input type="submit" value="Registrar Equipo">
+<form method="POST" action="#" name="formregpc" class = "form-horizontal" >
+    <div class = "container">
+             <h3>Registrar Equipo</h3>
+            <div class = "row">
+                <div class = "col-md-6">
+                    <label>Laboratorio:</label>
+                    <select name="Lab" class = "form-control">
+                    <?php
+                        if (mysqli_num_rows($labs) > 0)
+                        {
+                            while ($row = mysqli_fetch_assoc($labs))
+                            {
+                                $content =  "<option value =" . $row['numero'] . ">" . $row['descripcion'] . "</option>";
+                                echo($content);
+                            }
+                        }
+                    ?>
+                    </select>
+                </div>
+                <div class = "col-md-2">
+                    <Label>Numero Equipo:</label>
+                    <input type="text" class="form-control" name= "IDPC">
+                </div>
+            </div>
+            <div class = "row">
+                <div class = "col-md-4">
+                     <Label>Procesador:</label>
+                    <input type="text" class="form-control" name= "IDPC">
+                </div>
+                <div class = "col-md-4">
+                    <Label>Tarjeta de video (dejar en blanco si no tiene):</label>
+                    <input type="text" class="form-control" name= "IDPC">
+                </div>
+                <div class = "col-md-4">
+                    <Label>Memoria Ram:</label>
+                    <input type="text" class="form-control" name= "IDPC">
+                </div>
+            </div>
+            
+            <div class = "row">
+                <div class = "col-md-4">
+                     <Label>Tarjeta Madre:</label>
+                    <input type="text" class="form-control" name= "IDPC">
+                </div>
+                <div class = "col-md-4">
+                    <Label>Disco Duro:</label>
+                    <input type="text" class="form-control" name= "IDPC">
+                </div>
+                <div class = "col-md-4">
+                    <Label>Fuente de poder:</label>
+                    <input type="text" class="form-control" name= "IDPC">
+                </div>
+            </div>
+            <div class="m-5">
+            ddd
+            </div>
+            <div class = "col-md-4 col-md-offset-4">
+                <div class="btn-group">
+                    <div class="m-5">
+                        <input class= "btn btn-primary" type="submit" value="Registrar Equipo">
+                    </div>
+                </div>
+            </div>
     </div>
 </form>

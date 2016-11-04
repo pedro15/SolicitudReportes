@@ -3,13 +3,12 @@
     <head> 
         <title>Solicitud de reportes::Usuario</title>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="Stylesheet" href="css/reset.css">
-         <link href="chartist-js\chartist.min.css" rel="stylesheet" type="text/css" />
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="Stylesheet" href="css/style.css">
-        <script src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/Timer.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="Stylesheet" href="css/reset.css" type ="text/css">
+        <link href="chartist-js/chartist.min.css" rel="stylesheet" type="text/css" />
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
+        <link href="css/style.css" rel="stylesheet" type ="text/css">
     </head>
     <body onload= "resetTimer()">
     <?php 
@@ -144,7 +143,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    
+     <script src="js/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>
