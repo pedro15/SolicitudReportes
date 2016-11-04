@@ -3,12 +3,12 @@
     <head> 
         <title>Solicitud de reportes::Usuario</title>
         <meta charset="utf-8">
-        <script type="text/javascript" src="js/Timer.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="Stylesheet" href="css/reset.css" type ="text/css">
         <link href="chartist-js/chartist.min.css" rel="stylesheet" type="text/css" />
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
         <link href="css/style.css" rel="stylesheet" type ="text/css">
+        <script type="text/javascript" src="js/Timer.js"></script>
     </head>
     <body onload= "resetTimer()">
     <?php 
