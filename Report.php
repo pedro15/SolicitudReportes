@@ -117,19 +117,6 @@
       }
     ?>
     </select>
-    <?php
-     /* }else
-      {
-           if (isset($_POST['NumEquipo']) && isset($_POST['Laboratorio'] ))
-           {
-               echo 'No se encuentran equipos registrados para el laboratorio ' 
-               . $_POST['Laboratorio'] ;
-           }else
-           {
-               echo '<p>Seleccione un laboratorio</p>';
-           }
-      }*/
-    ?>
     </div>
     <div class = "col-md-4">
     <Label>Tipo</Label>

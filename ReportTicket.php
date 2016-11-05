@@ -35,11 +35,13 @@ class ReportTicket
          }
          $sql = "INSERT INTO `falla` (`id`, `numero_equipo`, `descripcion`, `tipo_falla`) VALUES ".
          "(NULL,'" . $this->numpc . "','" . $this->desc . "','" . $this->tipo . "');" ;
+
          if (mysqli_query($this->link,$sql))
          {
              return true ;
          }else
          {
+             //print_r(mysqli_error($this->link));
              return false;
          }
     }
@@ -58,6 +60,7 @@ class ReportTicket
              return true;
          }else
          {
+             //print_r(mysqli_error($this->link));
              return false;
          }
     }
