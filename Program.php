@@ -71,4 +71,13 @@ class Program
             session_destroy();
             Redirect("index.php");
         }
+
+        public static function GetDateFormatter()
+        {
+            $mDate = getdate();
+            $_year = $mDate['year'];
+            $_month = $mDate['mon'];
+            $_day = $mDate['mday'];
+            return $_year . "-" . $_month . "-" . $_day ;
+        }
 }

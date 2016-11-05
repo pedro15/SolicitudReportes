@@ -5,7 +5,9 @@ $ci = $_POST['cilogin'] ;
 $pw = $_POST['passlogin'];
 $isloggedin = login($ci, $pw);
 if ($isloggedin == true )
-{     redirect_user($ci);
+{   
+    $_SESSION['ciuser'] = $ci;
+    redirect_user($ci);
     die();
 }else{
     $img = "<img src=" . "images/warning.png" . " alt=" . "Alert" . " height=" ."32" . " width=" ."32" . ">";
