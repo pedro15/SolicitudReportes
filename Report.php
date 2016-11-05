@@ -120,10 +120,15 @@
     </select>
     </div>
     <div class = "col-md-4">
-    <Label>Tipo</Label>
+    <Label>Categoria</Label>
     <select name= "TipoFalla" id="tipoFalla" class="form-control" >
-        <option value = "Hardware" >Hardware</option>
-        <option value = "Softwate" >Softwate</option>
+        <option value = "TECLADO NO SIRVE" >Teclado no sirve</option>
+        <option value = "MONITOR NO SIRVE" >Monitor no sirve</option>
+        <option value = "MOUSE NO SIRVE" >Mouse no sirve</option>
+        <option value = "PC NO ENCIENDE" >No enciende el PC</option>
+        <option value = "NO INICIA SISTEMA OPERATIVO" >No arranca el sistema operativo</option>
+        <option value = "CLAVE DE INICIAR SESION PERDIDA" >Clave de iniciar sesion perdida</option>        
+        <option value = "OTRO" >Otro (especificar)</option>
     </select>
     </div>
     </div>

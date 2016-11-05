@@ -4,6 +4,9 @@
   <input type=hidden name=Serie-A value="15">
   <input type=hidden name=Serie-B value="30">
   <input type=hidden name=Serie-C value="45">
+  <input type=hidden name=Serie-A value="15">
+  <input type=hidden name=Serie-B value="30">
+  <input type=hidden name=Serie-C value="45">
 </form>
 
 <script type = "text/javascript">

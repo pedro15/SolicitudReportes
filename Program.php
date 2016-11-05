@@ -81,6 +81,52 @@ class Program
             return $_year . "-" . $_month . "-" . $_day ;
         }
 
+        public static function GetFirstDay()
+        {
+            $mDate = getdate();
+            $_year = $mDate['year'];
+            $_month = $mDate['mon'];
+            return $_year . "-" . $_month . "-1" ;
+        }
         
-
+        // Esta funcion cuenta los repotes de X categoria desde una fecha 'A' hasta una fecha 'B' 
+        public static function CountCategoryReports($category , $startdate , $enddate)
+        {
+            $link = Program::Connect();
+            if (!$link)
+            {
+                Program::LogOut();
+            }
+            $sql_falla = "SELECT * FROM `falla` WHERE `tipo_falla` = '" . $category . "';" ;
+            $res_falla = mysqli_query($link,$sql_falla);
+            $validnumbers = array();
+            if ($res_falla)
+            {
+                $count = mysqli_num_rows($res_falla);
+                for ( $i = 0 ; $i < $count ; $i ++)
+                {
+                    $data = mysqli_fetch_assoc($res_falla);
+                    if ($data)
+                    {
+                        array_push($validnumbers , $data['id']);
+                    }
+                }
+            }else
+            {
+                //print_r(mysqli_error($link));
+                return 0;
+            }
+            sort($validnumbers);
+            $sql = "SELECT * FROM `reporte` WHERE `fecha` BETWEEN '" . $startdate . "' AND '". $enddate ."' AND `id_falla` BETWEEN '" . 
+            $validnumbers[0] . "' AND '" . $validnumbers[count($validnumbers) - 1] . "';";
+            $res = mysqli_query($link,$sql);
+            if ($res)
+            {
+                return mysqli_num_rows($res);
+            }else
+            {
+                //print_r(mysqli_error($link));
+                return 0;
+            }
+        }
 }

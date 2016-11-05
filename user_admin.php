@@ -4,11 +4,18 @@
         <title>Solicitud de reportes::Administrador</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Css !-->
         <link rel="Stylesheet" href="css/reset.css" type ="text/css">
         <link href="chartist-js/chartist.css" rel="stylesheet" type="text/css" />
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
         <link href="css/style.css" rel="stylesheet" type ="text/css">
+        
+        <!-- Javascript !-->
         <script type="text/javascript" src="js/Timer.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+
     </head>
     <body onload= "resetTimer()">
     <?php 
@@ -140,10 +147,5 @@
          <footer>
             <p>Solicitud de reportes para la academia de software libre FUNDACITE, contacto: 0123456789</p>
          </footer> 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-     <script src="js/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>
