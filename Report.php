@@ -94,7 +94,8 @@
     ?>
     <select name= "NumEquipo" id="numequipo" class="form-control" >
     <?php
-      if ($pcs){
+      if ($pcs)
+      {
         $number = mysqli_num_rows($pcs);
         if ( $number > 0 )
         {
@@ -113,7 +114,7 @@
                echo 'Seleccione un laboratorio';
            }
            echo $number;
-      }
+        }
       }
     ?>
     </select>
@@ -127,7 +128,7 @@
     </div>
     </div>
     <Label style = "padding: 5px;">Descripcion</Label>
-    <textarea maxlength = "450" rows="6" cols="6"  class="form-control"name="DescripcionF" id="descripcionF" placeholder="Descripcion de Falla" >
+    <textarea maxlength = "450" rows="6" cols="6"  class="form-control"name="DescripcionF" id="descripcionF" placeholder="Descripcion de Falla" required = "" >
     </textarea>
     <div class = "text-center" style = "padding: 5px;">
         <input class= "btn btn-primary" type="submit" value="Registrar Falla">

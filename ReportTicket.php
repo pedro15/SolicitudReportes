@@ -8,7 +8,6 @@ class ReportTicket
     private $numpc; // Numero de pc afectado
     private $ciuser; //Cedula de el usuario que reporto la falla
     private $datereport;  //Fecha que se realizo el repote
-    
     private $link;
 
     public static function GetStates()

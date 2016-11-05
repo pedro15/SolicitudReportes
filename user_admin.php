@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="Stylesheet" href="css/reset.css" type ="text/css">
-        <link href="chartist-js/chartist.min.css" rel="stylesheet" type="text/css" />
+        <link href="chartist-js/chartist.css" rel="stylesheet" type="text/css" />
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
         <link href="css/style.css" rel="stylesheet" type ="text/css">
         <script type="text/javascript" src="js/Timer.js"></script>

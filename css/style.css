@@ -156,3 +156,12 @@ background-color: #246691;
 {
   margin: 5px;
 }
+
+.ct-series-a .ct-point, .ct-series-a .ct-line, .ct-series-a .ct-bar, .ct-series-a .ct-slice-donut {
+  stroke: #31474c; 
+  }
+
+.ct-series-a .ct-slice-pie, .ct-series-a .ct-area 
+{
+  fill: #4c8d9b; 
+}
