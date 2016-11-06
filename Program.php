@@ -116,16 +116,22 @@ class Program
                 //print_r(mysqli_error($link));
                 return 0;
             }
-            sort($validnumbers);
-            $sql = "SELECT * FROM `reporte` WHERE `fecha` BETWEEN '" . $startdate . "' AND '". $enddate ."' AND `id_falla` BETWEEN '" . 
-            $validnumbers[0] . "' AND '" . $validnumbers[count($validnumbers) - 1] . "';";
-            $res = mysqli_query($link,$sql);
-            if ($res)
+            if (count($validnumbers) > 0 )
             {
-                return mysqli_num_rows($res);
+                sort($validnumbers);
+                $sql = "SELECT * FROM `reporte` WHERE `fecha` BETWEEN '" . $startdate . "' AND '". $enddate ."' AND `id_falla` BETWEEN '" . 
+                $validnumbers[0] . "' AND '" . $validnumbers[count($validnumbers) - 1] . "';";
+                $res = mysqli_query($link,$sql);
+                if ($res)
+                {
+                    return mysqli_num_rows($res);
+                }else
+                {
+                    //print_r(mysqli_error($link));
+                    return 0;
+                }
             }else
             {
-                //print_r(mysqli_error($link));
                 return 0;
             }
         }

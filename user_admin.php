@@ -4,18 +4,20 @@
         <title>Solicitud de reportes::Administrador</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
         <!-- Css !-->
         <link rel="Stylesheet" href="css/reset.css" type ="text/css">
         <link href="chartist-js/chartist.css" rel="stylesheet" type="text/css" />
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
+         <link href="bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type ="text/css">
         <link href="css/style.css" rel="stylesheet" type ="text/css">
-        
         <!-- Javascript !-->
         <script type="text/javascript" src="js/Timer.js"></script>
-        <script src="js/jquery.min.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+         <script type="text/javascript" src="moment/moment.js"></script>
+         <script type="text/javascript" src="moment/locale/es.js"></script>
+        <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src= "js/transition.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
     </head>
     <body onload= "resetTimer()">
     <?php 
