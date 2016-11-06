@@ -8,18 +8,17 @@
         <link rel="Stylesheet" href="css/reset.css" type ="text/css">
         <link href="chartist-js/chartist.css" rel="stylesheet" type="text/css" />
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
-         <link href="bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type ="text/css">
+        <link href="bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type ="text/css">
         <link href="css/style.css" rel="stylesheet" type ="text/css">
         <!-- Javascript !-->
         <script type="text/javascript" src="js/Timer.js"></script>
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/jquery.browser.min.js"></script>
-         <script type="text/javascript" src="moment/moment.js"></script>
-         <script type="text/javascript" src="moment/locale/es.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type = "text/javascript" src = "js/app.js"></script>
+        <script type="text/javascript" src="moment/moment.js"></script>
+        <script type="text/javascript" src="moment/locale/es.js"></script>
         <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src= "js/transition.min.js"></script>
         <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
-        <script type="text/javascript" src="js/jquery.printelement.js"></script>
     </head>
     <body onload= "resetTimer()">
     <?php 
