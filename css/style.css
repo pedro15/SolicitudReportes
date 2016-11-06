@@ -167,3 +167,9 @@ background-color: #246691;
    fill: #47afc6; 
    -webkit-print-color-adjust: exact; 
 }
+
+.ct-label 
+{
+    font-size: 10pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

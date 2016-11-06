@@ -92,27 +92,11 @@ var data = {
 };
 
 var options = {
-  labelInterpolationFnc: function(value) {
-    return value[0]
-  }
+   distributeSeries: true
 };
 
-var responsiveOptions = [
-  ['screen and (min-width: 640px)', {
-    chartPadding: 20,
-    labelOffset: 10,
-    labelDirection: 'explode',
-    labelInterpolationFnc: function(value) {
-      return value;
-    }
-  }],
-  ['screen and (min-width: 1024px)', {
-    labelOffset: 20,
-    chartPadding: 20
-  }]
-];
+var chart = new Chartist.Bar('.ct-chart',data,options);
 
-var chart = new Chartist.Pie('.ct-chart', data, options, responsiveOptions);
 
  $(document).ready(function() 
    {
