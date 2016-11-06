@@ -175,7 +175,7 @@ background-color: #246691;
     
 }
 
-.ct-chart ct-perfect-fourth 
+.chart-fixedsize
 {
-    min-width: 20%;
+  max-height: 400px; max-width: 550px;
 }

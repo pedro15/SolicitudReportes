@@ -25,6 +25,9 @@
             <button type="submit" class="btn btn-default btn-lg">
                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             </button>
+            <buttun id = "printbtn" class="btn btn-default btn-lg">
+                  <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir
+            </buttun>
            </div>
         </div>
 
@@ -42,11 +45,11 @@
 </div>
 </form>
 
-<buttun id = "printbtn" class="btn btn-default btn-lg">
-     <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir
-</buttun>
-<!-- div usado para dibujar la grafica col-md-4 col-md-offset-4 !-->
-<div class="ct-chart ct-perfect-fourth " id = "print" style = "width:  35%; height: 35%;"></div>
+
+<!-- div usado para dibujar la grafica  !-->
+<div class = "col-md-5 col-md-offset-1">
+<div class="ct-chart ct-perfect-fourth chart-fixedsize" id = "print"></div>
+</div>
 <!--  Formulario oculto que almacena la informacion de las graficas !-->
 <form>
   <?php
@@ -95,8 +98,22 @@ var options = {
    distributeSeries: true
 };
 
-var chart = new Chartist.Bar('.ct-chart',data,options,{seriesBarDistance: 15});
+var responsiveOptions = [
+  ['screen and (min-width: 641px) and (max-height: 1024px)', {
+    showPoint: false,
+    axisX: {
+      
+    }
+  }],
+  ['screen and (max-width: 640px)', {
+    showLine: false,
+    axisX: {
+      
+    }
+  }]
+];
 
+var chart = new Chartist.Bar('.ct-chart',data,options,responsiveOptions);
 
  $(document).ready(function() 
    {
