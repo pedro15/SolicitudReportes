@@ -159,9 +159,11 @@ background-color: #246691;
 
 .ct-series-a .ct-point, .ct-series-a .ct-line, .ct-series-a .ct-bar, .ct-series-a .ct-slice-donut {
    stroke: #31474c; 
+   -webkit-print-color-adjust: exact; 
 }
 
 .ct-series-a .ct-slice-pie, .ct-series-a .ct-area 
 {
    fill: #47afc6; 
+   -webkit-print-color-adjust: exact; 
 }

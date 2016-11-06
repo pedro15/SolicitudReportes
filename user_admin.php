@@ -13,11 +13,13 @@
         <!-- Javascript !-->
         <script type="text/javascript" src="js/Timer.js"></script>
         <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery.browser.min.js"></script>
          <script type="text/javascript" src="moment/moment.js"></script>
          <script type="text/javascript" src="moment/locale/es.js"></script>
         <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src= "js/transition.min.js"></script>
         <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+        <script type="text/javascript" src="js/jquery.printelement.js"></script>
     </head>
     <body onload= "resetTimer()">
     <?php 

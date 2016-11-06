@@ -41,8 +41,25 @@
     
 </div>
 </form>
+<script type = "text/javascript">
+   $(document).ready(function() {
+        $("#printbtn").click(function(){
+				$('#print').printElement(
+            {
+            leaveOpen:true,
+            printMode:'popup'
+            });
+		   });
+    });
+</script>
+
+<buttun id = "printbtn" class="btn btn-default btn-lg">
+     <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir
+</buttun>
 <!-- div usado para dibujar la grafica !-->
-<div class="ct-chart ct-perfect-fourth col-md-4 col-md-offset-4" style = "width:  35%; height: 35%;"></div>
+<div class="ct-chart ct-perfect-fourth col-md-4 col-md-offset-4" id = "print" style = "width:  35%; height: 35%;"></div>
+
+
 <!--  Formulario oculto que almacena la informacion de las graficas !-->
 <form>
   <?php
