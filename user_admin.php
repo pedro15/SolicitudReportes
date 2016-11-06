@@ -147,8 +147,8 @@
                     ?>
             </div>
          </section>
-         <footer>
+         <!-- <footer>
             <p>Solicitud de reportes para la academia de software libre FUNDACITE, contacto: 0123456789</p>
-         </footer> 
+         </footer> !-->
     </body>
 </html>

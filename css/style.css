@@ -170,6 +170,12 @@ background-color: #246691;
 
 .ct-label 
 {
-    font-size: 10pt;
+    font-size: 8.5pt;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    
+}
+
+.ct-chart ct-perfect-fourth 
+{
+    min-width: 20%;
 }

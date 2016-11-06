@@ -45,8 +45,8 @@
 <buttun id = "printbtn" class="btn btn-default btn-lg">
      <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir
 </buttun>
-<!-- div usado para dibujar la grafica !-->
-<div class="ct-chart ct-perfect-fourth col-md-4 col-md-offset-4" id = "print" style = "width:  35%; height: 35%;"></div>
+<!-- div usado para dibujar la grafica col-md-4 col-md-offset-4 !-->
+<div class="ct-chart ct-perfect-fourth " id = "print" style = "width:  35%; height: 35%;"></div>
 <!--  Formulario oculto que almacena la informacion de las graficas !-->
 <form>
   <?php
@@ -95,7 +95,7 @@ var options = {
    distributeSeries: true
 };
 
-var chart = new Chartist.Bar('.ct-chart',data,options);
+var chart = new Chartist.Bar('.ct-chart',data,options,{seriesBarDistance: 15});
 
 
  $(document).ready(function() 
