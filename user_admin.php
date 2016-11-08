@@ -102,7 +102,7 @@
                                include 'Report.php';
                             }else if ($_GET['opc'] == 2 )
                             {
-                               echo 'consultar fallas';
+                               include 'reportspanel.php';
                             }else if ($_GET['opc'] == 3 )
                             {
                                include 'register_lab.php';

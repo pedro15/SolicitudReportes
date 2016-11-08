@@ -179,3 +179,11 @@ background-color: #246691;
 {
   max-height: 400px; max-width: 550px;
 }
+
+.report-bg
+{
+  background:  #bec8d1;
+  border-radius: 8px;
+  border-width: 2px;
+  border-color: #8b9299;
+}
