@@ -205,10 +205,16 @@ background-color: #246691;
   font-weight: 500;
 }
 
-.report-info
+.report-info-10
 {
    margin-top: 10%;
 }
+
+.report-info-5
+{
+  margin-top: 5%;
+}
+
 
 .report-info .bg-warning
 {

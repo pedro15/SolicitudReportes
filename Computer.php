@@ -52,6 +52,17 @@
                return $res;
         }
 
+        public static function GetFromNumber($number)
+        {
+               $link = Program::Connect();
+               if (!$link)
+               {
+                   Program::LogOut();
+               }
+               $sql = "SELECT * FROM `equipo` WHERE `num_equipo` = '" . $number . "';";
+               return mysqli_query($link,$sql);
+        }
+
         // Registra el equipo en la base de datos
         public function Register()
         {

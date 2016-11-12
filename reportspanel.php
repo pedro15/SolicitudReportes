@@ -1,5 +1,6 @@
 <?php
     include_once('ReportTicket.php');
+    include_once('Laboratory.php');
     if (isset($_POST['btn-eliminar']))
     {
         echo 'eliminar';
@@ -31,20 +32,26 @@
                 $reporte_info = ReportTicket::GetReportInfo($row['id_falla']);
 
     ?>
-
     <div class = "col-lg-9 report-bg">
         <div class = "row">
-            <div class = "col-md-2">
+            <div class = "col-md-2 report-info-5">
                 <?php
+
                      $reporte_data = mysqli_fetch_assoc($reporte_info);
-                     echo '<h3>' . $reporte_data['numero_equipo'] . '</h3>';
+                     $lab_info = Laboratory::GetFromPCNumber($reporte_data['numero_equipo']);
+                     $lab_data = mysqli_fetch_assoc($lab_info);
+                     echo '<span class = "glyphicon glyphicon-tasks"></span> ';
+                     echo($lab_data['descripcion']);
+                     echo '<span class = "glyphicon glyphicon-triangle-right"></span>';
+                     echo $reporte_data['descripcion'] ;
+                     echo ' <span class = "glyphicon glyphicon-exclamation-sign"></span>';
                 ?>
             </div>
             <div class = "col-lg-9">
                 <!-- Cabecera !-->
                 <div class = "row">
                     <div class = "col-md-3">
-                        <div class = "report-info">
+                        <div class = "report-info-10">
                             <div class = "bg-warning">
                                 <span class = "glyphicon glyphicon-info-sign"></span>
                                 <strong>Estado:</strong><br>Sin Reparar
@@ -53,7 +60,7 @@
                     </div>
                     <div class = "col-md-9">
             <form method = "POST" action = "#" name = "form1"  >
-                <div class = "report-info">
+                <div class = "report-info-10">
                     <div class="btn-group">
                         <button class="btn btn-default btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Small button <span class="caret"></span>

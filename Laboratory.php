@@ -42,7 +42,20 @@
             }
         }
 
-        
+        public static function GetFromPCNumber($pcnum)
+        {
+               $link = Program::Connect();
+               if (!$link)
+               {
+                   Program::LogOut();
+               }
+               $sql_pc = "SELECT * FROM `equipo` WHERE `num_equipo` = '" . $pcnum . "';";
+               $res_pc = mysqli_query($link, $sql_pc);
+               $result = mysqli_fetch_assoc($res_pc);
+               $numlab = $result['num_laboratorio'];
+               $sql_lab = "SELECT * FROM `laboratorio` WHERE `numero` = '" . $numlab . "';" ;
+               return mysqli_query($link,$sql_lab);
+        }
 
         public static function GetAll()
         {
