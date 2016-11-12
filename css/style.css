@@ -205,18 +205,28 @@ background-color: #246691;
   font-weight: 500;
 }
 
-.report-info-10
+.report-info-tb-5
+{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.report-info-t-10
 {
    margin-top: 10%;
 }
 
-.report-info-5
+.report-info-t-5
 {
   margin-top: 5%;
 }
 
+.report-info-t-3
+{
+  margin-top: 3%;
+}
 
-.report-info .bg-warning
+.report-info-t-10 .bg-warning
 {
     border-radius: 8px;
     padding: 5px;

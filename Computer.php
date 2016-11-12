@@ -73,7 +73,7 @@
                  {
                      return false;
                  }
-                 $sql = "INSERT INTO `equipo` (`num_equipo`, `decripcion`, `cpu`, `gpu`, `ram`, `hdd`, `tarjeta_madre`, `fuente_poder`, `num_laboratorio`)" . 
+                 $sql = "INSERT INTO `equipo` (`num_equipo`, `descripcion`, `cpu`, `gpu`, `ram`, `hdd`, `tarjeta_madre`, `fuente_poder`, `num_laboratorio`)" . 
                  "VALUES ('". $this->idpc . "','" . $this->desc ."','" . $this->cpu ."','" . $this->gpu . "','" . $this->ram . "','" . $this->hdd . "','" . $this->motherboard . "',' " . $this->power ." ','" . $this->labnum . "');" ;
                  if (mysqli_query($link,$sql))
                  {

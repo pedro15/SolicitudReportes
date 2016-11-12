@@ -1,6 +1,7 @@
 <?php
     include_once('ReportTicket.php');
     include_once('Laboratory.php');
+    include_once('Computer.php');
     if (isset($_POST['btn-eliminar']))
     {
         echo 'eliminar';
@@ -18,7 +19,6 @@
     if ( $count > 0)
     {
 ?>
-
     <div class = "col-lg-7">
         <h2>Administrar Solicitudes de Soporte Tecnico</h2>
     </div>
@@ -30,28 +30,29 @@
             if ($row)
             {
                 $reporte_info = ReportTicket::GetReportInfo($row['id_falla']);
-
     ?>
     <div class = "col-lg-9 report-bg">
         <div class = "row">
-            <div class = "col-md-2 report-info-5">
+            <div class = "col-md-3 report-info-t-3">
                 <?php
-
                      $reporte_data = mysqli_fetch_assoc($reporte_info);
-                     $lab_info = Laboratory::GetFromPCNumber($reporte_data['numero_equipo']);
+                     $pcnum = $reporte_data['numero_equipo'];
+                     $lab_info = Laboratory::GetFromPCNumber($pcnum);
                      $lab_data = mysqli_fetch_assoc($lab_info);
-                     echo '<span class = "glyphicon glyphicon-tasks"></span> ';
+                     $computer_info = Computer::GetFromNumber($pcnum);
+                     $computer_data = mysqli_fetch_assoc($computer_info);
+                     echo ' <span class = "glyphicon glyphicon-tasks"></span> ';
                      echo($lab_data['descripcion']);
                      echo '<span class = "glyphicon glyphicon-triangle-right"></span>';
-                     echo $reporte_data['descripcion'] ;
+                     echo $computer_data['descripcion'] ;
                      echo ' <span class = "glyphicon glyphicon-exclamation-sign"></span>';
                 ?>
             </div>
-            <div class = "col-lg-9">
+            <div class = "col-lg-8">
                 <!-- Cabecera !-->
                 <div class = "row">
                     <div class = "col-md-3">
-                        <div class = "report-info-10">
+                        <div class = "report-info-t-10">
                             <div class = "bg-warning">
                                 <span class = "glyphicon glyphicon-info-sign"></span>
                                 <strong>Estado:</strong><br>Sin Reparar
@@ -60,10 +61,10 @@
                     </div>
                     <div class = "col-md-9">
             <form method = "POST" action = "#" name = "form1"  >
-                <div class = "report-info-10">
+                <div class = "report-info-tb-5">
                     <div class="btn-group">
                         <button class="btn btn-default btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Small button <span class="caret"></span>
+                        Cambiar estado <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a onclick = "form1.submit()" href = "?opcion=1">Opcion</a>
