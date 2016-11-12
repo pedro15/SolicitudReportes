@@ -85,6 +85,7 @@
                 <div class="navbar-brand" style = "font-size: 10pt;">
                 <?php
                     require 'App.php';
+                    require_once("Program.php");
                     WriteName();
                 ?>
                 </div>
@@ -138,7 +139,7 @@
                                 echo 'creditos';
                             }else if ($_GET['opc'] == 14)
                             {
-                                 logout();
+                                 Program::LogOut();
                             }
                         }else
                         {

@@ -87,10 +87,9 @@ var data_f = document.querySelector('[name="Serie-F"]').value;
 var data_g = document.querySelector('[name="Serie-G"]').value;
 
 var data = {
-  labels: ["Teclado no sirve: " + data_a , "Monitor no sirve: " + data_b , 
-  "Mouse no sirve: " + data_c , "PC no enciende: " + data_d , "No inicia S.O: " + data_e , 
-  "Clave Perdida: " + data_f , "Otro: " + data_g  ],
-
+  labels: ["Teclado no sirve", "Monitor no sirve", 
+  "Mouse no sirve", "PC no enciende", "No inicia S.O" , 
+  "Clave Perdida", "Otro" ],
   series: [data_a,data_b,data_c,data_d,data_e,data_f,data_g]
 };
 

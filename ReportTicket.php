@@ -64,6 +64,27 @@ class ReportTicket
          }
     }
 
+    public static function GetAllReports()
+    {
+         $link = Program::Connect();
+         if (!$link)
+         {
+             Program::LogOut();
+         }
+         $sql = "SELECT * FROM `reporte` ;";
+         return mysqli_query($link , $sql);
+    }
+
+    public static function GetReportInfo($reportid)
+    {
+         $link = Program::Connect();
+         if (!$link)
+         {
+             Program::LogOut();
+         }
+         $sql = "SELECT * FROM `falla` WHERE `id` = '" . $reportid . "' ;";
+         return mysqli_query($link,$sql);
+    }
     public function __construct($_descripcion , $_tipo , $_pcnum, $_ci)
     {
         $this->desc = $_descripcion;

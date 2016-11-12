@@ -69,7 +69,7 @@ class Program
         public static function LogOut()
         {
             session_destroy();
-            Redirect("index.php");
+            Program::Redirect("index.php");
         }
 
         public static function GetDateFormatter()

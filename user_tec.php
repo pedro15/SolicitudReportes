@@ -130,9 +130,6 @@
          <footer>
             <p>Solicitud de reportes para la academia de software libre FUNDACITE, contacto: 0123456789</p>
          </footer> 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     </body>
