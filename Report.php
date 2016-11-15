@@ -101,7 +101,7 @@
         {
             while ($curr = mysqli_fetch_assoc($pcs))
             {
-                echo '<option value= "' . $curr['num_equipo'] .'" >' . $curr['decripcion'] . '</option>'   ;
+                echo '<option value= "' . $curr['num_equipo'] .'" >' . $curr['descripcion'] . '</option>'   ;
             }
         }else
         {

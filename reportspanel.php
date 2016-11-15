@@ -2,12 +2,47 @@
     include_once('ReportTicket.php');
     include_once('Laboratory.php');
     include_once('Computer.php');
-    if (isset($_POST['btn-eliminar']))
+    include_once('Program.php');
+
+    //Limpia los parametros GET de la url actual
+    function Cleanurl()
     {
-        echo 'eliminar';
-    }else if (isset($_GET['opcion']))
+        $url = Program::getCurrentURL();
+        $finalurl = "";
+        if (isset($_GET['reportid']) && isset($_GET['action'])  )
+        {
+            $finalurl = Program::RemoveGetParam($url,'action');
+            $finalurl = Program::RemoveGetParam($finalurl , 'reportid');
+        } 
+        if (isset($_GET['state']))
+        {
+            $finalurl = Program::RemoveGetParam($finalurl,'state');       
+        }
+        return $finalurl;   
+    }
+    // Redirecciona a la url limpia
+    function Redirect()
     {
-        echo $_GET['opcion'];
+        $myurl = Cleanurl();
+        Program::Redirect($myurl);
+    }
+
+    if (isset($_GET['reportid']) && isset($_GET['action']) )
+    {
+        $_action = $_GET['action'];
+        $_id = $_GET['reportid'];
+
+        if ($_action == "changestate")
+        {
+           if (isset($_GET['state']))
+           {
+               $state = $_GET['state'];
+               echo 'Cambiar estado(' . $_id . ') ' . $state; 
+           }
+        }else if ($_action == "delete")
+        {
+            echo 'borrar';
+        }
     }
 
     $reportes = ReportTicket::GetAllReports();
@@ -54,36 +89,52 @@
                     <div class = "col-md-3">
                         <div class = "report-info-t-10">
                             <div class = "bg-warning">
-                                <span class = "glyphicon glyphicon-info-sign"></span>
-                                <strong>Estado:</strong><br>Sin Reparar
+                                <?php 
+                                     $estado_reporte = $row['estado'];
+                                     if ($estado_reporte == "REPARADO")
+                                     {
+                                          echo '<span class = "glyphicon glyphicon-ok-sign"></span>'; 
+                                     }else 
+                                     {
+                                          echo '<span class = "glyphicon glyphicon-info-sign"></span>';
+                                     }
+                                     echo ' <strong>Estado:</strong><br>' . $estado_reporte ; 
+                                ?>
                             </div>
                         </div>
                     </div>
-                    <div class = "col-md-9">
-            <form method = "POST" action = "#" name = "form1"  >
-                <div class = "report-info-tb-5">
-                    <div class="btn-group">
-                        <button class="btn btn-default btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Cambiar estado <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a onclick = "form1.submit()" href = "?opcion=1">Opcion</a>
-                            <li><a href = "#?">Opcion</a>
-                            <li><a href = "#">Opcion</a>
-                            <li><a href = "#">Opcion</a>
-                        </ul>
-                    </div>
-
-                    <div class="btn-group" role="group" aria-label="...">
-                        <button name="btn-eliminar" type="submit" class="btn btn-danger">
-                            <span class = "glyphicon glyphicon-trash"></span>
-                            Eliminar
-                        </button>
-                    </div>
-
-                </div>
-            </form>
-                </div>
+                 <div class = "col-md-9">
+                    <div class = "row" >
+                        <form method = "POST" action = "#" name = "form1"  >
+                            <div class = "report-info-tb-5">
+                                <div class="btn-group">
+                                    <button class="btn btn-default btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Cambiar estado <span class="caret"></span>
+                                    </button>
+                                        <ul class="dropdown-menu">
+                                            <?php
+                                                $url = Program::getCurrentURL();
+                                                $geturi = $url . "&reportid=" . $row['id'] . "&action=" ;
+                                                $reparado_uri = $geturi . "changestate&state=reparado";
+                                                $sinreparar_uri = $geturi . "changestate&state=sinreparar";
+                                                $revision_uri = $geturi . "changestate&state=revision";
+                                                $borrar_url = $geturi . "delete";
+                                                echo '<li><a onclick = "form1.submit()" href = "'. $reparado_uri . '">Reparado</a></li>';
+                                                echo '<li><a onclick = "form1.submit()" href = "'. $revision_uri . '">En revision</a></li>';
+                                                echo '<li><a onclick = "form1.submit()" href = "'. $sinreparar_uri . '">Sin Reparar</a></li>';
+                                            ?>
+                                        </ul>
+                                        <?php
+                                        echo '<button formaction ="'. $borrar_url .'" type="buttun" class="btn btn-danger btn-borrar">';
+                                        ?>
+                                        <span class = "glyphicon glyphicon-trash"></span>
+                                            Eliminar
+                                        </button>
+                                    </div>
+                            </div>
+                        </form>
+                     </div>
+                  </div>
                 </div>
                 <!-- Contenido !-->
             </div>
@@ -91,11 +142,15 @@
             <div class = "report-content">
             <div>
                 <span class = "glyphicon glyphicon-calendar"></span>
-                <strong>Fecha:</strong> 2016-11-5
+                <strong>Fecha:</strong>
+                <?php
+                   $fecha = $row['fecha'];
+                   echo $fecha;
+                ?>
             </div>
             <div>
                 <span class = "glyphicon glyphicon-user"></span>
-                <strong>Enviado por:</strong> Pedro Duran
+                <strong>Enviado por:</strong>
             </div>
             <div>
                 <span class = "glyphicon glyphicon-info-sign"></span>
@@ -122,6 +177,9 @@
     ?>
     <!-- Script !-->
     <script type = "text/javascript">
-
+        $(".btn-borrar").click(function()
+        {
+            return confirm("Desea eliminar el registro?");
+        });
     </script>
 </div>

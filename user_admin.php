@@ -23,6 +23,7 @@
     <body onload= "resetTimer()">
     <?php 
        session_start();
+       include_once('Program.php');
     ?>
      <div>
         <img class="bannerheader" id="membretefundacite" alt="Membrete" src="images/MembreteFundacite.png">
@@ -103,6 +104,7 @@
                                include 'Report.php';
                             }else if ($_GET['opc'] == 2 )
                             {
+                               $_SESSION['originaluri'] = Program::getCurrentURL();
                                include 'reportspanel.php';
                             }else if ($_GET['opc'] == 3 )
                             {

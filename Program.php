@@ -16,8 +16,7 @@ class Program
             
             if (!$link)
             {
-                header("Location: index.php");
-                die();
+                Program::LogOut();
             }
 
             $res =  mysqli_query($link, $sql) or trigger_error("SQL ERROR: " . mysqli_error($link) );
@@ -135,4 +134,37 @@ class Program
                 return 0;
             }
         }
+
+        //Esta funcion obtiene la de la pagina actual
+        public static function getCurrentURL()
+        {
+            $currentURL = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
+            $currentURL .= $_SERVER["SERVER_NAME"];
+
+            if($_SERVER["SERVER_PORT"] != "80" && $_SERVER["SERVER_PORT"] != "443")
+            {
+                $currentURL .= ":".$_SERVER["SERVER_PORT"];
+            } 
+
+            $currentURL .= $_SERVER["REQUEST_URI"];
+            return $currentURL;
+        }
+        
+        // Esta funcion remueve un parametro GET de la url 
+        public static function RemoveGetParam($url , $param)
+        {
+            $parts = parse_url($url);
+            $queryparams = array();
+            parse_str($parts['query'],$queryparams);
+            unset($queryparams[$param]);
+            $querystring = http_build_query($queryparams);
+            return  $parts['path'] . '?' . $querystring;
+        }
+
+        // Esta funcion obtiene el nombre de usuario a partir de la cedula
+
+       public static function Getusername( $ci )
+       {
+            
+       }
 }
