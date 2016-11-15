@@ -38,7 +38,7 @@
         }
     }
     $labs = Laboratory::GetAll();
-    ?>
+ ?>
 </div>
 
 <form method="POST" action="#" name="formregpc" class = "form-horizontal" >
@@ -48,18 +48,16 @@
                 <div class = "col-md-6">
                     <label>Laboratorio:</label>
                     <?php 
-                         if (mysqli_num_rows($labs) > 0)
+                        if (mysqli_num_rows($labs) > 0)
                         {
                     ?>
                     <select name="Lab" class = "form-control">
                     <?php
-                       
                             while ($row = mysqli_fetch_assoc($labs))
                             {
                                 $content =  "<option value =" . $row['numero'] . ">" . $row['descripcion'] . "</option>";
                                 echo($content);
                             }
-                        
                     ?>
                     </select>
                     <?php

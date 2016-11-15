@@ -1,4 +1,5 @@
 <?php
+    
     include_once('ReportTicket.php');
     include_once('Laboratory.php');
     include_once('Computer.php');
@@ -20,6 +21,7 @@
         }
         return $finalurl;   
     }
+
     // Redirecciona a la url limpia
     function Redirect()
     {
@@ -37,11 +39,31 @@
            if (isset($_GET['state']))
            {
                $state = $_GET['state'];
-               echo 'Cambiar estado(' . $_id . ') ' . $state; 
+               $number = 0;
+
+               if ($state == 'reparado')
+               {
+                   $number = 1;
+               }else if ($state == 'sinreparar')
+               {
+                   $number = 0;
+               }else if ($state == 'revision')
+               {
+                   $number = 2;
+               }
+
+               if (ReportTicket::ChangeState($_id,$number))
+               {
+                    Redirect();   
+               }
            }
         }else if ($_action == "delete")
         {
-            echo 'borrar';
+            if (ReportTicket::DeleteReport($_id))
+            {
+                echo '<script type ="text/javascript"> alert("Eliminado correctamente") </script>';
+                Redirect();
+            }
         }
     }
 

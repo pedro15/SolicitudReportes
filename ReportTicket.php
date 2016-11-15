@@ -14,9 +14,9 @@ class ReportTicket
     {
         return array
         (
-            'alert' => "SIN REPARAR",
-            'ok' => "REPARADO",
-            'warning' => "NESESITA REVISION"
+            0 => "SIN REPARAR",
+            1 => "REPARADO",
+            2 => "NESESITA REVISION"
         );
     }
 
@@ -53,7 +53,7 @@ class ReportTicket
          }
          $__id = mysqli_insert_id($this->link);
          $sql = "INSERT INTO `reporte` (`id`, `id_falla`, `cedula_usuario`, `fecha`, `estado`) VALUES " . 
-         "(NULL,'" . $__id . "','" . $this->ciuser . "','" . $this->datereport . "','" . $this->GetStates()['alert'] . "');" ;
+         "(NULL,'" . $__id . "','" . $this->ciuser . "','" . $this->datereport . "','" . $this->GetStates()[0] . "');" ;
          if(mysqli_query($this->link,$sql))
          {
              return true;
@@ -62,6 +62,44 @@ class ReportTicket
              //print_r(mysqli_error($this->link));
              return false;
          }
+    }
+
+    public static function ChangeState( $id , $stateid )
+    {
+        $link = Program::Connect();
+        if (!$link)
+        {
+            Program::LogOut();
+        }
+        $estados = ReportTicket::GetStates();
+        $sql = "UPDATE `reporte` SET `estado` = '" . $estados[$stateid] . "' WHERE `id` = '" .  $id . "' ;" ;
+        return mysqli_query($link,$sql);
+    }
+
+    public static function DeleteReport( $id )
+    {
+        $link = Program::Connect();
+        if (!$link)
+        {
+            Program::LogOut();
+        }
+        $sql_consulta = "SELECT * FROM `reporte` WHERE `id` = '" . $id . "';" ;
+        $cont = mysqli_query($link,$sql_consulta);
+        $row = mysqli_fetch_assoc($cont);
+        
+        if ($row)
+        {
+            if (mysqli_num_rows($cont) > 0)
+            {
+                 $fallaid = $row['id_falla'];
+                 $sqlreporte = "DELETE FROM `reporte` WHERE `id` = '" . $id . "';" ;
+                 $sqlfalla = "DELETE FROM `falla` WHERE `id` = '" . $fallaid . "';" ;
+                 $result_reporte = mysqli_query($link,$sqlreporte);
+                 $result_falla = mysqli_query($link,$sqlfalla);
+                 return $result_falla && $result_reporte;
+            }
+        }
+        return false ;
     }
 
     public static function GetAllReports()

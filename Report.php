@@ -88,10 +88,6 @@
     <div class = "row">
     <div class = "col-md-4">
     <Label>Equipo</Label>
-    <?php
-    //if ($pcs != null)
-    //{
-    ?>
     <select name= "NumEquipo" id="numequipo" class="form-control" >
     <?php
       if ($pcs)
