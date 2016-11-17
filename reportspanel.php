@@ -4,7 +4,6 @@
     include_once('Laboratory.php');
     include_once('Computer.php');
     include_once('Program.php');
-
     //Limpia los parametros GET de la url actual
     function Cleanurl()
     {
@@ -176,16 +175,22 @@
             </div>
             <div>
                 <span class = "glyphicon glyphicon-info-sign"></span>
-                <strong>Categoria:</strong> Otro
+                <strong>Categoria:</strong>
+                <?php
+                   echo $reporte_data['tipo_falla'];
+                ?>
             </div>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus augue diam, varius id diam eu, dapibus laoreet augue. Pellentesque pellentesque et urna at viverra. Curabitur molestie lectus a hendrerit rhoncus. Quisque id accumsan neque. Integer in eros mi. Nullam malesuada, risus sit amet efficitur egestas, ipsum quam fermentum purus, nec malesuada erat felis sed ligula. Morbi fermentum, dui sit amet rutrum hendrerit, mi lacus maximus enim sed.
+            <?php
+                $desc = $reporte_data['descripcion'];
+                echo $desc;
+            ?>
             </p>
         </div>
     </div>
     <?php
-            }
-        }
+          }
+      }
     }else
     {
         ?>

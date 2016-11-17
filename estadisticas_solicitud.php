@@ -53,7 +53,7 @@
 <!--  Formulario oculto que almacena la informacion de las graficas !-->
 <form>
   <?php
-     include_once('Program.php');
+    include_once('Program.php');
     if (isset($_POST['Date1']) && isset($_POST['Date2']) )
     {
         $d1 = $_POST['Date1'];
