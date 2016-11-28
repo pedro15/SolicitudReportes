@@ -2,7 +2,7 @@
 <?php
     require_once('Laboratory.php');
     require_once('Sede.php');
-
+    $sedes = Sede::GetAll();
     if (isset( $_POST['DescLab'] )   )
     {
         $desclab = $_POST['DescLab'];
@@ -39,19 +39,20 @@
     <div class = "container">
     <div class = "col-md-4 col-md-offset-4">
     <h3>Registrar Laboratorio</h3>
-
     <div class = "form-group" >
         <label>Sede:</label>
         <?php 
-            $sedes = Sede::GetAll();
-            if (mysqli_num_rows($sedes) > 0)
+            $count = mysqli_num_rows($sedes);
+            echo $count;
+            if ( $count > 0)
             {
         ?>
         <select name= "sede_id" class = "form-control" > 
             <?php
-                while ($row = mysqli_fetch_assoc($sedes))
+                for ($i = 0; $i < $count ; $i++)
                 {
-                     echo '<option value="' . $row["id_sede"] . '>' . $row['nombre'] . " : " . $row["ubicacion"] . '</option>' ;
+                     $row = mysqli_fetch_assoc($sedes);
+                     echo '<option value="' . $row["id_sede"] . '>' . $row['nombre'] . " : " . $row["ubicacion"] . '</option>';
                 }
             ?>
         </select>
@@ -64,7 +65,6 @@
         <label>Nombre del laboratorio:</label>
         <input class="form-control"  type="text"  name="DescLab" id="desclab" required ="">
     </div>
-    
 
     <div class="btn-group">
         <div class = "m-5">
