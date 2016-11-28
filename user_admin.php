@@ -67,8 +67,6 @@
                    <li><a href="user_admin.php?opc=8">Administrar equipos</a></li>
               </ul>
             </li>
-            <!-- Estadisticas !-->
-            <li><a href="user_admin.php?opc=9">Estadisticas</a></li>
              <!-- Administrar tecnicos !-->
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tecnicos<span class="caret"></span></a>
@@ -77,6 +75,8 @@
                   <li><a href="user_admin.php?opc=11">Administrar tecnicos</a></li>
               </ul>
             </li>
+            <!-- Estadisticas !-->
+            <li><a href="user_admin.php?opc=9">Estadisticas</a></li>
              <!-- Herramientas !-->
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Herramientas<span class="caret"></span></a>

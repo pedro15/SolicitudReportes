@@ -1,3 +1,16 @@
+html 
+{
+  position: relative;
+  min-height: 100%;
+}
+
+body 
+{
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+
 /* cabecera */
 .fundacitebackground
 {
@@ -31,13 +44,13 @@
 }
 
 /* Pie de pagina */ 
-footer
-{
-  left:0px;
-  bottom:0px;
-  height: 30px;
-  width:100%;
-   background:#1e567a;
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 40px;
+  background-color: #275b7c;
 }
 
 footer p

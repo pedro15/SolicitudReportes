@@ -18,7 +18,7 @@
                {
                    Program::LogOut();
                }
-               $sql = "SELECT * FROM `laboratorio` WHERE `numero` = " . $labnum . ";" ;
+               $sql = "SELECT * FROM `laboratorio` WHERE `id_laboratorio` = '" . $labnum . "';" ;
                $res = mysqli_query($link,$sql);
                return $res;
         }

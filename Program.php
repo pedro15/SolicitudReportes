@@ -11,7 +11,6 @@ class Program
             $db = $config['database'];
             return mysqli_connect($host, $user , $pass , $db);
         }
-
         // Conecta a la base de datos externa
         public static function ConnectExtern()
         {
