@@ -35,53 +35,63 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">   
-            
+            <!-- Solicitudes de soporte tecnico !-->
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Fallas<span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Soporte Tecnico<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                    <li><a href="user_admin.php?opc=1">Reportar Falla</a></li>
-                    <li><a href="user_admin.php?opc=2">Consultar fallas</a></li>
+                    <li><a href="user_admin.php?opc=1">Enviar solicitud</a></li>
+                    <li><a href="user_admin.php?opc=2">Administrar solicitudes</a></li>
               </ul>
             </li>
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Registro<span class="caret"></span></a>
+            <!-- Sedes  !-->
+             <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sedes<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                   <li><a href="user_admin.php?opc=3">Registrar Laboratorio</a></li>
-                   <li><a href="user_admin.php?opc=4">Registrar Equipo</a></li>
+                   <li><a href="user_admin.php?opc=3">Registrar sede</a></li>
+                   <li><a href="user_admin.php?opc=4">Administrar sedes</a></li>
               </ul>
             </li>
-
+            <!-- Laboratorios !-->
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Estadisticas<span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Laboratorios<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                    <li><a href="user_admin.php?opc=5">Solicitudes de soporte tecnico</a></li>
-                    <li><a href="user_admin.php?opc=6">Equipos</a></li>
+                   <li><a href="user_admin.php?opc=5">Registrar laboratorio</a></li>
+                   <li><a href="user_admin.php?opc=6">Administrar laboratorios</a></li>
               </ul>
             </li>
-
-            
+            <!-- Equipos !-->
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrar Tecnicos<span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Equipos<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                  <li><a href="user_admin.php?opc=7">Agregar tecnico</a></li>
-                  <li><a href="user_admin.php?opc=8">Modificar tecnico</a></li>
-                  <li><a href="user_admin.php?opc=9">Eliminar tecnico</a></li>
+                   <li><a href="user_admin.php?opc=7">Registrar equipo</a></li>
+                   <li><a href="user_admin.php?opc=8">Administrar equipos</a></li>
               </ul>
             </li>
-
+            <!-- Estadisticas !-->
+            <li><a href="user_admin.php?opc=9">Estadisticas</a></li>
+             <!-- Administrar tecnicos !-->
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tecnicos<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                  <li><a href="user_admin.php?opc=10">Registrar tecnico</a></li>
+                  <li><a href="user_admin.php?opc=11">Administrar tecnicos</a></li>
+              </ul>
+            </li>
+             <!-- Herramientas !-->
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Herramientas<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                     <li><a href="user_admin.php?opc=10">Respaldo de base de datos</a></li>
-                     <li><a href="user_admin.php?opc=11">Restauracion de base de datos</a></li>
+                     <li><a href="user_admin.php?opc=12">Respaldo de base de datos</a></li>
+                     <li><a href="user_admin.php?opc=13">Restauracion de base de datos</a></li>
                      <li role="separator" class="divider"></li>
-                     <li><a href="user_admin.php?opc=12">Manual de usuario</a></li>
-                     <li><a href="user_admin.php?opc=13">Creditos</a></li>
+                     <li><a href="user_admin.php?opc=14">Manual de usuario</a></li>
+                     <li><a href="user_admin.php?opc=15">Creditos</a></li>
               </ul>
             </li>
-            <li><a href="user_admin.php?opc=14">Salir</a></li>
+             <!-- Salir !-->
+            <li><a href="user_admin.php?opc=16">Salir</a></li>
           </ul>
+           <!-- ** Nombre de usuario ** !-->
           <div class="nav navbar-nav navbar-right">
                 <div class="navbar-brand" style = "font-size: 10pt;">
                 <?php
@@ -90,67 +100,93 @@
                 ?>
                 </div>
           </div>
+          <!-- ***** !-->
         </div>
       </div>
     </nav>
         <section>
-            <div class="content" >
+            <div class = "container">
+                <div class="content" >
                   <?php
                         if (isset($_GET['opc']))
                         {
                             if ($_GET['opc'] == 1 )
                             {
+                               //Registrar Solicitud
                                include 'Report.php';
                             }else if ($_GET['opc'] == 2 )
                             {
-                               $_SESSION['originaluri'] = Program::getCurrentURL();
+                                //Administrar Solicitud
                                include 'reportspanel.php';
                             }else if ($_GET['opc'] == 3 )
                             {
-                               include 'register_lab.php';
+                               //Registrar Sede
+                             
                             }else if ($_GET['opc'] == 4 )
                             {
-                                include 'register_pc.php';
+                                //Administrar Sede
+                               
                             }else if ($_GET['opc'] == 5)
                             {
-                                 include 'estadisticas_solicitud.php' ;
+                                //Registrar Laboratorio
+                                  include 'register_lab.php';
                             }else if ($_GET['opc'] == 6)
                             {
+                                //Administrar laboratorio
                                  echo 'equipos';
                             }else if ($_GET['opc'] == 7)
                             {
-                                echo 'agregar tecnico';
+                                //Registrar Equipos
+                                 include 'register_pc.php';
                             }else if ($_GET['opc'] == 8)
                             {
-                                echo 'modificar tecnico';
+                                //Administrar Equipos
+                                
                             }else if ($_GET['opc'] == 9)
                             {
-                                echo 'eliminar tecnico';
+                                //Estadisticas
+                                include 'estadisticas_solicitud.php' ;
                             }else if ($_GET['opc'] == 10)
                             {
-                                 include 'backup.php';
+                                 //Registrar Tecnicos
+                                
                             }else if ($_GET['opc'] == 11)
                             {
-                                 include 'restore.php';
+                                 //Administrar Tecnicos
+                                
                             }else if ($_GET['opc'] == 12)
                             {
-                                echo 'manual de usuario';
+                                //Respaldo base de datos
+                                 include 'backup.php';
                             }else if ($_GET['opc'] == 13)
                             {
-                                echo 'creditos';
+                                //Restauracion base de datos
+                                include 'restore.php';
                             }else if ($_GET['opc'] == 14)
                             {
-                                 Program::LogOut();
+                                //Manual de usuario
+                                  echo 'manual de usuario';
+                            }else if ($_GET['opc'] == 15)
+                            {
+                                //Creditos
+                                 echo 'creditos';
+                            }else if ($_GET['opc'] == 16)
+                            {
+                                //Salir
+                                Program::LogOut();
                             }
                         }else
                         {
                             echo 'Seleccione una opcion';
                         }
                     ?>
+                </div>
             </div>
          </section>
-         <!-- <footer>
-            <p>Solicitud de reportes para la academia de software libre FUNDACITE, contacto: 0123456789</p>
-         </footer> !-->
+         <footer class = "footer">
+            <div class = "container">
+                <p>Solicitud de reportes para la academia de software libre FUNDACITE, contacto: 0123456789</p>
+            </div>
+         </footer> 
     </body>
 </html>

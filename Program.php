@@ -1,15 +1,29 @@
 <?php
 class Program 
 {
-        // Conecta a la base de datos
-        // Devuelve el enlace Mysql
+        // Conecta a la base de datos interna
         public static function Connect()
         {
-            $config = include('db_config.php');
-            return mysqli_connect($config['host'], $config['username'] , $config['password'] , $config['database']);
+            $config = require('db_config.php');
+            $host = $config['host'];
+            $user = $config['username'];
+            $pass = $config['password'];
+            $db = $config['database'];
+            return mysqli_connect($host, $user , $pass , $db);
         }
 
-        //Login interno segun tabla y base de datos
+        // Conecta a la base de datos externa
+        public static function ConnectExtern()
+        {
+            $config = require('db_config.php');
+            $host = $config['host'];
+            $user = $config['username'];
+            $pass = $config['password'];
+            $db = $config['Parent_database'];
+            return mysqli_connect($host, $user , $pass , $db);
+        }
+
+        //Login segun tabla y base de datos
         public static function Login($link, $table , $userfield,$passfield , $userdata,$passdata)
         {
             $sql =  "SELECT * FROM " . $table . " WHERE " . $userfield ." = '" . $userdata . "' AND " . $passfield . " = '" . $passdata ."';";
@@ -25,19 +39,23 @@ class Program
                 return false;
             }else
             {
-                    if (session_status() == PHP_SESSION_NONE) 
-                    {
-                        session_start();
-                    }
-                    return true;
+                if (session_status() == PHP_SESSION_NONE) 
+                {
+                    session_start();
+                }
+                return true;
             }  
         }
+
+        // Inicia sesion en el sistema con la base de datos interna
 
         public static function LoginInternal($ci , $password)
         {
             $link = Program::Connect();
             return Program::Login($link, "usuario" , "cedula_usuario" , "clave" , $ci , $password);
         }
+
+        // Verifica si existe informacion 
 
         public static function CheckDataExist ($link,$table , $row , $data ) 
         {
@@ -56,6 +74,8 @@ class Program
             }
         }
 
+        // Redirecciona a otra pagina
+
         public static function Redirect($url) 
         {
             if(!headers_sent()) {
@@ -73,11 +93,15 @@ class Program
             }
         }
         
+        // Sale de el sistema
+
         public static function LogOut()
         {
             session_destroy();
             Program::Redirect("index.php");
         }
+
+        // obtiene la fecha actual
 
         public static function GetDateFormatter()
         {
@@ -86,14 +110,6 @@ class Program
             $_month = $mDate['mon'];
             $_day = $mDate['mday'];
             return $_year . "-" . $_month . "-" . $_day ;
-        }
-
-        public static function GetFirstDay()
-        {
-            $mDate = getdate();
-            $_year = $mDate['year'];
-            $_month = $mDate['mon'];
-            return $_year . "-" . $_month . "-1" ;
         }
         
         // Esta funcion cuenta los repotes de X categoria desde una fecha 'A' hasta una fecha 'B' 
@@ -144,7 +160,7 @@ class Program
         }
 
         //Esta funcion obtiene la de la pagina actual
-        public static function getCurrentURL()
+        public static function GetCurrentURL()
         {
             $currentURL = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
             $currentURL .= $_SERVER["SERVER_NAME"];
@@ -169,13 +185,8 @@ class Program
             return  $parts['path'] . '?' . $querystring;
         }
 
-        // Esta funcion obtiene el nombre de usuario a partir de la cedula
 
-       public static function Getusername( $ci )
-       {
-            
-       }
-
+    //Obtiene infomacion de el usuario actual
     public static function Getuserdata($ci , $field)
     {
          $link = Program::Connect();
@@ -193,10 +204,18 @@ class Program
              return null ;
          }
     }
-    // Esta funcion redirecciona a un usuario segun su nivel de acceso
+
+
+
+    // Redirecciona a un usuario segun su nivel de acceso
+
     public static function Redirect_user( $ci )
     {
          $link = Program::Connect();
+         if (!$link)
+         {
+            
+         }
 
          $verifydbsql = "SELECT `tipo` FROM `usuario` WHERE `cedula_usuario`  = '" . $ci . "'" ;
          $result = mysqli_query($link, $verifydbsql);
@@ -222,17 +241,17 @@ class Program
                  }
          }
     }
-
+    // Imprime un mensaje de bienvenida al usuario actual
     public static function  WriteName()
     {
         if (isset( $_SESSION['ciuser'] ))
         {
-                        $ci = $_SESSION['ciuser'];
-                        $name = Program::Getuserdata($ci, 'nombre');
-                        echo 'Bienvenido, ' . $name;
-                    }else{
-                        closesystem();
+            $ci = $_SESSION['ciuser'];
+            $name = Program::Getuserdata($ci, 'nombre');
+            echo 'Bienvenido, ' . $name;
+        }else
+        {
+            Program::LogOut();
         }
     }
-    
 }

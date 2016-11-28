@@ -12,10 +12,6 @@ return array
     
     ,'database' => "solicitud_reporte" // Nombre de la base de datos
 
-    ,'Parent_host' => "" // Host de la base de datos externa
-
-    ,'parent_password' => ""  // Contraseña de la base de datos externa
-
     ,'Parent_database' => "" // Nombre de la base de datos externa
 );
 ?>

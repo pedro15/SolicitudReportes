@@ -1,6 +1,6 @@
 <?php 
+require_once('Program.php');
 session_start();
-include_once('Program.php');
 $ci = $_POST['cilogin'] ;
 $pw = $_POST['passlogin'];
 $isloggedin = Program::LoginInternal($ci , $pw);
