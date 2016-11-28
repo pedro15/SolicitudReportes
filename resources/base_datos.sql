@@ -1,12 +1,14 @@
 -- phpMyAdmin SQL Dump
 -- version 4.5.5.1
 -- http://www.phpmyadmin.net
+--
 -- Servidor: 127.0.0.1
 -- Versión del servidor: 5.7.11
 -- Versión de PHP: 5.6.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -19,23 +21,20 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
-CREATE DATABASE IF NOT EXISTS `solicitud_reporte` ;
-
-USE `solicitud_reporte`;
-
 --
 -- Estructura de tabla para la tabla `equipo`
 --
 
 CREATE TABLE `equipo` (
-  `id_equipo` varchar(11) NOT NULL,
+  `id_equipo` varchar(20) NOT NULL,
+  `descripcion` varchar(20) NOT NULL,
   `procesador` varchar(45) DEFAULT NULL,
   `tarjeta_grafica` varchar(45) DEFAULT NULL,
   `memoria_ram` varchar(45) DEFAULT NULL,
   `disco_duro` varchar(45) DEFAULT NULL,
   `tarjeta_madre` varchar(45) DEFAULT NULL,
   `fuente_poder` varchar(45) DEFAULT NULL,
-  `id_laboratorio` int(11) NOT NULL
+  `id_laboratorio` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -45,8 +44,8 @@ CREATE TABLE `equipo` (
 --
 
 CREATE TABLE `falla` (
-  `id_falla` int(11) NOT NULL,
-  `id_equipo` varchar(11) NOT NULL,
+  `id_falla` varchar(20) NOT NULL,
+  `id_equipo` varchar(20) NOT NULL,
   `descripcion` text,
   `tipo` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -58,9 +57,9 @@ CREATE TABLE `falla` (
 --
 
 CREATE TABLE `laboratorio` (
-  `id_laboratorio` int(11) NOT NULL,
-  `id_sede` int(11) NOT NULL,
-  `descripcion` text
+  `id_laboratorio` varchar(20) NOT NULL,
+  `id_sede` varchar(20) NOT NULL,
+  `descripcion` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -71,7 +70,7 @@ CREATE TABLE `laboratorio` (
 
 CREATE TABLE `reporte` (
   `id_reporte` int(11) NOT NULL,
-  `id_falla` int(11) NOT NULL,
+  `id_falla` varchar(20) NOT NULL,
   `cedula_usuario` int(11) NOT NULL,
   `fecha` date DEFAULT NULL,
   `estado` varchar(45) DEFAULT NULL
@@ -84,10 +83,17 @@ CREATE TABLE `reporte` (
 --
 
 CREATE TABLE `sede` (
-  `id_sede` int(11) NOT NULL,
-  `ubicacion` varchar(45) NOT NULL,
-  `nombre` varchar(20) NOT NULL
+  `id_sede` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `ubicacion` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `nombre` varchar(20) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `sede`
+--
+
+INSERT INTO `sede` (`id_sede`, `ubicacion`, `nombre`) VALUES
+('esgsegsefsxfes', 'Merida', 'FUNDACITE merida');
 
 -- --------------------------------------------------------
 
@@ -109,7 +115,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`cedula_usuario`, `nombre`, `clave`, `pregunta_seguridad`, `tipo`, `correo`) VALUES
-(23724512, 'Pedro Duran', '123', 'Queen', 3, 'correo@dominio');
+(23724512, 'Pedro Duran', '123', 'd', 3, 'correo@dominio');
 
 --
 -- Índices para tablas volcadas
@@ -142,7 +148,7 @@ ALTER TABLE `laboratorio`
 ALTER TABLE `reporte`
   ADD PRIMARY KEY (`id_reporte`),
   ADD UNIQUE KEY `id_falla` (`id_falla`),
-  ADD KEY `cedula_usuario` (`cedula_usuario`);
+  ADD KEY `cedula_usuario` (`cedula_usuario`) USING BTREE;
 
 --
 -- Indices de la tabla `sede`
@@ -155,6 +161,10 @@ ALTER TABLE `sede`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`cedula_usuario`);
+
+--
+-- Restricciones para tablas volcadas
+--
 
 --
 -- Filtros para la tabla `equipo`
@@ -178,8 +188,8 @@ ALTER TABLE `laboratorio`
 -- Filtros para la tabla `reporte`
 --
 ALTER TABLE `reporte`
-  ADD CONSTRAINT `reporte_ibfk_3` FOREIGN KEY (`id_falla`) REFERENCES `falla` (`id_falla`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `reporte_ibfk_4` FOREIGN KEY (`cedula_usuario`) REFERENCES `usuario` (`cedula_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `reporte_ibfk_4` FOREIGN KEY (`cedula_usuario`) REFERENCES `usuario` (`cedula_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reporte_ibfk_5` FOREIGN KEY (`id_falla`) REFERENCES `falla` (`id_falla`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

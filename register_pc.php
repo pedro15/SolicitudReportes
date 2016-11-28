@@ -55,7 +55,7 @@
                     <?php
                             while ($row = mysqli_fetch_assoc($labs))
                             {
-                                $content =  "<option value =" . $row['numero'] . ">" . $row['descripcion'] . "</option>";
+                                $content =  "<option value =" . $row['id_laboratorio'] . ">" . $row['descripcion'] . "</option>";
                                 echo($content);
                             }
                     ?>

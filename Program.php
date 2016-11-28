@@ -10,7 +10,7 @@ class Program
         }
 
         //Login interno segun tabla y base de datos
-        public static function LoginInternal($link, $table , $userfield,$passfield , $userdata,$passdata)
+        public static function Login($link, $table , $userfield,$passfield , $userdata,$passdata)
         {
             $sql =  "SELECT * FROM " . $table . " WHERE " . $userfield ." = '" . $userdata . "' AND " . $passfield . " = '" . $passdata ."';";
             
@@ -25,10 +25,18 @@ class Program
                 return false;
             }else
             {
-                    session_start();
-                    $_SESSION['ciuser'] = $ci;
+                    if (session_status() == PHP_SESSION_NONE) 
+                    {
+                        session_start();
+                    }
                     return true;
             }  
+        }
+
+        public static function LoginInternal($ci , $password)
+        {
+            $link = Program::Connect();
+            return Program::Login($link, "usuario" , "cedula_usuario" , "clave" , $ci , $password);
         }
 
         public static function CheckDataExist ($link,$table , $row , $data ) 
@@ -37,7 +45,7 @@ class Program
             {
                 return false;
             }
-            $verifydbsql = "SELECT * FROM " . $table . " WHERE " . $row . " = '" . $data . "'" ;
+            $verifydbsql = "SELECT * FROM `" . $table . "` WHERE `" . $row . "` = '" . $data . "'" ;
             $result = mysqli_query($link, $verifydbsql) ;
             if (mysqli_num_rows($result) > 0 )
             {
@@ -167,4 +175,64 @@ class Program
        {
             
        }
+
+    public static function Getuserdata($ci , $field)
+    {
+         $link = Program::Connect();
+         $verifydbsql = "SELECT * FROM `usuario` WHERE `cedula_usuario` = '" . $ci . "'" ;
+         $result = mysqli_query($link, $verifydbsql) ;
+         
+         if (mysqli_num_rows($result) > 0 )
+         {
+            while ( $row_ = mysqli_fetch_assoc($result) )
+            {
+                return $row_[$field];
+            }
+         }else
+         {
+             return null ;
+         }
+    }
+    // Esta funcion redirecciona a un usuario segun su nivel de acceso
+    public static function Redirect_user( $ci )
+    {
+         $link = Program::Connect();
+
+         $verifydbsql = "SELECT `tipo` FROM `usuario` WHERE `cedula_usuario`  = '" . $ci . "'" ;
+         $result = mysqli_query($link, $verifydbsql);
+         if (mysqli_num_rows($result) > 0 )
+         {
+                
+                 $type = Program::Getuserdata($ci, 'tipo');
+                 switch ($type)
+                 {
+                     case 0:
+                         $_SESSION['message'] = "Usted se encuentra desabilitado en el sistema";
+                         Program::LogOut();
+                         break;
+                     case 1:
+                         Program::Redirect("user_normal.php?opc=1");
+                         break;
+                     case 2:
+                         Program::Redirect("user_tec.php?opc=1");
+                         break;
+                     case 3:
+                         Program::Redirect("user_admin.php?opc=1");
+                     break;
+                 }
+         }
+    }
+
+    public static function  WriteName()
+    {
+        if (isset( $_SESSION['ciuser'] ))
+        {
+                        $ci = $_SESSION['ciuser'];
+                        $name = Program::Getuserdata($ci, 'nombre');
+                        echo 'Bienvenido, ' . $name;
+                    }else{
+                        closesystem();
+        }
+    }
+    
 }

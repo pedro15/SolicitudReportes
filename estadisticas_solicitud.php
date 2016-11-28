@@ -45,7 +45,6 @@
 </div>
 </form>
 
-
 <!-- div usado para dibujar la grafica  !-->
 <div class = "col-md-5 col-md-offset-1">
 <div class="ct-chart ct-perfect-fourth chart-fixedsize" id = "print"></div>

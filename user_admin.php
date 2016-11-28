@@ -85,9 +85,8 @@
           <div class="nav navbar-nav navbar-right">
                 <div class="navbar-brand" style = "font-size: 10pt;">
                 <?php
-                    require 'App.php';
                     require_once("Program.php");
-                    WriteName();
+                    Program::WriteName(); 
                 ?>
                 </div>
           </div>

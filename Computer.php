@@ -24,7 +24,7 @@
             {
                 return false;
             }
-            return Program::CheckDataExist($link,"equipo" , "num_equipo" , $this->idpc);
+            return Program::CheckDataExist($link,"equipo" , "id_equipo" , $this->idpc);
         }
 
         public static function GetFromLab($lab)
@@ -59,7 +59,7 @@
                {
                    Program::LogOut();
                }
-               $sql = "SELECT * FROM `equipo` WHERE `num_equipo` = '" . $number . "';";
+               $sql = "SELECT * FROM `equipo` WHERE `id_equipo` = '" . $number . "';";
                return mysqli_query($link,$sql);
         }
 
@@ -73,14 +73,15 @@
                  {
                      return false;
                  }
-                 $sql = "INSERT INTO `equipo` (`num_equipo`, `descripcion`, `cpu`, `gpu`, `ram`, `hdd`, `tarjeta_madre`, `fuente_poder`, `num_laboratorio`)" . 
+                 $sql = "INSERT INTO `equipo` (`id_equipo`, `descripcion`, `procesador`, `tarjeta_grafica`, `memoria_ram`, `disco_duro`, `tarjeta_madre`, `fuente_poder`, `id_laboratorio`)" . 
                  "VALUES ('". $this->idpc . "','" . $this->desc ."','" . $this->cpu ."','" . $this->gpu . "','" . $this->ram . "','" . $this->hdd . "','" . $this->motherboard . "',' " . $this->power ." ','" . $this->labnum . "');" ;
                  if (mysqli_query($link,$sql))
                  {
                      return true;
                  }else
                  {
-                     $_SESSION['UserAlert'] = "Error al agregar los datos.";
+                     $_SESSION['UserAlert'] = "Error al agregar los datos: " . 
+                     mysqli_error($link);
                      return false;
                  }
             }else
@@ -94,7 +95,7 @@
         $_gpu , $_ram , $_hdd , $_power , $_motherboard , $_labnum )
         {
             $this->labnum = $_labnum;
-            $this->idpc = $_labnum . "_" . $_idpc;
+            $this->idpc = $_idpc . '-' . $_labnum ;
             $this->desc = $_idpc;
             $this->cpu = $_cpu;
             $this->gpu = $_gpu;

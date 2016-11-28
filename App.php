@@ -1,15 +1,5 @@
 <?php
-    function WriteName()
-    {
-        if (isset( $_SESSION['ciuser'] ))
-                    {
-                        $ci = $_SESSION['ciuser'];
-                        $name = getuserdata($ci, 'nombre');
-                        echo 'Bienvenido, ' . $name;
-                    }else{
-                        closesystem();
-        }
-    }
+    
 
     function Connectdb()
     {
@@ -44,67 +34,7 @@
         }
     }
 
-    function redirect_user( $ci )
-    {
-        $link = Connectdb();
-         if (!$link){
-            header("Location: index.php");
-            die();
-        }
-        
-         $verifydbsql = "SELECT tipo FROM usuario WHERE cedula = '" . $ci . "'" ;
-         
-         $result = mysqli_query($link, $verifydbsql);
-        
-         if (mysqli_num_rows($result) > 0 )
-         {
-                
-                 $type = getuserdata($ci, 'tipo');
-                 echo $type;
-                 switch ($type)
-                 {
-                     case 0:
-                         $_SESSION['message'] = "Usted se encuentra desabilitado en el sistema";
-                         closesystem();
-                         break;
-                     case 1:
-                         header("Location: user_normal.php?opc=1");
-                         die();
-                         break;
-                     case 2:
-                         header("Location: user_tec.php?opc=1");
-                         die();
-                         break;
-                     case 3:
-                         header("Location: user_admin.php?opc=1");
-                        die();
-                     break;
-                 }
-         }else{
-             closesystem();
-         }
-    }
     
-    function getuserdata($ci , $field)
-    {
-        $link = Connectdb();
-         if (!$link){
-             closesystem();
-        }
-         $verifydbsql = "SELECT * FROM usuario WHERE cedula = '" . $ci . "'" ;
-         $result = mysqli_query($link, $verifydbsql) ;
-         
-         if (mysqli_num_rows($result) > 0 )
-         {
-            while ( $row_ = mysqli_fetch_assoc($result) )
-            {
-                return $row_[$field];
-            }
-         }else
-         {
-             return null ;
-         }
-    }
     
     // registrar usuario
     function register_user ($nombre , $apellido , $cedula , $usuario , $clave)
@@ -212,59 +142,3 @@
              return false;
          }
     }
-    
-    function RegisterPC ($labnum , $id , $cpu , $gpu , $ram , $hdd , $power , $motherboard )
-    {
-         $link = Connectdb();
-         if (!$link)
-         {
-             closesystem();
-         }
-        
-         $verifydbsql = "SELECT * FROM equipo WHERE num_equipo = '" . $id . "' AND num_laboratorio = '" . $labnum . "'" ;
-         $result = mysqli_query($link, $verifydbsql) ;
-        
-        if (mysqli_num_rows($result) <= 0 )
-        {
-        
-         $sql = "INSERT INTO `equipo` (`id` , `num_equipo`, `cpu`, `gpu`, `ram`, `hdd`, `tarjeta_madre`, `fuente_poder`, `num_laboratorio`)" . 
-                 "VALUES (NULL,'" . $id ."','" . $cpu ."','" . $gpu . "','" . $ram . "','" . $hdd . "','" . $motherboard . "',' " . $power ." ','" . $labnum . "');" ;
-         if (mysqli_query($link, $sql) )
-         {
-             return true ;
-         }else
-         {
-             return false ;
-         }
-            
-        }else
-        {
-            return false ;
-        }
-    }
-    
-    function RegisterLab($descripcion)
-    {
-        if (!checkdataexist("laboratorio", "descripcion" , $descripcion) )
-        {
-        
-        $link = Connectdb();
-         if (!$link)
-         {
-             closesystem();
-         }
-         
-         $sql = "INSERT INTO `laboratorio` (`descripcion`) VALUES ('". $descripcion ."');";
-         
-          if (mysqli_query($link, $sql) )
-         {
-             return true ;
-         }else
-         {
-             return false ;
-         }
-        }else
-        {
-            return false ;
-        }
-}
