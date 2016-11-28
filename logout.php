@@ -1,3 +1,3 @@
 <?php
- require 'App.php';
-logout();
+ require 'Program.php';
+ Program::Logout();

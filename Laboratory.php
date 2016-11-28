@@ -1,16 +1,12 @@
 <?php
     include_once 'Program.php';
+    include_once 'RandomStringGenerator.php';
     //Clase Para Identificar los laboratorios
     class Laboratory
     {
         public $descripcion = "";
+        public $sede_id = "";
         
-        public function isOnDatabase()
-        {
-            $Link = Program::Connect();
-            return Program::CheckDataExist($Link,"laboratorio" , "descripcion", $this->descripcion );
-        }
-
         public static function FindByNumber($labnum)
         {
                $link = Program::Connect();
@@ -25,20 +21,16 @@
 
         public function Register()
         {
-            if ($this->isOnDatabase() == false)
+            $link = Program::Connect();
+            $generator = new  RandomStringGenerator;
+            $id = $generator->generate(12);
+            $sql = "INSERT INTO `laboratorio` (`id_laboratorio`,`id_sede` , `descripcion`) VALUES ('".  $id  ."','" . $this->sede_id  . "','" . $this->descripcion . "');";
+            if (mysqli_query($link,$sql))
             {
-                $link = Program::Connect();
-                $sql = "INSERT INTO `laboratorio` (`descripcion`) VALUES ('". $this->descripcion ."');";
-                if (mysqli_query($link,$sql))
-                {
-                    return true ;
-                }else 
-                {
-                    return false ;
-                }
-            }else
+                return true ;
+            }else 
             {
-                $_SESSION['UserAlert'] = "<strong>No se puede registrar:</strong> este laboratorio ya se encuentra registrado";
+                return false ;
             }
         }
 
@@ -49,11 +41,11 @@
                {
                    Program::LogOut();
                }
-               $sql_pc = "SELECT * FROM `equipo` WHERE `num_equipo` = '" . $pcnum . "';";
+               $sql_pc = "SELECT * FROM `equipo` WHERE `id_equipo` = '" . $pcnum . "';";
                $res_pc = mysqli_query($link, $sql_pc);
                $result = mysqli_fetch_assoc($res_pc);
-               $numlab = $result['num_laboratorio'];
-               $sql_lab = "SELECT * FROM `laboratorio` WHERE `numero` = '" . $numlab . "';" ;
+               $numlab = $result['id_laboratorio'];
+               $sql_lab = "SELECT * FROM `laboratorio` WHERE `id_laboratorio` = '" . $numlab . "';" ;
                return mysqli_query($link,$sql_lab);
         }
 
@@ -70,9 +62,22 @@
                return $res;
         }
 
-        public function __construct($_descripcion)
+        public static function GetFromSede($sedeid)
+        {
+               $link = Program::Connect();
+               if (!$link)
+               {
+                   Program::LogOut();
+               }
+               $sql = "SELECT * FROM `laboratorio` WHERE `id_sede` = '" . $sedeid . "';";
+               $res = mysqli_query($link,$sql);
+               return $res;
+        }
+
+        public function __construct($_descripcion , $_sedeid)
         {
             $this->descripcion = $_descripcion;
+            $this->sede_id = $_sedeid;
         }
     }
 ?>

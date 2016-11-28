@@ -6,6 +6,7 @@
     include_once('Laboratory.php');
     include_once('Computer.php');
     include_once('ReportTicket.php');
+    include_once('Sede.php');
     if (isset($_POST['TipoFalla']) && isset($_POST['NumEquipo']) && isset($_POST['DescripcionF']) )
     {
         $_TipoFalla = $_POST['TipoFalla'];
@@ -35,22 +36,68 @@
             <?php
         }
     }
-    $labs = Laboratory::GetAll();
+    $sedes = Sede::GetAll();
+    $labnumber = null;
+    $labs = null;
     $pcs = null;
+    if (isset($_POST['Sedeid']))
+    {
+        $labs = Laboratory::GetFromSede($_POST['Sedeid']);
+    }
     if (isset($_POST['Laboratorio']))
     {
         $pcs = Computer::GetFromLab($_POST['Laboratorio']);
     }
-    $labnumber = null;
 ?>
 </div>
-<form class = "form-horizontal" method="POST" action="#" >
-    <div class = "form-group" style = "margin-right: 25%; margin-left: 25%;">
-    <div class = "text-center">
-        <h3>Registrar Falla</h3>
+
+<form name = "form_sede" class = "form-horizontal" method="POST" action="#" >
+    <div class = "container">
+        <h3>Enviar Solicitud de soporte tecnico</h3>
+        <div class = "row col-md-4">
+        <label>Sede:</label>
+        <?php
+           if (isset($_POST['Sedeid']))
+           {
+               $curr = Sede::GetFromid($_POST['Sedeid']);
+               $data = mysqli_fetch_assoc($curr);
+               echo $data['nombre'];
+           }
+           if(mysqli_num_rows($sedes) > 0)
+           {
+        ?>
+        <select onchange= "form_sede.submit()" name = "Sedeid" class = "form-control">
+            <option>Seleccionar</option>
+            <?php
+                while($row = mysqli_fetch_assoc($sedes))
+                {
+                    $info = '<option value =' . $row['id_sede'] . '>' . $row['nombre'] . " : " . $row['ubicacion'] . '</option>';
+                    echo $info;
+                }
+            ?>
+        </select>
+        <?php
+           }else
+           {
+               echo 'No hay sedes registradas';
+           }
+        ?>
+        </div>
     </div>
-    <Label style = "padding: 5px;">Laboratorio: </Label>
+</form>
+
+<form name= "form_lab" class = "form-horizontal" method="POST" action="#" >
+    <div class = "container col-md-4">
+    <Label>Laboratorio:</Label>
     <?php
+        if (isset($_POST['Laboratorio']))
+        {
+            $curr = Laboratory::FindByNumber($_POST['Laboratorio']);
+            $data = mysqli_fetch_assoc($curr);
+            echo $data['descripcion'];
+        }
+     if ($labs)
+     {
       if ( mysqli_num_rows($labs) > 0 )
       {
           if (isset($_POST['Laboratorio']))
@@ -64,12 +111,12 @@
               echo 'No se ha seleccionado';
           }
         ?>
-        <select onchange="form.submit()" name= "Laboratorio" id="laboratorio" class="form-control" >
-        <option value = "-1" >Seleccionar</option>
+        <select onchange="form_lab.submit()" name= "Laboratorio" id="laboratorio" class="form-control" >
+        <option>Seleccionar</option>
         <?php
         while($row =  mysqli_fetch_assoc($labs))
         {
-            $content = "<option value =" . $row['numero'] . ">" . $row['descripcion'] . "</option>";
+            $content = "<option value =" . $row['id_laboratorio'] . ">" . $row['descripcion'] . "</option>";
             echo($content);
         }
         ?>
@@ -79,41 +126,47 @@
       {
           echo("No se encuentran laboratorios registrados");
       }
+     }
      ?>
      </div>
 </form>
 
-<form class = "form-horizontal" method="POST" action="#"  name="formreport" >
+<form name = "form_main" class = "form-horizontal" method="POST" action="#"  name="formreport" >
     <div class = "container">
     <div class = "row">
     <div class = "col-md-4">
-    <Label>Equipo</Label>
-    <select name= "NumEquipo" id="numequipo" class="form-control" >
+    <Label>Equipo</Label><br>
     <?php
-      if ($pcs)
-      {
+    if ($pcs)
+    {
         $number = mysqli_num_rows($pcs);
         if ( $number > 0 )
         {
+            ?>
+            <select name= "NumEquipo" id="numequipo" class="form-control" >
+            <?php
             while ($curr = mysqli_fetch_assoc($pcs))
             {
-                echo '<option value= "' . $curr['num_equipo'] .'" >' . $curr['descripcion'] . '</option>'   ;
+                echo '<option value= "' . $curr['id_equipo'] .'" >' . $curr['descripcion'] . '</option>'   ;
             }
+            ?>
+            </select>
+            <?php
         }else
         {
            if (isset($_POST['Laboratorio']))
            {
-               echo 'No se encuentran equipos registrados para el laboratorio ' 
-               . $_POST['Laboratorio'] ;
+               echo 'No se encuentran equipos registrados para el laboratorio seleccionado';
            }else
            {
                echo 'Seleccione un laboratorio';
            }
-           echo $number;
         }
+      }else 
+      {
+          echo 'Seleccione un laboratorio';
       }
     ?>
-    </select>
     </div>
     <div class = "col-md-4">
     <Label>Categoria</Label>
@@ -132,7 +185,7 @@
     <textarea maxlength = "450" rows="6" cols="6"  class="form-control"name="DescripcionF" id="descripcionF" placeholder="Descripcion de Falla" required = "" >
     </textarea>
     <div class = "text-center" style = "padding: 5px;">
-        <input class= "btn btn-primary" type="submit" value="Registrar Falla">
+        <input class= "btn btn-primary" type="submit" value="Enviar solicitud">
     </div>
     </div>
 </form>

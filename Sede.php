@@ -18,6 +18,17 @@
             return mysqli_query($link , $sql);
         }
 
+        public static function GetFromid($sedeid)
+        {
+            $link = Program::Connect();
+            if (!$link)
+            {
+                Program::LogOut();
+            }
+             $sql = "SELECT * FROM `sede` WHERE `id_sede` = '" . $sedeid . "';" ;
+            return mysqli_query($link , $sql);
+        }
+
         public function IsOnDatabase()
         {
             $link = Program::Connect();
@@ -40,26 +51,21 @@
 
         public function Register()
         {
-            if (!$this->IsOnDatabase())
+
+            $link = Program::Connect();
+            if (!$link)
             {
-                $link = Program::Connect();
-                if (!$link)
-                {
-                    Program::Connect();
-                }
-                $gen = new RandomStringGenerator;
-                $id_sede = $gen->generate(12);
-                $_ubicacion = $this->ubicacion;
-                $_nombre = $this->nombre;
-                $sql = "INSERT INTO `sede` (`id_sede`,`ubicacion`,`nombre`) VALUES ('" . $id_sede . "','" . $_ubicacion . "','" . $_nombre . "');";
-                if (mysqli_query($link,$sql) === TRUE)
-                {
-                    return true;
-                }else{ return false; }
-            }else
-            {
-                 $_SESSION['UserAlert'] = "Esta sede ya se encuentra registrada";
+                Program::Connect();
             }
+            $gen = new RandomStringGenerator;
+            $id_sede = $gen->generate(12);
+            $_ubicacion = $this->ubicacion;
+            $_nombre = $this->nombre;
+            $sql = "INSERT INTO `sede` (`id_sede`,`ubicacion`,`nombre`) VALUES ('" . $id_sede . "','" . $_ubicacion . "','" . $_nombre . "');";
+            if (mysqli_query($link,$sql) === TRUE)
+            {
+                return true;
+            }else{ return false; }
         }
 
         public function __construct($id , $ubicacion , $nombre)

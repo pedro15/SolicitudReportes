@@ -1,5 +1,6 @@
 <?php
 include_once('Program.php');
+include_once('RandomStringGenerator.php');
 // Clase para identificar los reportes de las fallas
 class ReportTicket
 {
@@ -9,6 +10,7 @@ class ReportTicket
     private $ciuser; //Cedula de el usuario que reporto la falla
     private $datereport;  //Fecha que se realizo el repote
     private $link;
+    private $uniqueid;
 
     public static function GetStates()
     {
@@ -32,15 +34,17 @@ class ReportTicket
          {
             Program::LogOut();
          }
-         $sql = "INSERT INTO `falla` (`id`, `numero_equipo`, `descripcion`, `tipo_falla`) VALUES ".
-         "(NULL,'" . $this->numpc . "','" . $this->desc . "','" . $this->tipo . "');" ;
+         $gen = new RandomStringGenerator;
+         $this->uniqueid = $gen->generate(12);
+         $sql = "INSERT INTO `falla` (`id_falla`, `id_equipo`, `descripcion`, `tipo`) VALUES ".
+         "('" . $this->uniqueid . "','". $this->numpc . "','" . $this->desc . "','" . $this->tipo . "');" ;
 
          if (mysqli_query($this->link,$sql))
          {
              return true ;
          }else
          {
-             //print_r(mysqli_error($this->link));
+             //print_r(mysqli_error($this->link) . " Falla()");
              return false;
          }
     }
@@ -51,15 +55,15 @@ class ReportTicket
          {
             Program::LogOut();
          }
-         $__id = mysqli_insert_id($this->link);
-         $sql = "INSERT INTO `reporte` (`id`, `id_falla`, `cedula_usuario`, `fecha`, `estado`) VALUES " . 
+         $__id = $this->uniqueid;
+         $sql = "INSERT INTO `reporte` (`id_reporte`, `id_falla`, `cedula_usuario`, `fecha`, `estado`) VALUES " . 
          "(NULL,'" . $__id . "','" . $this->ciuser . "','" . $this->datereport . "','" . $this->GetStates()[0] . "');" ;
          if(mysqli_query($this->link,$sql))
          {
              return true;
          }else
          {
-             //print_r(mysqli_error($this->link));
+             //print_r(mysqli_error($this->link) . " Reporte()");
              return false;
          }
     }
@@ -72,7 +76,7 @@ class ReportTicket
             Program::LogOut();
         }
         $estados = ReportTicket::GetStates();
-        $sql = "UPDATE `reporte` SET `estado` = '" . $estados[$stateid] . "' WHERE `id` = '" .  $id . "' ;" ;
+        $sql = "UPDATE `reporte` SET `estado` = '" . $estados[$stateid] . "' WHERE `id_reporte` = '" .  $id . "' ;" ;
         return mysqli_query($link,$sql);
     }
 
@@ -83,7 +87,7 @@ class ReportTicket
         {
             Program::LogOut();
         }
-        $sql_consulta = "SELECT * FROM `reporte` WHERE `id` = '" . $id . "';" ;
+        $sql_consulta = "SELECT * FROM `reporte` WHERE `id_reporte` = '" . $id . "';" ;
         $cont = mysqli_query($link,$sql_consulta);
         $row = mysqli_fetch_assoc($cont);
         
@@ -92,8 +96,8 @@ class ReportTicket
             if (mysqli_num_rows($cont) > 0)
             {
                  $fallaid = $row['id_falla'];
-                 $sqlreporte = "DELETE FROM `reporte` WHERE `id` = '" . $id . "';" ;
-                 $sqlfalla = "DELETE FROM `falla` WHERE `id` = '" . $fallaid . "';" ;
+                 $sqlreporte = "DELETE FROM `reporte` WHERE `id_reporte` = '" . $id . "';" ;
+                 $sqlfalla = "DELETE FROM `falla` WHERE `id_falla` = '" . $fallaid . "';" ;
                  $result_reporte = mysqli_query($link,$sqlreporte);
                  $result_falla = mysqli_query($link,$sqlfalla);
                  return $result_falla && $result_reporte;
@@ -120,7 +124,7 @@ class ReportTicket
          {
              Program::LogOut();
          }
-         $sql = "SELECT * FROM `falla` WHERE `id` = '" . $reportid . "' ;";
+         $sql = "SELECT * FROM `falla` WHERE `id_falla` = '" . $reportid . "' ;";
          return mysqli_query($link,$sql);
     }
     public function __construct($_descripcion , $_tipo , $_pcnum, $_ci)
