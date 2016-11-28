@@ -194,7 +194,7 @@ background-color: #246691;
 
 .report-bg
 {
-  background:  #e8edf2;
+  background:  #f4f9ff;
   border-radius: 8px;
   border: 2px solid rgba(15, 57, 94,0.05);
   margin: 4px;
@@ -202,9 +202,9 @@ background-color: #246691;
 
 .report-content
 {
-  background: #edf6ff;
+  background: #f9f9f9;
   padding: 6px;
-  border-radius: 4px;
+  border-radius: 2px;
   border: 2px solid rgba(15, 57, 94,0.08);
   margin: 4px;
 

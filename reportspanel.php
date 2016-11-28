@@ -53,6 +53,7 @@
 
                if (ReportTicket::ChangeState($_id,$number))
                {
+                    echo '<script type ="text/javascript"> alert("Estado actualizado correctamente") </script>';
                     Redirect();   
                }
            }
@@ -92,7 +93,7 @@
             <div class = "col-md-3 report-info-t-3">
                 <?php
                      $reporte_data = mysqli_fetch_assoc($reporte_info);
-                     $pcnum = $reporte_data['numero_equipo'];
+                     $pcnum = $reporte_data['id_equipo'];
                      $lab_info = Laboratory::GetFromPCNumber($pcnum);
                      $lab_data = mysqli_fetch_assoc($lab_info);
                      $computer_info = Computer::GetFromNumber($pcnum);
@@ -124,7 +125,7 @@
                             </div>
                         </div>
                     </div>
-                 <div class = "col-md-9">
+                 <div class = "col-md-6">
                     <div class = "row" >
                         <form method = "POST" action = "#" name = "form1"  >
                             <div class = "report-info-tb-5">
@@ -132,17 +133,17 @@
                                     <button class="btn btn-default btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Cambiar estado <span class="caret"></span>
                                     </button>
-                                        <ul class="dropdown-menu">
+                                     <ul class="dropdown-menu">
                                             <?php
                                                 $url = Program::getCurrentURL();
-                                                $geturi = $url . "&reportid=" . $row['id'] . "&action=" ;
+                                                $geturi = $url . "&reportid=" . $row['id_reporte'] . "&action=" ;
                                                 $reparado_uri = $geturi . "changestate&state=reparado";
                                                 $sinreparar_uri = $geturi . "changestate&state=sinreparar";
                                                 $revision_uri = $geturi . "changestate&state=revision";
                                                 $borrar_url = $geturi . "delete";
-                                                echo '<li><a onclick = "form1.submit()" href = "'. $reparado_uri . '">Reparado</a></li>';
-                                                echo '<li><a onclick = "form1.submit()" href = "'. $revision_uri . '">En revision</a></li>';
-                                                echo '<li><a onclick = "form1.submit()" href = "'. $sinreparar_uri . '">Sin Reparar</a></li>';
+                                                echo '<li><a class ="changestate" onclick = "form1.submit()" href = "'. $reparado_uri . '">Reparado</a></li>';
+                                                echo '<li><a class ="changestate" onclick = "form1.submit()" href = "'. $revision_uri . '">En revision</a></li>';
+                                                echo '<li><a class ="changestate" onclick = "form1.submit()" href = "'. $sinreparar_uri . '">Sin Reparar</a></li>';
                                             ?>
                                         </ul>
                                         <?php
@@ -177,7 +178,7 @@
                 <span class = "glyphicon glyphicon-info-sign"></span>
                 <strong>Categoria:</strong>
                 <?php
-                   echo $reporte_data['tipo_falla'];
+                   echo $reporte_data['tipo'];
                 ?>
             </div>
             <p>
@@ -208,5 +209,11 @@
         {
             return confirm("Desea eliminar el registro?");
         });
+
+        $(".changestate").click(function()
+        {
+            return confirm("Desea cambiar el estado?");
+        });
+
     </script>
 </div>
