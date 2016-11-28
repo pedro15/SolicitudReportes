@@ -19,7 +19,9 @@ SET time_zone = "+00:00";
 -- Base de datos: `solicitud_reporte`
 --
 
--- --------------------------------------------------------
+CREATE DATABASE IF NOT EXISTS `solicitud_reporte`;
+
+USE `solicitud_reporte`;
 
 --
 -- Estructura de tabla para la tabla `equipo`
