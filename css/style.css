@@ -1,3 +1,4 @@
+/* Cuerpo */
 html 
 {
   position: relative;
@@ -9,7 +10,6 @@ body
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
-
 
 /* cabecera */
 .fundacitebackground
@@ -109,37 +109,42 @@ footer p
 
  /* navbar */ 
 
- .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-color: #f4f4f4;  /*Sets the text hover color on navbar*/
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus 
+{
+  color: #f4f4f4;  /*Sets the text hover color on navbar*/
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active >   
- a:hover, .navbar-default .navbar-nav > .active > a:focus {
-color: white; /*BACKGROUND color for active*/
-background-color: #246691;
+ a:hover, .navbar-default .navbar-nav > .active > a:focus 
+{
+  color: white;
+  background-color: #246691;
 }
 
-  .navbar-default {
-    background-color: #246691;
-    border-color: #0F395E;
+.navbar-default 
+{
+  background-color: #246691;
+  border-color: #0F395E;
 }
 
-  .dropdown-menu > li > a:hover,
-   .dropdown-menu > li > a:focus {
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus 
+{
     color: #f4f4f4;
-   text-decoration: none;
-  background-color: #246691;  /*change color of links in drop down here*/
-   }
+    text-decoration: none;
+    background-color: #246691;  /*change color of links in drop down here*/
+}
 
- .nav > li > a:hover,
- .nav > li > a:focus {
+.nav > li > a:hover,
+.nav > li > a:focus 
+{
     text-decoration: none;
     background-color: silver; /*Change rollover cell color here*/
-  }
-  .navbar-default .navbar-nav > li > a 
-  {
-   color: white; /*Change active text color here*/
-  }
+}
+.navbar-default .navbar-nav > li > a 
+{
+ color: white; /*Change active text color here*/
+}
 .navbar-default .navbar-brand {
     color: #f4f4f4;
 }
@@ -147,6 +152,8 @@ background-color: #246691;
 .navbar-default .navbar-brand:hover {
     color: #f4f4f4;
 }
+
+/* Formularios */ 
 
 .form-control
 {
@@ -168,6 +175,8 @@ background-color: #246691;
 {
   margin: 5px;
 }
+
+/* Reportes Estadisticas */
 
 .ct-series-a .ct-point, .ct-series-a .ct-line, .ct-series-a .ct-bar, .ct-series-a .ct-slice-donut {
    stroke: #31474c; 
@@ -191,6 +200,8 @@ background-color: #246691;
 {
   max-height: 400px; max-width: 550px;
 }
+
+/* Reportes */ 
 
 .report-bg
 {
@@ -242,5 +253,16 @@ background-color: #246691;
 {
     border-radius: 8px;
     padding: 5px;
+    border: 1px solid rgba(0, 0, 0,0.1);
+}
+
+/* Administrar Equipos */
+
+.centerpanel-shadow
+{
+     margin: 5px;
+    -webkit-box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.48);
+    -moz-box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.48);
+    box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.48);
     border: 1px solid rgba(0, 0, 0,0.1);
 }

@@ -2,10 +2,10 @@
 class Program 
 {
         // Conecta a la base de datos interna
-        public static function Connect($internal = false)
+        public static function Connect()
         {
             $config = array();
-            if ($internal == true )
+            if (stream_resolve_include_path("../db_config.php") != false)
             {
                  $config = require('../db_config.php');
             }else 
@@ -19,10 +19,10 @@ class Program
             return mysqli_connect($host, $user , $pass , $db);
         }
         // Conecta a la base de datos externa
-        public static function ConnectExtern($internal)
+        public static function ConnectExtern()
         {
             $config = array();
-            if ($internal == true )
+            if (stream_resolve_include_path("../db_config.php") != false)
             {
                  $config = require('../db_config.php');
             }else 
@@ -111,7 +111,7 @@ class Program
         public static function LogOut()
         {
             session_destroy();
-            Program::Redirect("/index.php");
+            Program::Redirect("index.php");
         }
 
         // obtiene la fecha actual

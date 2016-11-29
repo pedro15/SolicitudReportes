@@ -140,7 +140,7 @@
                             }else if ($_GET['opc'] == 8)
                             {
                                 //Administrar Equipos
-                                
+                                include 'modules/admin_pc.php';
                             }else if ($_GET['opc'] == 9)
                             {
                                 //Estadisticas

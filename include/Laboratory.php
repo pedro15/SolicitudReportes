@@ -64,7 +64,7 @@
 
         public static function GetFromSede($sedeid)
         {
-               $link = Program::Connect(true);
+               $link = Program::Connect();
                if (!$link)
                {
                    Program::LogOut();
