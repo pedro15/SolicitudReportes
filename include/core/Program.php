@@ -2,9 +2,16 @@
 class Program 
 {
         // Conecta a la base de datos interna
-        public static function Connect()
+        public static function Connect($internal = false)
         {
-            $config = require('db_config.php');
+            $config = array();
+            if ($internal == true )
+            {
+                 $config = require('../db_config.php');
+            }else 
+            {
+                 $config = require('/db_config.php');
+            }
             $host = $config['host'];
             $user = $config['username'];
             $pass = $config['password'];
@@ -12,9 +19,16 @@ class Program
             return mysqli_connect($host, $user , $pass , $db);
         }
         // Conecta a la base de datos externa
-        public static function ConnectExtern()
+        public static function ConnectExtern($internal)
         {
-            $config = require('db_config.php');
+            $config = array();
+            if ($internal == true )
+            {
+                 $config = require('../db_config.php');
+            }else 
+            {
+                 $config = require('/db_config.php');
+            }
             $host = $config['host'];
             $user = $config['username'];
             $pass = $config['password'];
@@ -97,7 +111,7 @@ class Program
         public static function LogOut()
         {
             session_destroy();
-            Program::Redirect("index.php");
+            Program::Redirect("/index.php");
         }
 
         // obtiene la fecha actual

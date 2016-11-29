@@ -3,10 +3,10 @@
 !-->
 <div class = "container">
 <?php
-    include_once('Laboratory.php');
-    include_once('Computer.php');
-    include_once('ReportTicket.php');
-    include_once('Sede.php');
+    require_once('/include/Laboratory.php');
+    require_once('/include/Computer.php');
+    require_once('/include/ReportTicket.php');
+    require_once('/include/Sede.php');
     if (isset($_POST['TipoFalla']) && isset($_POST['NumEquipo']) && isset($_POST['DescripcionF']) )
     {
         $_TipoFalla = $_POST['TipoFalla'];

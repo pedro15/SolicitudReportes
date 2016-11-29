@@ -196,16 +196,16 @@ background-color: #246691;
 {
   background:  #f4f9ff;
   border-radius: 8px;
-  border: 2px solid rgba(15, 57, 94,0.05);
+  border: 2px solid rgba(15, 57, 94,0.09);
   margin: 4px;
 }
 
 .report-content
 {
-  background: #f9f9f9;
+  background: #fcfcfc;
   padding: 6px;
   border-radius: 2px;
-  border: 2px solid rgba(15, 57, 94,0.08);
+  border: 2px solid rgba(15, 57, 94,0.1);
   margin: 4px;
 
 }

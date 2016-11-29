@@ -1,6 +1,6 @@
 <?php
-    require_once('Program.php');
-    require_once('RandomStringGenerator.php');
+    require_once('core/Program.php');
+    require_once('core/RandomStringGenerator.php');
     class Sede
     {
         private $id;

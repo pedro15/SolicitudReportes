@@ -22,8 +22,8 @@
     </head>
     <body onload= "resetTimer()">
     <?php 
+       require_once('include/core/Program.php');
        session_start();
-       include_once('Program.php');
     ?>
      <div>
         <img class="bannerheader" id="membretefundacite" alt="Membrete" src="images/MembreteFundacite.png">
@@ -95,7 +95,6 @@
           <div class="nav navbar-nav navbar-right">
                 <div class="navbar-brand" style = "font-size: 10pt;">
                 <?php
-                    require_once("Program.php");
                     Program::WriteName(); 
                 ?>
                 </div>
@@ -113,11 +112,11 @@
                             if ($_GET['opc'] == 1 )
                             {
                                //Registrar Solicitud
-                               include 'Report.php';
+                               include 'modules/report.php';
                             }else if ($_GET['opc'] == 2 )
                             {
                                 //Administrar Solicitud
-                               include 'reportspanel.php';
+                               include 'modules/reports_panel.php';
                             }else if ($_GET['opc'] == 3 )
                             {
                                //Registrar Sede
@@ -129,7 +128,7 @@
                             }else if ($_GET['opc'] == 5)
                             {
                                 //Registrar Laboratorio
-                                  include 'register_lab.php';
+                                  include 'modules/register_lab.php';
                             }else if ($_GET['opc'] == 6)
                             {
                                 //Administrar laboratorio
@@ -137,7 +136,7 @@
                             }else if ($_GET['opc'] == 7)
                             {
                                 //Registrar Equipos
-                                 include 'register_pc.php';
+                                 include 'modules/register_pc.php';
                             }else if ($_GET['opc'] == 8)
                             {
                                 //Administrar Equipos
@@ -145,7 +144,7 @@
                             }else if ($_GET['opc'] == 9)
                             {
                                 //Estadisticas
-                                include 'estadisticas_solicitud.php' ;
+                                include 'modules/estadisticas_solicitud.php' ;
                             }else if ($_GET['opc'] == 10)
                             {
                                  //Registrar Tecnicos
@@ -157,11 +156,11 @@
                             }else if ($_GET['opc'] == 12)
                             {
                                 //Respaldo base de datos
-                                 include 'backup.php';
+                                 include 'modules/backup.php';
                             }else if ($_GET['opc'] == 13)
                             {
                                 //Restauracion base de datos
-                                include 'restore.php';
+                                include 'modules/restore.php';
                             }else if ($_GET['opc'] == 14)
                             {
                                 //Manual de usuario

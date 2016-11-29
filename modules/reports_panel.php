@@ -1,9 +1,8 @@
 <?php
-    
-    include_once('ReportTicket.php');
-    include_once('Laboratory.php');
-    include_once('Computer.php');
-    include_once('Program.php');
+    require_once('/include/ReportTicket.php');
+    require_once('/include/Laboratory.php');
+    require_once('/include/Computer.php');
+    require_once('/include/core/Program.php');
     //Limpia los parametros GET de la url actual
     function Cleanurl()
     {

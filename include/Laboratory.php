@@ -1,6 +1,6 @@
 <?php
-    include_once 'Program.php';
-    include_once 'RandomStringGenerator.php';
+    require_once ('core/Program.php');
+    require_once ('core/RandomStringGenerator.php');
     //Clase Para Identificar los laboratorios
     class Laboratory
     {
@@ -64,7 +64,7 @@
 
         public static function GetFromSede($sedeid)
         {
-               $link = Program::Connect();
+               $link = Program::Connect(true);
                if (!$link)
                {
                    Program::LogOut();

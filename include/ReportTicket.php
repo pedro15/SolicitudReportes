@@ -1,6 +1,6 @@
 <?php
-include_once('Program.php');
-include_once('RandomStringGenerator.php');
+require_once('core/Program.php');
+require_once('core/RandomStringGenerator.php');
 // Clase para identificar los reportes de las fallas
 class ReportTicket
 {

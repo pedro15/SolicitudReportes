@@ -1,6 +1,6 @@
 <?php
-    include_once 'Program.php';
-    include_once 'Laboratory.php';
+    require_once ('core/Program.php');
+    require_once ('Laboratory.php');
     // Clase para identificar los equipos
     class Computer
     {

@@ -1,7 +1,7 @@
 <div class = "container">
 <?php
-    require_once('Laboratory.php');
-    require_once('Sede.php');
+    require_once('/include/Laboratory.php');
+    require_once('/include/Sede.php');
     $sedes = Sede::GetAll();
     if (isset( $_POST['DescLab'] ) && isset($_POST['sede_id']))
     {
