@@ -10,5 +10,5 @@ function resetTimer()
 }
 function logout()
 {
-     window.location.href='logout.php';
+     window.location.href='include/core/logout.php';
 }

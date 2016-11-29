@@ -1,7 +1,6 @@
 -- phpMyAdmin SQL Dump
 -- version 4.5.5.1
 -- http://www.phpmyadmin.net
---
 -- Servidor: 127.0.0.1
 -- Versión del servidor: 5.7.11
 -- Versión de PHP: 5.6.19
@@ -19,9 +18,11 @@ SET time_zone = "+00:00";
 -- Base de datos: `solicitud_reporte`
 --
 
+-- --------------------------------------------------------
+
 CREATE DATABASE IF NOT EXISTS `solicitud_reporte`;
 
-USE `solicitud_reporte`;
+USE `solicitud_reporte` ;
 
 --
 -- Estructura de tabla para la tabla `equipo`
@@ -90,13 +91,6 @@ CREATE TABLE `sede` (
   `nombre` varchar(20) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `sede`
---
-
-INSERT INTO `sede` (`id_sede`, `ubicacion`, `nombre`) VALUES
-('esgsegsefsxfes', 'Merida', 'FUNDACITE merida');
-
 -- --------------------------------------------------------
 
 --
@@ -164,6 +158,15 @@ ALTER TABLE `sede`
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`cedula_usuario`);
 
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `reporte`
+--
+ALTER TABLE `reporte`
+  MODIFY `id_reporte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- Restricciones para tablas volcadas
 --

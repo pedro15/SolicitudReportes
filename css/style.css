@@ -258,11 +258,41 @@ footer p
 
 /* Administrar Equipos */
 
+.centerpanel-body
+{
+  margin: 10px;
+}
+
 .centerpanel-shadow
 {
-     margin: 5px;
-    -webkit-box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.48);
-    -moz-box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.48);
-    box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.48);
+     margin-left:  10%;
+     margin-right: 10%;
+     padding: 5px;
+     background:#fcfdff;
+    -webkit-box-shadow: 0px 0px 6px -1px rgba(0,0,0,0.48);
+    -moz-box-shadow: 0px 0px 6px -1px rgba(0,0,0,0.48);
+    box-shadow: 0px 0px 6px -1px rgba(0,0,0,0.48);
     border: 1px solid rgba(0, 0, 0,0.1);
+}
+
+.centerpanel-header
+{
+    padding: 6px;
+}
+
+.centerpanel-header a 
+{
+    text-decoration: none;
+    font-weight: 600;
+    color:  #275b7c;
+}
+
+.centerpanel-header a:hover
+{
+  color: #ce4444;
+}
+
+.centerpanel-header label
+{
+  font-weight: 600;
 }

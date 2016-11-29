@@ -13,10 +13,7 @@
             }
         }else 
         {
-            echo '<option>no laboratorio</option>';
+            echo '<option>Seleccionar</option>';
         }
-    }else
-    {
-        echo '<option>no se encontro sede</option>';
     }
 ?>
