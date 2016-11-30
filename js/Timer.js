@@ -1,6 +1,6 @@
 // Expiracion de sesiones
 var timer1;
-var wait= 15; // Tiempo de Expiracion
+var wait= 1; // Tiempo de Expiracion
 document.onkeypress=resetTimer;
 document.onmousemove=resetTimer;
 function resetTimer()
@@ -10,5 +10,5 @@ function resetTimer()
 }
 function logout()
 {
-     window.location.href='include/core/logout.php';
+     window.location.href='/include/core/logout.php';
 }

@@ -6,9 +6,8 @@
 </div>
 <div class = "container">
         <?php 
-            for ($i = 0 ; $i < 5 ; $i++)
+            for ($i = 0 ; $i < 1 ; $i++)
             {
-
         ?>
         <div class="centerpanel-body row" style= "background = #f4f4f4;">
             <div class = "centerpanel-shadow">
@@ -47,15 +46,15 @@
                             <form class = "form-horizontal">
                                 <div class = "container">
                                     <div class = "col-md-3">
-                                        <label>Numero Equipo:</label><p>CPU desc</p>
-                                        <label>Procesador:</label><p>CPU desc</p>
-                                        <label>Tarjeta grafica:</label><p>CPU desc</p>
-                                        <label>Memoria Ram:</label><p>CPU desc</p>
+                                        <label>Numero Equipo:</label><p>PC1</p>
+                                        <label>Procesador:</label><p>procesador</p>
+                                        <label>Tarjeta grafica:</label><p>Tarjeta grafica</p>
+                                        <label>Memoria Ram:</label><p>ram</p>
                                     </div>
                                     <div class = "col-md-3">
-                                        <label>Disco duro:</label><p>CPU desc</p>
-                                        <label>Tarjeta Madre:</label><p>CPU desc</p>
-                                        <label>Fuente poder:</label><p>CPU desc</p>
+                                        <label>Disco duro:</label><p>disco duro</p>
+                                        <label>Tarjeta Madre:</label><p>tarjeta madre</p>
+                                        <label>Fuente poder:</label><p>fuente poder</p>
                                     </div>
                                 </div>
 
