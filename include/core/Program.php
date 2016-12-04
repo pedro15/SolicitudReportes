@@ -111,7 +111,7 @@ class Program
         public static function LogOut()
         {
             session_destroy();
-            Program::Redirect("index.php");
+            Program::Redirect("../../index.php");
         }
 
         // obtiene la fecha actual
