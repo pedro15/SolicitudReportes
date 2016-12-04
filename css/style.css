@@ -8,20 +8,49 @@ html
 body 
 {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
+
+body.footerbody 
+{
+  min-height: 2000px;
+}
+
+/* Pie de pagina */ 
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #275b7c;
+}
+
+.navbar-static-top 
+{
+  margin-bottom: 19px;
+}
+
+footer p
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;    
+    text-align: center;
+    font-size: 14px ;
+    color: #fff ;
+    padding-top: 5px ;
+}
+
 
 /* cabecera */
 .fundacitebackground
 {
-        background: url('../images/fundacite01.png') no-repeat fixed center;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        position:fixed;
-        width:  100%;
-        height: 100%;
+  background: url('../images/fundacite01.png') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position:  absolute;
+  width: 100%;
+  min-height: 100%;
 }
 
 .bannerheader
@@ -36,50 +65,23 @@ body
 
 .bannerheader_der
 {
-        margin-left: 20%;
-        text-align: center;
-        width:  200px;
-        height: 50px;
-        background:  #fff;
-}
-
-/* Pie de pagina */ 
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 40px;
-  background-color: #275b7c;
-}
-
-footer p
-{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;    
+    margin-left: 20%;
     text-align: center;
-    font-size: 14px ;
-    color: #fff ;
-    padding-top: 5px ;
+    width:  200px;
+    height: 50px;
+    background:  #fff;
 }
 
-/* Login */ 
-
-@import "bourbon";
-
-.wrapper 
-{	
-  margin-bottom: 80px;
-}
-
-.form-signin {
+.form-signin 
+{
   max-width: 380px;
   padding: 15px 35px 45px;
   margin: 0 auto;
   background-color: #fff;
 	border-radius:  8px;
-  border: 1px solid rgba(0,0,0,0.1);  
+  border: 1px solid rgba(0,0,0,0.1); 
 }
-    .form-signin-heading,
+  .form-signin-heading,
 	.checkbox {
 	  margin-bottom: 30px;
 	}
