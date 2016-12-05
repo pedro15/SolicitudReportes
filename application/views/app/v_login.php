@@ -1,15 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 ?>
-<body>
-<div>
-    <img class="bannerheader"  alt="Membrete" src="images/MembreteFundacite.png">
-    <img class="bannerheader_der"  alt="Membrete" src="images/200.png">
-</div>
 <div class = "fundacitebackground">
             <div>
                  <div class = "text-left">
-                 <img class="LoginHeaderIcon" id="logofundacite" alt="fundacite logo" src="images/BannerIcons.png" width="100" height="100">
+                 <img class="LoginHeaderIcon" id="logofundacite" alt="fundacite logo" src="<?php echo base_url('/')?>images/BannerIcons.png" width="100" height="100">
                  </div>
                  <div class ="text-center">
                  <h3>Sistema Automatizado de Solicitud de Soporte Tecnico</h3>

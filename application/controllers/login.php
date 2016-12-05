@@ -7,25 +7,21 @@ class Login extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->helper('url');
+		$this->load->library('loginsystem');
 	}
 	
 	public function index()
 	{
 		$this->load->view('head.php');
-
+		$this->load->view('letterhead.php');
 		$ci = $this->input->post('cilogin');
 		$pw = $this->input->post('passlogin');
 
 		if (isset($ci) && isset($pw) )
 		{
-			$db = $this->load->database('default' , TRUE);
-			$sql = "SELECT * FROM `usuario` WHERE `cedula_usuario` = '" . $ci . "' AND `clave`= '" . $pw . "';" ;
-			$query = $db->query($sql);
-			$row = $query->row();
-
-			if (isset($row))
+			if ( $this->loginsystem->login($ci,$pw))
 			{
-				echo '<script type = "text/javascript">alert("Login Correcto");</script>' ;
+				redirect('user');
 			}else 
 			{
 				$data['message'] = "Fallo autenticacion";
