@@ -9,8 +9,14 @@ class User extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->helper('url');
+        $this->load->helper('string');
+        
+        $this->load->model('laboratory');
+        $this->load->model('computer');
+        $this->load->model('sede');
+
         $this->load->library('loginsystem');
-	}
+    }
 
     /* carga el header, la cabezera , y la barra de navegacion.
     =================================================*/
@@ -76,6 +82,13 @@ class User extends CI_Controller
         }
     }
 
+    function load_alert($message , $type)
+    {
+        $data['message'] = $message;
+        $data['a_type'] = $type;
+        $this->load->view('alert.php' , $data ); 
+    }
+
     /* se inicia por defecto al ingresar al sistema
     =================================================*/
     public function index()
@@ -131,7 +144,20 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(2,3))) //3  para probar modulo
         {
-
+            $name = $this->input->post('sede_nombre');
+            $ubicacion = $this->input->post('sede_ubicacion');
+            if (isset($ubicacion) && isset($name))
+            {
+                $id = random_string('alnum', 19);
+                if ($this->sede->register($id,$name,$ubicacion))
+                {
+                    $this->load_alert("Sede registrada correctamente" , "SUCESS");
+                }else 
+                {
+                    $this->load_alert("Error al registrar sede" , "DANGER");
+                }
+            }
+            $this->load->view('app/v_addsede.php');
             // pie de pagina
             $this->end_page();
         }
@@ -181,25 +207,60 @@ class User extends CI_Controller
     Equipos
     ==========================*/ 
 
-    /* Registrar equipo
+
+    /* Registrar equipo ---
     =================================================*/
     public function registerpc()
     {
         if ($this->canload_module(array(2,3)))
         {
-            
+            $num_pc = $this->input->post('pc_num');
+            $cpu_pc = $this->input->post('pc_cpu');
+            $video_pc = $this->input->post('pc_video');
+            $ram_pc = $this->input->post('pc_ram');
+            $hdd_pc = $this->input->post('pc_hdd');
+            $motherboar_pc = $this->input->post('pc_motherboard');
+            $fuente_pc = $this->input->post('pc_fuente');
+            $id_lab = $this->input->post('lab_id');
+
+            if ( isset($num_pc) && isset($cpu_pc) && isset($video_pc)
+            && isset($ram_pc) && isset($hdd_pc) && isset($motherboar_pc) 
+            && isset($fuente_pc) && isset($id_lab)  )
+            {
+                if ($this->computer->register($num_pc,$cpu_pc,$video_pc,$ram_pc,$hdd_pc,$motherboar_pc,
+                $fuente_pc,$id_lab))
+                {
+                    $this->load_alert("Equipo registrado correctamente" , "SUCESS");
+                }else 
+                {
+                    $this->load_alert("Este equipo ya se encuentra registrado", "DANGER");
+                }
+            }
+            $data['sedes'] = $this->sede->get_all();
+
+            $this->load->view('app/v_registerpc.php' , $data);
             // pie de pagina
             $this->end_page();
         }
     }
 
-    /* Administrar Equipo
+    public function getlabsbysede()
+    {
+        $id_sede = $this->input->post('id_sede_json');
+        if (isset($id_sede))
+        {
+            $data = $this->laboratory->find_by_sede($id_sede);
+            echo json_encode($data);
+        }
+    }
+
+    /* Administrar Equipo 
     =================================================*/
     public function adminpc()
     {
         if ($this->canload_module(array(2,3)))
         {
-            
+            $this->load->view('app/v_adminpc.php');
             // pie de pagina
             $this->end_page();
         }
@@ -244,7 +305,7 @@ class User extends CI_Controller
             $this->end_page();
         }
     }
-
+    
     /* ========================
     Respaldo y restuauracion
     ==========================*/ 
@@ -267,7 +328,6 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(2,3)))
         {
-            
             // pie de pagina
             $this->end_page();
         }
