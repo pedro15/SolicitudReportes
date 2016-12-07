@@ -14,6 +14,7 @@ class User extends CI_Controller
         $this->load->model('laboratory');
         $this->load->model('computer');
         $this->load->model('sede');
+        $this->load->model('tec');
 
         $this->load->library('loginsystem');
     }
@@ -197,7 +198,7 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(2,3)))
         {
-            
+
             // pie de pagina
             $this->end_page();
         }
@@ -225,7 +226,7 @@ class User extends CI_Controller
 
             if ( isset($num_pc) && isset($cpu_pc) && isset($video_pc)
             && isset($ram_pc) && isset($hdd_pc) && isset($motherboar_pc) 
-            && isset($fuente_pc) && isset($id_lab)  )
+            && isset($fuente_pc) && isset($id_lab) && !($id_lab == "Seleccione Sede" || $id_lab == "Seleccionar" ) )
             {
                 if ($this->computer->register($num_pc,$cpu_pc,$video_pc,$ram_pc,$hdd_pc,$motherboar_pc,
                 $fuente_pc,$id_lab))
@@ -243,7 +244,8 @@ class User extends CI_Controller
             $this->end_page();
         }
     }
-
+    
+    // debuelve los laboratorios en un json segun una variable post asignada a esta url .. se usa en el formulario registrar equipo. 
     public function getlabsbysede()
     {
         $id_sede = $this->input->post('id_sede_json');
@@ -276,7 +278,7 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(2,3)))
         {
-            
+            $this->load->view('app/v_registertec.php');
             // pie de pagina
             $this->end_page();
         }
@@ -288,10 +290,28 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(2,3)))
         {
+            $canname = $this->input->post('canfiltrername');
+            $canci = $this->input->post('canfiltrerci');
+
+            if (isset($canname) && $canname == true )
+            {
+                
+            }
+            if (isset($canci) && $canci == true )
+            {
+                
+            }
             
+            $this->load->view('app/v_admintec.php');
             // pie de pagina
             $this->end_page();
         }
+    }
+
+    public function getalltecs()
+    {
+        $data = $this->tec->get_all();
+        echo json_encode($data);
     }
 
     /* Estadisticas de solicitud de soporte tecnico
@@ -305,7 +325,7 @@ class User extends CI_Controller
             $this->end_page();
         }
     }
-    
+
     /* ========================
     Respaldo y restuauracion
     ==========================*/ 

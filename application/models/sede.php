@@ -25,5 +25,7 @@ class Sede extends CI_Model
             return false;
         }
     }
+
+    
 }
 ?>

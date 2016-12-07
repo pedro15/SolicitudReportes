@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             <div class = "row">
                 <div class = "col-md-2">
                     <label>Numero PC</label>
-                    <input type = "text" class = "form-control" name = "pc_num" required value = "001">
+                    <input type = "text" class = "form-control" name = "pc_num" required>
                 </div>
                 <div class = "col-md-5">
                     <label>Procesador</label>

@@ -6,6 +6,10 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         <h3>Administrar equipos</h3>
     </div>
 
+    <form method = "POST" action = "#">
+        
+    </form>
+
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -22,7 +26,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 </tr>
             <thead>
             <tbody>
-                <?php for ($i = 0 ; $i < 100 ; $i++): ?>
+                <?php for ($i = 0 ; $i < 1 ; $i++): ?>
                 <tr>
                     <th>1</th>
                     <th>amd </th>

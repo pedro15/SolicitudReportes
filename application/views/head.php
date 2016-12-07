@@ -12,6 +12,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         <link href="<?php echo base_url('/')?>chartist-js/chartist.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url('/')?>bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
         <link href="<?php echo base_url('/')?>bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type ="text/css">
+        <link href="<?php echo base_url('/')?>css/jqpagination.css" rel="stylesheet" type ="text/css">
         <link href="<?php echo base_url('/')?>css/style.css" rel="stylesheet" type ="text/css">
         <!-- Javascript !-->
         <script type="text/javascript" src="<?php echo base_url('/')?>js/Timer.js"></script>
@@ -21,5 +22,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         <script type="text/javascript" src="<?php echo base_url('/')?>moment/locale/es.js"></script>
         <script type="text/javascript" src="<?php echo base_url('/')?>bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src= "<?php echo base_url('/')?>js/transition.min.js"></script>
+        <script type="text/javascript" src= "<?php echo base_url('/')?>js/jquery.jqpagination.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url('/')?>js/bootstrap-datetimepicker.min.js"></script>
 </head>
