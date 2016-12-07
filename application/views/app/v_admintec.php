@@ -44,6 +44,7 @@
                 
             </tbody>
         </table>
+       
         <script type = "text/javascript">
             
             var m_json = "";
@@ -121,7 +122,22 @@
                 );
             }
 
-            function populate(xjson)
+            function populate(xjson , isfiltrer)
+            {
+                updatehtml(xjson);
+                $("#tablefill").pagination
+                ({
+                        dataSource: xjson,
+                        pageSize : 20,
+                        callback: function(data, pagination) 
+                        {
+                           xjson = data;
+                           updatehtml(xjson);
+                        }
+                });
+            }
+
+            function updatehtml(xjson)
             {
                 var _html = "" ;
                 for (data in xjson)
