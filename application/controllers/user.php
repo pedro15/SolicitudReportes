@@ -290,18 +290,36 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(2,3)))
         {
-            $canname = $this->input->post('canfiltrername');
-            $canci = $this->input->post('canfiltrerci');
+            $ci = $this->input->get('ci' , TRUE);
+            $action = $this->input->get('action', TRUE);
 
-            if (isset($canname) && $canname == true )
+            if (isset($ci) && isset($action))
             {
-                
+                switch ($action)
+                {
+                    case "remove" :
+                        if ($this->tec->remove($ci))
+                        {
+                            $this->load_alert("Tecnico eliminado correctamente" , "SUCCESS");
+                        }
+                    break;
+
+                    case "disable" :
+                        if ($this->tec->change_state($ci , 0)) // 0 Es desabilitado
+                        {
+                            $this->load_alert("Tecnico desabilitado correctamente" , "SUCCESS");
+                        }
+                    break;
+
+                    case "enable" :
+                        if ($this->tec->change_state($ci , 2)) // 2 estado normal
+                        {
+                            $this->load_alert("Tecnico habilitado correctamente" , "SUCCESS");
+                        }
+                    break;
+                }
             }
-            if (isset($canci) && $canci == true )
-            {
-                
-            }
-            
+
             $this->load->view('app/v_admintec.php');
             // pie de pagina
             $this->end_page();

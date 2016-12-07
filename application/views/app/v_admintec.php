@@ -37,9 +37,10 @@
                 <tr>
                     <th>Cedula</th>
                     <th>Nombre</th>
-                    <th>correo</th>
+                    <th>Correo</th>
+                    <th>Estado</th>
                 </tr>
-            <thead>
+            </thead>
             <tbody id = "tablecont">
                 
             </tbody>
@@ -52,7 +53,17 @@
 
 function validate_delete()
 {
-    return confirm("Desea eliminar este registro?");
+    return confirm("Alerta ! si elimina permanentemente a este usuario, toda la informacion relacionada con el mismo tambien sera eliminada, desea eliminarlo?");
+}
+
+function validate_disable()
+{
+    return confirm("Desea desbilitar a este usuario en el sistema?");
+}
+
+function validate_hability()
+{
+    return confirm("Desea habilitar a este usuario en el sistema?");
 }
 
 var m_json = "";
@@ -118,7 +129,8 @@ function updatetable()
         }
     );
 }
-function populate(xjson , isfiltrer)
+
+function populate(xjson)
 {
     updatehtml(xjson);
     $("#mpag").pagination
@@ -132,17 +144,26 @@ function populate(xjson , isfiltrer)
             }
     });
 }
+
 function updatehtml(xjson)
 {
     var _html = "" ;
     for (data in xjson)
     {
+        var _t = xjson[data].tipo > 0 ? '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Habilitado' :  '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Desabilitado' ;
+
+        var _h = xjson[data].tipo > 0 ? 
+        "<th>" + '<a class = "btn btn-danger" onclick="return validate_disable();"  href = "<?php echo current_url()?>?ci=' + xjson[data].cedula_usuario + '&action=disable"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Desabilitar</a> ' + "</th>" 
+        : "<th>" + '<a class = "btn btn-success" onclick="return validate_hability();"  href = "<?php echo current_url()?>?ci=' + xjson[data].cedula_usuario + '&action=enable"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Habilitar</a> ' + "</th>" ;
+
         _html += "<tr><th>" + xjson[data].cedula_usuario + "</th>" + 
         "<th>" + xjson[data].nombre + "</th>" +
         "<th>" + xjson[data].correo + "</th>" +
-        "<th>" + '<a class = "btn btn-primary" href = "<?php echo base_url('/')?>?ci=' + xjson[data].cedula_usuario + '&action=edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar</a> ' + "</th>" +
-        "<th>" + '<a class = "btn btn-danger" onclick="return validate_delete();"  href = "<?php echo base_url('/')?>?ci=' + xjson[data].cedula_usuario + '&action=remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar</a> ' + "</th></tr>" ;
+        "<th>" + _t + "</th>" +
+        _h  +
+        "<th>" + '<a class = "btn btn-danger" onclick="return validate_delete();"  href = "<?php echo current_url()?>?ci=' + xjson[data].cedula_usuario + '&action=remove"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a> ' + "</th></tr>" ;
     }
     $("#tablecont").html(_html); 
 }
+
 </script>

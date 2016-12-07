@@ -11,37 +11,84 @@ class Tec extends CI_Model
     public function get_all()
     {
         $db = $this->load->database('default' , TRUE);
-        $sql = "SELECT * FROM `usuario` WHERE `tipo` = '2' ; "; 
+        $sql = "SELECT * FROM `usuario` WHERE `tipo` = '2' OR  `tipo` = '0' ; "; 
         $query = $db->query($sql);
         return $query->result();
     }
 
     public function remove( $ci )
     {
-        $db = $this->load->database('default' , TRUE);
-        $sql = "DELETE FROM `usuario` WHERE `tipo` = '2' AND `cedula_usuario` = '".  $ci . "' ; "; 
-        $query = $db->query($sql);
-        if ($query->affected_rows() > 0 )
+        if($this->is_in_database($ci))
         {
-            return true ;
+            $db = $this->load->database('default' , TRUE);
+            $sql = "DELETE FROM `usuario` WHERE ( `tipo` = '2' OR `tipo` = '0' ) AND `cedula_usuario` = '".  $ci . "' ; "; 
+            $query = $db->query($sql);
+            if ( $db->affected_rows() > 0 )
+            {
+                return true ;
+            }else 
+            {
+                return false ;
+            }
         }else 
         {
-            return false ;
+            return false;
         }
     }
 
     public function edit($ci , $new_ci , $new_name , $new_pw , $new_question , $new_email)
     {
+        if($this->is_in_database($ci))
+        {
+            $db = $this->load->database('default' , TRUE);
+            $sql = "UPDATE `usuario` SET `cedula_usuario` = '" . $new_ci . "', `nombre` = '" . $new_name . "', `pregunta_seguridad` = '" . $new_question . 
+            "', `correo` = '" . $new_email . "' WHERE `cedula_usuario` = '" . $ci . "' ;" ; 
+            $query = $db->query($sql);
+            if ($db->affected_rows() > 0 )
+            {
+                return true ;
+            }else 
+            {
+                return false ;
+            }
+        }else 
+        {
+            return false;
+        }
+    }
+
+    public function change_state($ci , $new_state)
+    {
+        if($this->is_in_database($ci))
+        {
+            $db = $this->load->database('default' , TRUE);
+            $sql = "UPDATE `usuario` SET `tipo` = '" . $new_state ."' WHERE `cedula_usuario` = '" . $ci . "' ;" ;
+            $query = $db->query($sql);
+            if ($db->affected_rows() > 0 )
+            {
+                return true ;
+            }else
+            {
+                return false ;
+            }
+        }else 
+        {
+            return false;
+        }
+    }
+
+    public function is_in_database($ci)
+    {
         $db = $this->load->database('default' , TRUE);
-        $sql = "UPDATE `usuario` SET `cedula_usuario` = '" . $new_ci . "', `nombre` = '" . $new_name . "', `pregunta_seguridad` = '" . $new_question . 
-        "', `correo` = '" . $new_email . "' WHERE `cedula_usuario` = '" . $ci . "' ;" ; 
+        $sql = "SELECT * FROM `usuario` WHERE `cedula_usuario` = '" . $ci . "' ;" ;
         $query = $db->query($sql);
-        if ($query->affected_rows() > 0 )
+        $row = $query->row();
+        if (isset($row))
         {
             return true ;
         }else 
         {
-            return false ;
+            return false;
         }
     }
 }
