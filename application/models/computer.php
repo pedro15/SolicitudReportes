@@ -31,7 +31,7 @@ class Computer extends CI_Model
         $db = $this->load->database('default' , TRUE);
         $sql = "SELECT * FROM `equipo` ;";
         $query = $db->query($sql);
-        return $query->result();
+        return $query->result_array();
     }
     
     public function isindb($lab_id , $num)

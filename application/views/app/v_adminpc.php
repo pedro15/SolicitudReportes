@@ -63,11 +63,54 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     <input type="text" id = "txt_power" class="form-control" name = "filtrername">
                     </div>
                  </div>
+
+                  <div class = "col-md-5">
+                    <label>Sede</label>
+                        <div class="input-group">
+                        <span class="input-group-addon">
+                        <input type="checkbox" id = "ch_sede" name = "canfiltrername" >
+                        </span>
+                        <?php 
+                            if (isset($sedes))
+                            {
+                        ?>
+                        <select id = "select_sede" class = "form-control" > 
+                            <option>Seleccionar</option>
+                            <?php 
+                                foreach($sedes as $sede)
+                                {
+                                    $opc = '<option value ="' . $sede->id_sede . '">' . $sede->nombre . '</option>' ; 
+                                    echo $opc;
+                                }
+                            ?>
+                        </select>
+                        <?php 
+                            }else 
+                            {
+                                echo '<p>No hay sedes registradas</p>' ;
+                            }
+                        ?>
+                    </div>
+                 </div>
+
+                 <div class = "col-md-5">
+                    <label>Laboratorio</label>
+                        <div class="input-group">
+                        <span class="input-group-addon">
+                        <input type="checkbox" id = "ch_lab" name = "canfiltrername" >
+                        </span>
+                        <select id = "select_lab" class = "form-control" > 
+
+                        </select>
+                    </div>
+                 </div>
+                 
+
             </div>
         </div>
     </form>
     <div class="table-responsive">
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Numero</th>
@@ -77,6 +120,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     <th>Disco duro</th>
                     <th>Tarjeta madre</th>
                     <th>Fuente poder</th>
+                    <th>Sede</th>
+                    <th>Laboratorio</th>
                 </tr>
             <thead>
             <tbody id = "tablecont">
@@ -90,6 +135,37 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 <script type = "text/javascript">
 
 $(document).ready(function()
+{
+    updatetable();
+});
+
+$("#select_sede").change(function()
+{
+    var _value = $("#select_sede").val();
+    $.ajax
+    (
+        {
+            type: "POST" ,
+            url: "<?php echo base_url('index.php/user/getlabsbysede'); ?>",
+            datatype : 'json', 
+            data: { id_sede_json: _value },
+            success: 
+            function (res)
+            {
+                var json = JSON.parse(res);
+                var _content = "<option>Seleccionar</option>";
+                for (data in json)
+                {
+                    _content += '<option>' + json[data].descripcion + '</option>' ; 
+                }
+                $("#select_lab").html(_content);
+            }
+        }
+    );
+    updatetable();
+});
+
+$("#select_lab").change(function()
 {
     updatetable();
 });
@@ -123,6 +199,18 @@ $("#ch_power").change(function()
 {
     updatetable();
 });
+
+$("#ch_lab").change(function()
+{
+    updatetable();
+});
+
+$("#ch_sede").change(function()
+{
+    updatetable();
+});
+
+
 
 $("#txt_cpu").keyup(function()
 {
@@ -234,13 +322,36 @@ function updatetable()
                     var hdd_arr = m_json.filter(function (value)
                     {
                         var filter_ci = $("#txt_mother").val();
-                        var x = value.fuente_poder.includes(filter_ci);
+                        var x = value.tarjeta_madre.includes(filter_ci);
                         return x;
                     });
                     m_json = hdd_arr;
                 }
-               
 
+                var lab_checked = $("#ch_lab").is(":checked");
+                if (lab_checked)
+                {
+                    var lab_arr = m_json.filter(function (value)
+                    {
+                        var filter_ci = $("#select_lab").val();
+                        var x = value.labname.includes(filter_ci);
+                        return x;
+                    });
+                    m_json = lab_arr;
+                }
+
+                var sede_checked = $("#ch_sede").is(":checked");
+                if (sede_checked)
+                {
+                    var sede_arr = m_json.filter(function (value)
+                    {
+                        var filter_ci = $("#select_sede").find('option:selected').text();
+                        var x = value.sedename.includes(filter_ci);
+                        return x;
+                    });
+                    m_json = sede_arr;
+                }
+               
                 populate(m_json);
             }
         }
@@ -274,10 +385,11 @@ function updatehtml(xjson)
         "<th>" + xjson[data].disco_duro + "</th>" +
         "<th>" + xjson[data].tarjeta_madre + "</th>" +
         "<th>" + xjson[data].fuente_poder + "</th>" +
+        "<th>" + xjson[data].sedename + "</th>" +
+        "<th>" + xjson[data].labname + "</th>" +
         "<th>" + '<a class = "btn btn-primary" onclick="return validate_delete();"  href = "<?php echo current_url()?>?id=' + xjson[data].id_equipo + '&action=remove"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar</a> ' + "</th>" +
         "<th>" + '<a class = "btn btn-danger" onclick="return validate_delete();"  href = "<?php echo current_url()?>?id=' + xjson[data].id_equipo + '&action=remove"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a> ' + "</th></tr>" ;
     }
     $("#tablecont").html(_html); 
 }
-
 </script>

@@ -40,5 +40,13 @@ class Laboratory extends CI_Model
         return $query->result();
     }
 
+    public function get_lab($labid)
+    {
+        $db = $this->load->database('default' , TRUE);
+        $sql = "SELECT * FROM `laboratorio` WHERE `id_laboratorio` = '" . $labid  . "' ;"; 
+        $query = $db->query($sql);
+        return $query->row();
+    }
+
 }
 ?>

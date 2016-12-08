@@ -274,18 +274,29 @@ class User extends CI_Controller
     public function adminpc()
     {
         if ($this->canload_module(array(2,3)))
-        {
-            
-            
-            $this->load->view('app/v_adminpc.php');
+        { 
+            $data['sedes'] = $this->sede->get_all();
+
+            $this->load->view('app/v_adminpc.php' , $data);
             // pie de pagina
             $this->end_page();
         }
     }
 
+    // obtiene todas las pcs y las devuelve en un json
     public function getallpcs()
     {
         $rows = $this->computer->get_all();
+        foreach($rows as $key => $row)
+        {
+            $_labdata = $this->laboratory->get_lab($rows[$key]['id_laboratorio']);
+            if (isset($_labdata))
+            {
+                 $rows[$key]['labname'] = $_labdata->descripcion;
+                 $currsede = $this->sede->get_sede($_labdata->id_sede);
+                 $rows[$key]['sedename'] = $currsede->nombre;
+            }
+        }
         echo json_encode($rows);
     }
 
@@ -304,13 +315,12 @@ class User extends CI_Controller
             $_ci = $this->input->post('userci');
             if (isset($_name) && isset($_email) && isset($_ci))
             {
-                $default_pw = "123"; // Clave por defecto
+                $default_pw = $_ci; // Clave por defecto
                 $sec_question = "" ;
                 $type = "2"; 
                 if ($this->tec->register($_ci , $_name , $default_pw , $sec_question , $type , $_email))
                 {
-                    $this->load_alert("Tecnico registrado correctamente ! <strong>la clave es : " . $default_pw . 
-                    " </strong> ,puede cambiarla una vez que ingrese en la seccion de : 'Perfil/Cambiar clave' " , "SUCCESS");
+                    $this->load_alert("Tecnico registrado correctamente ! <strong>la clave inicialmente es la Cedula</strong>, puede cambiarla una vez que ingrese en la seccion de : 'Perfil/Cambiar clave' " , "SUCCESS");
                 }else 
                 {
                     $this->load_alert("Ya existe un usuario con la cedula: " . $_ci , "DANGER");
@@ -363,7 +373,7 @@ class User extends CI_Controller
             $this->end_page();
         }
     }
-
+    // obtiene todos los tecnicos y los devuelve en un json
     public function getalltecs()
     {
         $data = $this->tec->get_all();

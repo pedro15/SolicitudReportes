@@ -26,6 +26,12 @@ class Sede extends CI_Model
         }
     }
 
-    
+    public function get_sede($id)
+    {
+        $db = $this->load->database('default' , TRUE);
+        $sql = "SELECT * FROM `sede` WHERE `id_sede` = '". $id  ."' ;";
+        $query = $db->query($sql);
+        return $query->row();
+    }
 }
 ?>
