@@ -25,6 +25,14 @@ class Computer extends CI_Model
              return false;
          }
     }
+
+    public function get_all()
+    {
+        $db = $this->load->database('default' , TRUE);
+        $sql = "SELECT * FROM `equipo` ;";
+        $query = $db->query($sql);
+        return $query->result();
+    }
     
     public function isindb($lab_id , $num)
     {

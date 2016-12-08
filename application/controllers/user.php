@@ -15,8 +15,7 @@ class User extends CI_Controller
         $this->load->model('computer');
         $this->load->model('sede');
         $this->load->model('tec');
-
-        $this->load->library('loginsystem');
+        $this->load->model('loginsystem');
     }
 
     /* carga el header, la cabezera , y la barra de navegacion.
@@ -187,6 +186,20 @@ class User extends CI_Controller
         if ($this->canload_module(array(2,3)))
         {
 
+            $opc_sede = $this->input->post('sedeopc');
+            $lab_name = $this->input->post('nombre_lab');
+            if (isset($opc_sede) && isset($lab_name) )
+            {
+               if ($this->laboratory->register($opc_sede , $lab_name))
+               {
+                   $this->load_alert("Laboratorio registrado correctamente" , "SUCCESS");
+               }
+            }
+            
+            $sedes = $this->sede->get_all();
+            $data['rows_sedes'] = $sedes;
+            $this->load->view('app/v_addlab.php' , $data);
+           
             // pie de pagina
             $this->end_page();
         }
@@ -262,10 +275,18 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(2,3)))
         {
+            
+            
             $this->load->view('app/v_adminpc.php');
             // pie de pagina
             $this->end_page();
         }
+    }
+
+    public function getallpcs()
+    {
+        $rows = $this->computer->get_all();
+        echo json_encode($rows);
     }
 
     /* ========================
@@ -278,6 +299,23 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(2,3)))
         {
+            $_name = $this->input->post('name');
+            $_email = $this->input->post('email');
+            $_ci = $this->input->post('userci');
+            if (isset($_name) && isset($_email) && isset($_ci))
+            {
+                $default_pw = "123"; // Clave por defecto
+                $sec_question = "" ;
+                $type = "2"; 
+                if ($this->tec->register($_ci , $_name , $default_pw , $sec_question , $type , $_email))
+                {
+                    $this->load_alert("Tecnico registrado correctamente ! <strong>la clave es : " . $default_pw . 
+                    " </strong> ,puede cambiarla una vez que ingrese en la seccion de : 'Perfil/Cambiar clave' " , "SUCCESS");
+                }else 
+                {
+                    $this->load_alert("Ya existe un usuario con la cedula: " . $_ci , "DANGER");
+                }
+            }
             $this->load->view('app/v_registertec.php');
             // pie de pagina
             $this->end_page();
@@ -338,7 +376,7 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(2,3)))
         {
-            
+
             // pie de pagina
             $this->end_page();
         }

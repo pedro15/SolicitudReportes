@@ -9,23 +9,14 @@
         <div class = "form-group">
             <div class = "row">
                 <div class = "col-md-5">
-                    <label>Nombre</label>
-                    <input type = "text" name = "username" class = "form-control">
-                    <label>Clave</label>
-                    <input type = "password" name = "userpass" class = "form-control">
-                    <label>Confirmar clave</label>
-                    <input type = "password" class = "form-control">
+                    <label>Nombre y Apellido</label>
+                    <input type = "text" name = "name" class = "form-control" required>
                     <label>Correo:</label>
-                    <input type = "email" name = "useremail" class = "form-control">
+                    <input type = "email" name = "email" class = "form-control" required>
                 </div>
                 <div class = "col-md-5">
                     <label>Cedula</label>
-                    <input type = "text" name = "userci" class = "form-control">
-                    <label>Pregunta seguridad</label>
-                    <select name = "opcquestion" class = "form-control" >
-                        <option>Color favorito</option>
-                    </select>
-                    <input type = "password" name = "userquestion" class = "form-control">
+                    <input type = "text" onkeypress="return isNumberKey(event);"  name = "userci" class = "form-control" required>
                 </div>
             </div>
         </div>

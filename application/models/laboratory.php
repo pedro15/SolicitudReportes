@@ -2,13 +2,20 @@
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 class Laboratory extends CI_Model 
 {
+
+    function  __construct()
+    {
+        parent::__construct();
+        $this->load->helper('string');
+    }
+
     public function register($idsede , $desc)
     {
         $db = $this->load->database('default' , TRUE);
-        $labid  = "";
+        $labid  = random_string('alnum', 18);
         $sql = "INSERT INTO `laboratorio` (`id_laboratorio`,`id_sede`,`descripcion`) VALUES('" . $labid . "','" . $idsede . "','" . $desc . "');";
-        $query = $db->query($sql);
-        if ($query->affected_rows() > 0 )
+        $db->query($sql);
+        if ($db->affected_rows() > 0 )
         {
             return true ;
         }else 

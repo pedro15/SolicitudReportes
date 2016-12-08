@@ -24,7 +24,7 @@
                     <span class="input-group-addon">
                     <input type="checkbox" id = "ch_ci" name = "canfiltrerci">
                     </span>
-                    <input type="text" id = "txt_ci" class="form-control" name = "filtrerci" >
+                    <input type="text" onkeypress="return isNumberKey(event);" maxlength="11" id = "txt_ci" class="form-control" name = "filtrerci" >
                     </div>
                  </div>
             </div>

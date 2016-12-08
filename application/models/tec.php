@@ -63,7 +63,7 @@ class Tec extends CI_Model
         {
             $db = $this->load->database('default' , TRUE);
             $sql = "UPDATE `usuario` SET `tipo` = '" . $new_state ."' WHERE `cedula_usuario` = '" . $ci . "' ;" ;
-            $query = $db->query($sql);
+            $db->query($sql);
             if ($db->affected_rows() > 0 )
             {
                 return true ;
@@ -76,6 +76,27 @@ class Tec extends CI_Model
             return false;
         }
     }
+
+    function register($ci , $name , $pw , $security_question , $type , $email  )
+    {
+        if (!$this->is_in_database($ci))
+        {
+            $db = $this->load->database('default' , TRUE);
+            $sql = "INSERT INTO `usuario` (`cedula_usuario`, `nombre`, `clave`, `pregunta_seguridad`, `tipo`, `correo`) VALUES ('" . 
+            $ci . "','" . $name . "','" .  password_hash($pw , PASSWORD_DEFAULT ) . "','" . $security_question . "','" . $type . "','" . $email . "');" ;
+            $db->query($sql); 
+            if ($db->affected_rows() > 0 )
+            {
+                return true;
+            }else 
+            {
+                return false;
+            } 
+        }else 
+        {
+            return false ;
+        }
+    } 
 
     public function is_in_database($ci)
     {
