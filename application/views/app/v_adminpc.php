@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
+    defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 ?>
 <div class = "container">
     <div class = "page-header">
@@ -9,58 +9,103 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         <label>Filtrar por:</label>
         <div class = "form-group">
             <div class = "row">
-                  <div class = "col-md-5">
+                <div class = "col-md-5">
                     <label>Procesador</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_cpu" name = "canfiltrername" >
+                    <input type="checkbox" id = "ch_cpu"  >
                     </span>
-                    <input type="text" id = "txt_cpu" class="form-control" name = "filtrername">
+                    <input type="text" id = "txt_cpu" class="form-control">
                     </div>
                  </div>
+
                  <div class = "col-md-5">
                     <label>Tarjeta grafica</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_gpu" name = "canfiltrername" >
+                    <input type="checkbox" id = "ch_gpu"  >
                     </span>
-                    <input type="text" id = "txt_gpu" class="form-control" name = "filtrername">
+                    <input type="text" id = "txt_gpu" class="form-control">
                     </div>
                  </div>
+                 
                  <div class = "col-md-5">
                     <label>Memoria Ram:</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_ram" name = "canfiltrername" >
+                    <input type="checkbox" id = "ch_ram"  >
                     </span>
-                    <input type="text" id = "txt_ram" class="form-control" name = "filtrername">
+                    <input type="text" id = "txt_ram" class="form-control">
                     </div>
                  </div>
+                 
                  <div class = "col-md-5">
                     <label>Disco duro:</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_hdd" name = "canfiltrername" >
+                    <input type="checkbox" id = "ch_hdd"  >
                     </span>
-                    <input type="text" id = "txt_hdd" class="form-control" name = "filtrername">
+                    <input type="text" id = "txt_hdd" class="form-control">
                     </div>
                  </div>
+                 
                  <div class = "col-md-5">
                     <label>Tarjeta madre</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_mother" name = "canfiltrername" >
+                    <input type="checkbox" id = "ch_mother"  >
                     </span>
-                    <input type="text" id = "txt_mother" class="form-control" name = "filtrername">
+                    <input type="text" id = "txt_mother" class="form-control">
                     </div>
                  </div>
+                 
                  <div class = "col-md-5">
                     <label>Fuente de poder</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_power" name = "canfiltrername" >
+                    <input type="checkbox" id = "ch_power"  >
                     </span>
-                    <input type="text" id = "txt_power" class="form-control" name = "filtrername">
+                    <input type="text" id = "txt_power" class="form-control">
+                    </div>
+                 </div>
+
+                 <div class = "col-md-5">
+                    <label>Monitor</label>
+                    <div class="input-group">
+                    <span class="input-group-addon">
+                    <input type="checkbox" id = "ch_monitor">
+                    </span>
+                    <input type="text" id = "txt_monitor" class="form-control">
+                    </div>
+                 </div>
+
+                 <div class = "col-md-5">
+                    <label>Teclado</label>
+                    <div class="input-group">
+                    <span class="input-group-addon">
+                    <input type="checkbox" id = "ch_teclado">
+                    </span>
+                    <input type="text" id = "txt_teclado" class="form-control">
+                    </div>
+                 </div>
+
+                 <div class = "col-md-5">
+                    <label>Lector CD / DVD</label>
+                    <div class="input-group">
+                    <span class="input-group-addon">
+                    <input type="checkbox" id = "ch_dvd">
+                    </span>
+                    <input type="text" id = "txt_dvd" class="form-control">
+                    </div>
+                 </div>
+
+                 <div class = "col-md-5">
+                    <label>Sistema Operativo</label>
+                    <div class="input-group">
+                    <span class="input-group-addon">
+                    <input type="checkbox" id = "ch_so">
+                    </span>
+                    <input type="text" id = "txt_so" class="form-control">
                     </div>
                  </div>
 
@@ -104,7 +149,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                         </select>
                     </div>
                  </div>
-                 
 
             </div>
         </div>
@@ -113,17 +157,21 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Numero</th>
+                    <th>#</th>
                     <th>Procesador</th>
                     <th>Tarjeta grafica</th>
-                    <th>Memoria Ram</th>
+                    <th>Memoria ram</th>
                     <th>Disco duro</th>
                     <th>Tarjeta madre</th>
                     <th>Fuente poder</th>
+                    <th>Monitor</th>
+                    <th>Teclado</th>
+                    <th>Lector CD/DVD</th>
+                    <th>Sistema Operativo</th>
                     <th>Sede</th>
                     <th>Laboratorio</th>
                 </tr>
-            <thead>
+            </thead>
             <tbody id = "tablecont">
 
             </tbody>
@@ -210,7 +258,45 @@ $("#ch_sede").change(function()
     updatetable();
 });
 
+$("#ch_monitor").change(function()
+{
+    updatetable();
+});
 
+$("#ch_teclado").change(function()
+{
+    updatetable();
+});
+
+$("#ch_dvd").change(function()
+{
+    updatetable();
+});
+
+$("#ch_so").change(function()
+{
+    updatetable();
+});
+
+$("#txt_monitor").keyup(function()
+{
+    updatetable();
+});
+
+$("#txt_teclado").keyup(function()
+{
+    updatetable();
+});
+
+$("#txt_dvd").keyup(function()
+{
+    updatetable();
+});
+
+$("#txt_so").keyup(function()
+{
+    updatetable();
+});
 
 $("#txt_cpu").keyup(function()
 {
@@ -351,7 +437,55 @@ function updatetable()
                     });
                     m_json = sede_arr;
                 }
-               
+
+                var monitor_checked = $("#ch_monitor").is(":checked");
+                if (monitor_checked)
+                {
+                    var monitor_arr = m_json.filter(function (value)
+                    {
+                        var filter_ci = $("#txt_monitor").val();
+                        var x = value.monitor.includes(filter_ci);
+                        return x;
+                    });
+                    m_json = monitor_arr;
+                }
+
+                var teclado_checked = $("#ch_teclado").is(":checked");
+                if (teclado_checked)
+                {
+                    var teclado_arr = m_json.filter(function (value)
+                    {
+                        var filter_ci = $("#txt_teclado").val();
+                        var x = value.teclado.includes(filter_ci);
+                        return x;
+                    });
+                    m_json = teclado_arr;
+                }
+
+                var dvd_checked = $("#ch_dvd").is(":checked");
+                if (dvd_checked)
+                {
+                    var dvd_arr = m_json.filter(function (value)
+                    {
+                        var filter_ci = $("#txt_dvd").val();
+                        var x = value.lector_dvd.includes(filter_ci);
+                        return x;
+                    });
+                    m_json = dvd_arr;
+                }
+
+                var so_checked = $("#ch_so").is(":checked");
+                if (so_checked)
+                {
+                    var dvd_arr = m_json.filter(function (value)
+                    {
+                        var filter_ci = $("#txt_so").val();
+                        var x = value.sistema_operativo.includes(filter_ci);
+                        return x;
+                    });
+                    m_json = dvd_arr;
+                }
+
                 populate(m_json);
             }
         }
@@ -378,6 +512,11 @@ function updatehtml(xjson)
     var _html = "" ;
     for (data in xjson)
     {
+        var _monitor = (xjson[data].monitor != "" ) ? xjson[data].monitor  : "n/d" ;
+        var _teclado = (xjson[data].teclado != "") ? xjson[data].teclado : "n/d" ;
+        var _lector_dvd = (xjson[data].lector_dvd != "") ? xjson[data].lector_dvd : "n/d" ;
+        var _sistema_operativo = (xjson[data].sistema_operativo != "") ? xjson[data].sistema_operativo : "n/d" ;
+
         _html += "<tr><th>" + xjson[data].descripcion + "</th>" + 
         "<th>" + xjson[data].procesador + "</th>" +
         "<th>" + xjson[data].tarjeta_grafica + "</th>" +
@@ -385,6 +524,10 @@ function updatehtml(xjson)
         "<th>" + xjson[data].disco_duro + "</th>" +
         "<th>" + xjson[data].tarjeta_madre + "</th>" +
         "<th>" + xjson[data].fuente_poder + "</th>" +
+        "<th>" + _monitor + "</th>" +
+        "<th>" + _teclado + "</th>" +
+        "<th>" + _lector_dvd + "</th>" +
+        "<th>" + _sistema_operativo + "</th>" +
         "<th>" + xjson[data].sedename + "</th>" +
         "<th>" + xjson[data].labname + "</th>" +
         "<th>" + '<a class = "btn btn-primary" onclick="return validate_delete();"  href = "<?php echo current_url()?>?id=' + xjson[data].id_equipo + '&action=remove"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar</a> ' + "</th>" +

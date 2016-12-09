@@ -9,36 +9,56 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         <div class = "form-group">
             <div class = "row">
                 <div class = "col-md-2">
-                    <label>Numero PC</label>
+                    <label>Numero Equipo*</label>
                     <input type = "text" class = "form-control" maxlength="10" name = "pc_num" required>
                 </div>
                 <div class = "col-md-5">
-                    <label>Procesador</label>
+                    <label>Procesador*</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_cpu" required>
                 </div>
                 <div class = "col-md-5">
-                    <label>Tarjeta de video (dejar en blanco si no tiene)</label>
+                    <label>Tarjeta de video</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_video">
                 </div>
             </div>
             <div class = "row">
                 <div class = "col-md-5">
-                    <label>Memoria Ram</label>
+                    <label>Memoria Ram*</label>
                     <input type = "text" class = "form-control"  maxlength="45" name = "pc_ram" required>
                 </div>
                 <div class = "col-md-5">
-                    <label>Disco duro</label>
+                    <label>Disco duro*</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_hdd" required>
                 </div>
             </div>
             <div class = "row">
                 <div class = "col-md-5">
-                    <label>Tarjeta Madre</label>
+                    <label>Tarjeta Madre*</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_motherboard" required>
                 </div>
                 <div class = "col-md-5">
-                    <label>Fuente de poder</label>
+                    <label>Fuente de poder*</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_fuente" required>
+                </div>
+
+                <div class = "col-md-5">
+                    <label>Monitor</label>
+                    <input type = "text" class = "form-control" maxlength="45" name = "pc_monitor">
+                </div>
+
+                <div class = "col-md-5">
+                    <label>Teclado</label>
+                    <input type = "text" class = "form-control" maxlength="45" name = "pc_teclado">
+                </div>
+
+                <div class = "col-md-5">
+                    <label>Lector CD/DVD</label>
+                    <input type = "text" class = "form-control" maxlength="45" name = "pc_dvd">
+                </div>
+
+                <div class = "col-md-5">
+                    <label>Sistema Operativo</label>
+                    <input type = "text" class = "form-control" maxlength="45" name = "pc_so">
                 </div>
             </div>
             <div class = "row">
@@ -73,6 +93,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 </div>
             </div>
         </div>
+        <p>( * ) Campos requeridos</p>
         <input type = "submit" class = "btn btn-primary" value = "Registrar Equipo">
     </form>
     <script type = "text/javascript">

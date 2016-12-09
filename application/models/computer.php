@@ -3,15 +3,15 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
 class Computer extends CI_Model
 {
-    public function register($num,$cpu,$video,$ram,$hdd,$motherboard,$fuente,$lab_id)
+    public function register($num,$cpu,$video,$ram,$hdd,$motherboard,$fuente,$monitor,$teclado,$lector_dvd,$sistema_operativo,$lab_id)
     {
         if (!$this->isindb($lab_id , $num))
         {
             $db = $this->load->database('default' , TRUE);
             $pc_id = $lab_id . "pc_" .$num ;  
-            $sql = "INSERT INTO `equipo`(`id_equipo`,`descripcion`,`procesador`,`tarjeta_grafica`,`memoria_ram`,`disco_duro`,`tarjeta_madre`,`fuente_poder`,
-            `id_laboratorio`) VALUES('" . $pc_id . "','" . $num . "','" . $cpu  .  "','" . $video . "','" . $ram . "','" . $hdd . "','" . $motherboard 
-             . "','" . $fuente . "','" . $lab_id . "');" ; 
+            $sql = "INSERT INTO `equipo` (`id_equipo`, `descripcion`, `procesador`, `tarjeta_grafica`, `memoria_ram`, `disco_duro`, `tarjeta_madre`, `fuente_poder`, `monitor`, `teclado`, `lector_dvd`, `sistema_operativo`, `id_laboratorio`)
+             VALUES('" . $pc_id . "','" . $num . "','" . $cpu  .  "','" . $video . "','" . $ram . "','" . $hdd . "','" . $motherboard 
+             . "','" . $fuente . "','" . $monitor . "','" . $teclado . "','" . $lector_dvd . "','" . $sistema_operativo . "','" .  $lab_id . "');" ; 
              $query = $db->query($sql);
              if ($db->affected_rows() > 0 )
              {

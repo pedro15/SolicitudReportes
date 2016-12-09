@@ -25,7 +25,9 @@ class User extends CI_Controller
         $this->load->view('head.php');
         $this->load->view('letterhead.php');
 
-        $usr_type = $this->loginsystem->getuserdata()['usuario_tipo'];
+        $usr_data = $this->loginsystem->getuserdata();
+
+        $usr_type = $usr_data['usuario_tipo'];
 
         switch($usr_type)
         {
@@ -36,12 +38,14 @@ class User extends CI_Controller
 
             case 2 :
                 // barra navegacion tecnico
-
+                $data['nombre_usuario'] = $usr_data['usuario_nombre'] ; 
+                $this->load->view('nav_tec.php' , $data);
             break;
                 
             case 3 :
                  // barra navegacion administrador
-                 $this->load->view('nav_admin.php');
+                  $data['nombre_usuario'] = $usr_data['usuario_nombre'] ; 
+                 $this->load->view('nav_admin.php' , $data);
             break;
 
             default:
@@ -235,6 +239,10 @@ class User extends CI_Controller
             $hdd_pc = $this->input->post('pc_hdd');
             $motherboar_pc = $this->input->post('pc_motherboard');
             $fuente_pc = $this->input->post('pc_fuente');
+            $monitor_pc = $this->input->post('pc_monitor');
+            $teclado_pc = $this->input->post('pc_teclado');
+            $dvd_pc = $this->input->post('pc_dvd');
+            $so_pc = $this->input->post('pc_so');
             $id_lab = $this->input->post('lab_id');
 
             if ( isset($num_pc) && isset($cpu_pc) && isset($video_pc)
@@ -242,7 +250,7 @@ class User extends CI_Controller
             && isset($fuente_pc) && isset($id_lab) && !($id_lab == "Seleccione Sede" || $id_lab == "Seleccionar" ) )
             {
                 if ($this->computer->register($num_pc,$cpu_pc,$video_pc,$ram_pc,$hdd_pc,$motherboar_pc,
-                $fuente_pc,$id_lab))
+                $fuente_pc, $monitor_pc , $teclado_pc , $dvd_pc , $so_pc ,$id_lab))
                 {
                     $this->load_alert("Equipo registrado correctamente" , "SUCESS");
                 }else 
