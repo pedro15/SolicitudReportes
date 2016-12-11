@@ -75,4 +75,26 @@ class Computer extends CI_Model
         }
     }
 
+    public function deletepc( $pcnum )
+    {
+        $db = $this->load->database('default', TRUE);
+        $check_sql = "SELECT * FROM `equipo` WHERE `id_equipo` = '" . $pcnum . "' ; " ; 
+        $check_query = $db->query($check_sql) ;
+        $check_row = $check_query->row();
+        if (isset($check_row))
+        {
+            $remove_sql = "DELETE FROM `equipo` WHERE `id_equipo` = '" . $pcnum . "' ;" ; 
+            $db->query($remove_sql); 
+            if ( $db->affected_rows() > 0 )
+            {
+                return true ;
+            }else 
+            {
+                return false ;
+            }
+        }else 
+        {
+            return false ;
+        }
+    }
 }

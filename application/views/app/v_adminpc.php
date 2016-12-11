@@ -507,6 +507,16 @@ function populate(xjson)
     });
 }
 
+function validate_edit()
+{
+    return confirm("Desea editar este equipo?"); 
+}
+
+function validate_delete()
+{
+    return confirm("Desea eliminar este equipo?");
+}
+
 function updatehtml(xjson)
 {
     var _html = "" ;
@@ -530,7 +540,7 @@ function updatehtml(xjson)
         "<th>" + _sistema_operativo + "</th>" +
         "<th>" + xjson[data].sedename + "</th>" +
         "<th>" + xjson[data].labname + "</th>" +
-        "<th>" + '<a class = "btn btn-primary" onclick="return validate_delete();"  href = "<?php echo current_url()?>?id=' + xjson[data].id_equipo + '&action=remove"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar</a> ' + "</th>" +
+        "<th>" + '<a class = "btn btn-primary" onclick="return validate_edit();"  href = "<?php echo current_url()?>?id=' + xjson[data].id_equipo + '&action=edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar</a> ' + "</th>" +
         "<th>" + '<a class = "btn btn-danger" onclick="return validate_delete();"  href = "<?php echo current_url()?>?id=' + xjson[data].id_equipo + '&action=remove"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a> ' + "</th></tr>" ;
     }
     $("#tablecont").html(_html); 

@@ -283,6 +283,27 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(2,3)))
         { 
+
+            $idpc = $this->input->get('id');
+            $actionform = $this->input->get('action');
+
+            if (isset($actionform) && isset($idpc) )
+            {
+                switch ($actionform)
+                {
+                    case "remove" : 
+                        if ($this->computer->deletepc($idpc))
+                        {
+                            $this->load_alert("Equipo eliminado correctamente" , "SUCESS");
+                        }
+                    break; 
+
+                    case "edit" : 
+                        
+                    break;
+                }
+            }
+
             $data['sedes'] = $this->sede->get_all();
 
             $this->load->view('app/v_adminpc.php' , $data);
