@@ -13,22 +13,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                         <li><a href="<?php echo base_url('index.php/user/admintickets')?>">Administrar solicitudes</a></li>
                   </ul>
                 </li>
-            <!-- Laboratorios !-->
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Laboratorios<span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                       <li><a href="<?php echo base_url('index.php/user/registerlab')?>">Registrar laboratorio</a></li>
-                       <li><a href="<?php echo base_url('index.php/user/adminlab')?>">Administrar laboratorios</a></li>
-                  </ul>
-                </li>
-            <!-- Equipos !-->
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Equipos<span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                       <li><a href="<?php echo base_url('index.php/user/registerpc')?>">Registrar equipo</a></li>
-                       <li><a href="<?php echo base_url('index.php/user/adminpc')?>">Administrar equipos</a></li>
-                  </ul>
-                </li>
             <!-- Estadisticas !-->
             <li><a href="<?php echo base_url('index.php/user/stats')?>">Estadisticas</a></li>
              <!-- Herramientas !-->
