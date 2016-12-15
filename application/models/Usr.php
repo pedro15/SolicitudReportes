@@ -76,7 +76,27 @@ class Usr extends CI_Model
             return false;
         }
     }
-    
+
+    public function change_type($ci , $newtype)
+    {
+        if($this->is_in_database($ci))
+        {
+            $db = $this->load->database('default' , TRUE);
+            $sql = "UPDATE `usuario` SET `tipo` = '" . $newtype ."' WHERE `cedula_usuario` = '" . $ci . "' ;" ;
+            $db->query($sql);
+            if ($db->affected_rows() > 0 )
+            {
+                return true ;
+            }else
+            {
+                return false ;
+            }
+        }else 
+        {
+            return false;
+        }
+    }
+
     function register($ci , $name , $pw , $security_question , $type , $email  )
     {
         if (!$this->is_in_database($ci))
@@ -96,7 +116,7 @@ class Usr extends CI_Model
         {
             return false ;
         }
-    } 
+    }
 
     public function is_in_database($ci)
     {
@@ -112,4 +132,55 @@ class Usr extends CI_Model
             return false;
         }
     }
+
+    public function is_admin($ci)
+    {
+        $db = $this->load->database('default' , TRUE);
+        $sql = "SELECT * FROM `usuario` WHERE `cedula_usuario` = '" . $ci . "';" ;
+        $query = $db->query($sql);
+        $row = $query->row();
+        if (isset($row))
+        {
+            if ($row->tipo == 3 )
+            {
+                return true ;
+            }else 
+            {
+                return false ;
+            }
+        }else 
+        {
+            return false;
+        }
+    }
+
+    public function can_remove($ci)
+    {
+        if ($this->is_admin($ci))
+        {
+            $db = $this->load->database('default' , TRUE); 
+            $sql = "SELECT * FROM `usuario` WHERE `tipo` = '3'; " ; 
+            $query = $db->query($sql); 
+            $count_r = $query->num_rows(); 
+            if ($count_r > 1 )
+            {
+                return true ;
+            }else 
+            {
+                return false ; 
+            }
+        }else 
+        {
+            return true ; 
+        }
+    }
+
+    public function get_data($ci)
+    {
+        $db = $this->load->database('default' , TRUE);
+        $sql = "SELECT * FROM `usuario` WHERE `cedula_usuario` = '" . $ci . "' ; " ; 
+        $query = $db->query($sql);
+        return $query->row();
+    }
+
 }

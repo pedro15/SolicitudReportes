@@ -225,7 +225,7 @@ function updatehtml(xjson)
         "<th>" + _t + "</th>" +
         _h  +
         "<th>" + '<a class = "btn btn-danger" onclick="return validate_delete();"  href = "<?php echo current_url()?>?ci=' + xjson[data].cedula_usuario + '&action=remove"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a> ' + "</th>" +
-        "<th>" + '<a class = "btn btn-primary" onclick ="" href = "<?php echo base_url('user/changetype')?>?ci=' + xjson[data].cedula_usuario + '&action=changestate' + '"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Cambiar privilegio</a></th>' + 
+        "<th>" + '<a class = "btn btn-primary" onclick ="" href = "<?php echo base_url('index.php/user/changetype')?>?ci=' + xjson[data].cedula_usuario + '"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Cambiar privilegio</a></th>' + 
         "</tr>" ;
     }
     $("#tablecont").html(_html); 

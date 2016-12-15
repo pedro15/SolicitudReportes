@@ -10,7 +10,6 @@ class User extends CI_Controller
 		parent::__construct();
 		$this->load->helper('url');
         $this->load->helper('string');
-        
         $this->load->model('laboratory');
         $this->load->model('computer');
         $this->load->model('sede');
@@ -387,16 +386,30 @@ class User extends CI_Controller
                 switch ($action)
                 {
                     case "remove" :
-                        if ($this->usr->remove($ci))
+                        
+                        if ($this->usr->can_remove($ci))
                         {
-                            $this->load_alert("Usuario eliminado correctamente" , "SUCCESS");
+                            if ($this->usr->remove($ci))
+                            {
+                                $this->load_alert("Usuario eliminado correctamente" , "SUCCESS");
+                            }
+                        }else 
+                        {
+                            $this->load_alert("No se puede eliminar: Debe existir al menos 1 administrador en el sistema" , "DANGER");
                         }
                     break;
 
                     case "disable" :
-                        if ($this->usr->change_state($ci , 0)) // 0 Es desabilitado
+
+                        if ($this->usr->can_remove($ci))
                         {
-                            $this->load_alert("Usuario desabilitado correctamente" , "SUCCESS");
+                            if ($this->usr->change_state($ci , 0)) // 0 Es desabilitado
+                            {
+                                $this->load_alert("Usuario desabilitado correctamente" , "SUCCESS");
+                            }
+                        }else 
+                        {
+                            $this->load_alert("No se puede desabilitar: Debe existir al menos 1 administrador habilitado en el sistema" , "DANGER");    
                         }
                     break;
 
@@ -415,7 +428,59 @@ class User extends CI_Controller
         }
     }
 
-    
+    public function changetype()
+    {
+        if ($this->canload_module(array(3)))
+        {
+            $ci = $this->input->get('ci');
+            if (isset($ci))
+            {
+                $newt = $this->input->post('newtype');
+                if (isset($newt))
+                {
+                    if($this->usr->can_remove($ci))
+                    {
+                        if ($this->usr->change_type($ci , $newt))
+                        {
+                            $this->load_alert("Estado cambiado correctamente" , "SUCCESS");
+                        }
+                    }else 
+                    {
+                        $this->load_alert("No se puede cambiar el privilegio: debe existir al menos 1 administrador. " , "DANGER");
+                    }
+                }
+                
+                $row_data = $this->usr->get_data($ci);
+                if (isset($row_data))
+                {
+                    $data['nombre_usuario'] = $row_data->nombre ; 
+                    switch($row_data->tipo)
+                    {
+                        case 1 : 
+                            $data['tipo'] = "Participante/Instructor" ; 
+                        break;
+                        
+                        case 2 :
+                            $data['tipo'] = "Tecnico" ;
+                        break;
+
+                        case 3 : 
+                            $data['tipo'] = "Administrador";
+                        break; 
+                    }
+                    $this->load->view('app/v_changeusrtype.php' , $data);
+                }else 
+                {
+                    redirect('user');
+                }
+            }else 
+            {
+               redirect('user');
+            }
+            $this->end_page();
+        }
+    }
+
     // obtiene todos los tecnicos y los devuelve en un json
     public function getalltecs()
     {
