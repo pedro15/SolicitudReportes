@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
-
-class Tec extends CI_Model
+// Modulos para los usuarios
+class Usr extends CI_Model
 {
     function __construct()
     {
@@ -11,7 +11,7 @@ class Tec extends CI_Model
     public function get_all()
     {
         $db = $this->load->database('default' , TRUE);
-        $sql = "SELECT * FROM `usuario` WHERE `tipo` = '2' OR  `tipo` = '0' ; "; 
+        $sql = "SELECT * FROM `usuario` ;"; 
         $query = $db->query($sql);
         return $query->result();
     }
@@ -62,7 +62,7 @@ class Tec extends CI_Model
         if($this->is_in_database($ci))
         {
             $db = $this->load->database('default' , TRUE);
-            $sql = "UPDATE `usuario` SET `tipo` = '" . $new_state ."' WHERE `cedula_usuario` = '" . $ci . "' ;" ;
+            $sql = "UPDATE `usuario` SET `habilitado` = '" . $new_state ."' WHERE `cedula_usuario` = '" . $ci . "' ;" ;
             $db->query($sql);
             if ($db->affected_rows() > 0 )
             {
@@ -76,7 +76,7 @@ class Tec extends CI_Model
             return false;
         }
     }
-
+    
     function register($ci , $name , $pw , $security_question , $type , $email  )
     {
         if (!$this->is_in_database($ci))

@@ -37,12 +37,12 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                        <li><a href="<?php echo base_url('index.php/user/adminpc')?>">Administrar equipos</a></li>
                   </ul>
                 </li>
-             <!-- Administrar tecnicos !-->
+             <!-- Usuarios !-->
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tecnicos<span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios<span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                      <li><a href="<?php echo base_url('index.php/user/registertec')?>">Registrar tecnico</a></li>
-                      <li><a href="<?php echo base_url('index.php/user/admintec')?>">Administrar tecnicos</a></li>
+                      <li><a href="<?php echo base_url('index.php/user/registerusr')?>">Registrar usuario</a></li>
+                      <li><a href="<?php echo base_url('index.php/user/adminusr')?>">Administrar usuario</a></li>
                   </ul>
                 </li>
             <!-- Estadisticas !-->

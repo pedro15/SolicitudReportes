@@ -43,7 +43,7 @@ class Loginsystem extends CI_Model
         $row = $this->get_user_data($ci);
         if (isset($row))
         {
-            if ($row->tipo <= 0 )
+            if ($row->habilitado <= 0 )
             {
                 return true ;
             }else 

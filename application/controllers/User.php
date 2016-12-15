@@ -14,7 +14,7 @@ class User extends CI_Controller
         $this->load->model('laboratory');
         $this->load->model('computer');
         $this->load->model('sede');
-        $this->load->model('tec');
+        $this->load->model('usr');
         $this->load->model('loginsystem');
     }
 
@@ -130,7 +130,7 @@ class User extends CI_Controller
     =================================================*/
     public function admintickets()
     {
-        if ($this->canload_module(array(2,3))) //3  para probar modulo
+        if ($this->canload_module(array(3))) //3  para probar modulo
         {
 
             // pie de pagina
@@ -146,7 +146,7 @@ class User extends CI_Controller
     =================================================*/
     public function registersede()
     {
-        if ($this->canload_module(array(2,3))) //3  para probar modulo
+        if ($this->canload_module(array(3))) //3  para probar modulo
         {
             $name = $this->input->post('sede_nombre');
             $ubicacion = $this->input->post('sede_ubicacion');
@@ -171,7 +171,7 @@ class User extends CI_Controller
     =================================================*/
     public function adminsede()
     {
-        if ($this->canload_module(array(2,3))) //3  para probar modulo
+        if ($this->canload_module(array(3))) //3  para probar modulo
         {
 
             // pie de pagina
@@ -187,7 +187,7 @@ class User extends CI_Controller
     =================================================*/
     public function registerlab()
     {
-        if ($this->canload_module(array(2,3)))
+        if ($this->canload_module(array(3)))
         {
 
             $opc_sede = $this->input->post('sedeopc');
@@ -230,7 +230,7 @@ class User extends CI_Controller
     =================================================*/
     public function registerpc()
     {
-        if ($this->canload_module(array(2,3)))
+        if ($this->canload_module(array(3)))
         {
             $num_pc = $this->input->post('pc_num');
             $cpu_pc = $this->input->post('pc_cpu');
@@ -330,24 +330,24 @@ class User extends CI_Controller
     }
 
     /* ========================
-    Tecnicos
+    Usuarios
     ==========================*/ 
 
-    /* Registrar Tecnico
+    /* Registrar Usuario
     =================================================*/
-    public function registertec()
+    public function registerusr()
     {
-        if ($this->canload_module(array(2,3)))
+        if ($this->canload_module(array(3)))
         {
             $_name = $this->input->post('name');
             $_email = $this->input->post('email');
             $_ci = $this->input->post('userci');
+            $type = $this->input->post('usrtype');
             if (isset($_name) && isset($_email) && isset($_ci))
             {
                 $default_pw = $_ci; // Clave por defecto
                 $sec_question = "" ;
-                $type = "2"; 
-                if ($this->tec->register($_ci , $_name , $default_pw , $sec_question , $type , $_email))
+                if ($this->usr->register($_ci , $_name , $default_pw , $sec_question , $type , $_email))
                 {
                     $this->load_alert("Tecnico registrado correctamente ! <strong>la clave inicialmente es la Cedula</strong>, puede cambiarla una vez que ingrese en la seccion de : 'Perfil/Cambiar clave' " , "SUCCESS");
                 }else 
@@ -355,17 +355,29 @@ class User extends CI_Controller
                     $this->load_alert("Ya existe un usuario con la cedula: " . $_ci , "DANGER");
                 }
             }
-            $this->load->view('app/v_registertec.php');
+            $this->load->view('app/v_registerusr.php');
             // pie de pagina
             $this->end_page();
         }
     }
 
-    /* Administrar tecnicos
-    =================================================*/
-    public function admintec()
+    public function usr_ci_validation()
     {
-        if ($this->canload_module(array(2,3)))
+        $ci_info = $this->input->post('cedula_user');
+        if ($this->usr->is_in_database($ci_info))
+        {
+            echo json_encode(true) ;
+        }else 
+        {
+            echo json_encode(false) ;
+        }
+    }
+
+    /* Administrar usuarios
+    =================================================*/
+    public function adminusr()
+    {
+        if ($this->canload_module(array(3)))
         {
             $ci = $this->input->get('ci' , TRUE);
             $action = $this->input->get('action', TRUE);
@@ -375,37 +387,39 @@ class User extends CI_Controller
                 switch ($action)
                 {
                     case "remove" :
-                        if ($this->tec->remove($ci))
+                        if ($this->usr->remove($ci))
                         {
-                            $this->load_alert("Tecnico eliminado correctamente" , "SUCCESS");
+                            $this->load_alert("Usuario eliminado correctamente" , "SUCCESS");
                         }
                     break;
 
                     case "disable" :
-                        if ($this->tec->change_state($ci , 0)) // 0 Es desabilitado
+                        if ($this->usr->change_state($ci , 0)) // 0 Es desabilitado
                         {
-                            $this->load_alert("Tecnico desabilitado correctamente" , "SUCCESS");
+                            $this->load_alert("Usuario desabilitado correctamente" , "SUCCESS");
                         }
                     break;
 
                     case "enable" :
-                        if ($this->tec->change_state($ci , 2)) // 2 estado normal
+                        if ($this->usr->change_state($ci , 1)) // 1 estado normal
                         {
-                            $this->load_alert("Tecnico habilitado correctamente" , "SUCCESS");
+                            $this->load_alert("Usuario habilitado correctamente" , "SUCCESS");
                         }
                     break;
                 }
             }
 
-            $this->load->view('app/v_admintec.php');
+            $this->load->view('app/v_adminusr.php');
             // pie de pagina
             $this->end_page();
         }
     }
+
+    
     // obtiene todos los tecnicos y los devuelve en un json
     public function getalltecs()
     {
-        $data = $this->tec->get_all();
+        $data = $this->usr->get_all();
         echo json_encode($data);
     }
 
@@ -429,7 +443,7 @@ class User extends CI_Controller
     =================================================*/
     public function backupdb()
     {
-        if ($this->canload_module(array(2,3)))
+        if ($this->canload_module(array(3)))
         {
             
             // pie de pagina
@@ -441,7 +455,7 @@ class User extends CI_Controller
     =================================================*/
     public function restoredb()
     {
-        if ($this->canload_module(array(2,3)))
+        if ($this->canload_module(array(3)))
         {
             // pie de pagina
             $this->end_page();
@@ -456,7 +470,7 @@ class User extends CI_Controller
     =================================================*/
     public function manual()
     {
-        if ($this->canload_module(array(2,3)))
+        if ($this->canload_module(array(1,2,3)))
         {
             
             // pie de pagina
@@ -468,7 +482,7 @@ class User extends CI_Controller
     =================================================*/
     public function credits()
     {
-        if ($this->canload_module(array(2,3)))
+        if ($this->canload_module(array(1,2,3)))
         {
             
             // pie de pagina

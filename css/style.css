@@ -311,6 +311,12 @@ footer p
   color: #ce4444;
 }
 
+.fieldalert
+{
+  color:  #ce4444 ;
+  font-weight: bold;
+}
+
 .centerpanel-header label
 {
   font-weight: 600;
