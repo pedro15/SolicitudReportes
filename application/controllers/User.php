@@ -296,10 +296,6 @@ class User extends CI_Controller
                             $this->load_alert("Equipo eliminado correctamente" , "SUCESS");
                         }
                     break; 
-
-                    case "edit" : 
-                        
-                    break;
                 }
             }
 

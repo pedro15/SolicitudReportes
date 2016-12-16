@@ -103,6 +103,7 @@ CREATE TABLE `usuario` (
   `clave` varchar(255) DEFAULT NULL,
   `pregunta_seguridad` varchar(255) DEFAULT NULL,
   `tipo` int(11) DEFAULT NULL,
+  `habilitado` int(1) DEFAULT NULL,
   `correo` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -110,8 +111,8 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`cedula_usuario`, `nombre`, `clave`, `pregunta_seguridad`, `tipo`, `correo`) VALUES
-(23724512, 'Pedro Duran', '$2y$10$ff0hoC09WvbDGFLv3I2ede8KIjQyFOxBBwmrzV/WhGb676swqHxla', '', 3, 'correo@dominio');
+INSERT INTO `usuario` (`cedula_usuario`, `nombre`, `clave`, `pregunta_seguridad`, `tipo` , `habilitado` , `correo`) VALUES
+(23724512, 'Pedro Duran', '$2y$10$ff0hoC09WvbDGFLv3I2ede8KIjQyFOxBBwmrzV/WhGb676swqHxla', '', 3 , 1  ,'correo@dominio');
 
 --
 -- Índices para tablas volcadas

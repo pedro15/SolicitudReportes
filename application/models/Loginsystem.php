@@ -7,7 +7,6 @@ class Loginsystem extends CI_Model
     {
         parent::__construct();
         $this->load->library('session');
-        $this->load->library('encryption');
     }
 
     public function login_internal($ci , $pass)
