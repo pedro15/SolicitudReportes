@@ -36,9 +36,14 @@ class Computer extends CI_Model
     
     public function isindb($lab_id , $num)
     {
-        $pc_id = $lab_id . "pc_" .$num ;  
+        $pc_id = $lab_id . "pc_" .$num ; 
+        return $this->isindb_byid($pc_id);
+    }
+
+    public function isindb_byid($id)
+    { 
         $db = $this->load->database('default' , TRUE);
-        $sql = "SELECT * FROM `equipo` WHERE `id_equipo` = '" . $pc_id . "';" ;
+        $sql = "SELECT * FROM `equipo` WHERE `id_equipo` = '" . $id . "';" ;
         $query = $db->query($sql);
         if ($query->num_rows() > 0 )
         {
@@ -96,5 +101,13 @@ class Computer extends CI_Model
         {
             return false ;
         }
+    }
+    
+    public function get_pc_info($pcnum)
+    {
+        $db = $this->load->database('default', TRUE);
+        $sql = "SELECT * FROM `equipo`  WHERE `id_equipo` = '" . $pcnum . "' ;" ; 
+        $query = $db->query($sql);
+        return $query->row();
     }
 }

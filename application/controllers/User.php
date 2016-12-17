@@ -280,7 +280,7 @@ class User extends CI_Controller
     =================================================*/
     public function adminpc()
     {
-        if ($this->canload_module(array(2,3)))
+        if ($this->canload_module(array(3)))
         { 
 
             $idpc = $this->input->get('id');
@@ -307,6 +307,49 @@ class User extends CI_Controller
         }
     }
 
+    // Editar equipo
+    public function editpc()
+    {
+        if ($this->canload_module(array(3)))
+        {
+            $id = $this->input->get('id');
+            if (isset($id))
+            {
+                $pcinfo = $this->computer->get_pc_info($id);
+                if (isset($pcinfo))
+                {
+                    $data['pc_num'] = $pcinfo->descripcion; // Numero pc establecido por el usuario
+                    $data['pc_cpu'] = $pcinfo->procesador;  // Procesador 
+                    $data['pc_gpu'] = $pcinfo->tarjeta_grafica; // Tarjeta de video
+                    $data['pc_ram'] = $pcinfo->memoria_ram; // Memoria Ram
+                    $data['pc_hdd'] = $pcinfo->disco_duro; // Disco duro
+                    $data['pc_tm'] = $pcinfo->tarjeta_madre; // Tarjeta madre
+                    $data['pc_fp'] = $pcinfo->fuente_poder; // Fuente de poder
+                    $data['pc_monitor'] = $pcinfo->monitor; // Monitor
+                    $data['pc_teclado'] = $pcinfo->teclado ; // Teclado
+                    $data['pc_dvd'] = $pcinfo->lector_dvd ; // Lector dvd 
+                    $data['pc_so'] = $pcinfo->sistema_operativo; // sistema operativo
+                    $data['lab_id'] = $pcinfo->id_laboratorio; // id de laboratorio
+                    $labinfo = $this->laboratory->get_lab($pcinfo->id_laboratorio); 
+                    $data['lab_name'] = $labinfo->descripcion ; // Nombre laboratorio
+                    $data['sedes'] = $this->sede->get_all(); // Listas de sedes 
+                    $sedeinfo = $this->sede->get_sede($labinfo->id_sede);
+                    $data['sede_name'] = $sedeinfo->nombre;
+
+                    $this->load->view('app/v_updatepc.php',$data); 
+                }else
+                {
+                     redirect('user');
+                }
+            }else 
+            {
+                redirect('user');
+            }
+            // Pie de pagina 
+            $this->end_page();
+        }
+    }
+    
     // obtiene todas las pcs y las devuelve en un json
     public function getallpcs()
     {

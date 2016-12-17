@@ -47,6 +47,5 @@ class Laboratory extends CI_Model
         $query = $db->query($sql);
         return $query->row();
     }
-
 }
 ?>
