@@ -153,11 +153,14 @@
             </div>
         </div>
     </form>
-    <div class="table-responsive">
+</div>
+<div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>Sede</th>
+                    <th>Laboratorio</th>
                     <th>Procesador</th>
                     <th>Tarjeta grafica</th>
                     <th>Memoria ram</th>
@@ -168,8 +171,6 @@
                     <th>Teclado</th>
                     <th>Lector CD/DVD</th>
                     <th>Sistema Operativo</th>
-                    <th>Sede</th>
-                    <th>Laboratorio</th>
                 </tr>
             </thead>
             <tbody id = "tablecont">
@@ -179,7 +180,6 @@
         <div id = "mpag">
         </div>
     </div>
-</div>
 <script type = "text/javascript">
 
 $(document).ready(function()
@@ -528,6 +528,8 @@ function updatehtml(xjson)
         var _sistema_operativo = (xjson[data].sistema_operativo != "") ? xjson[data].sistema_operativo : "n/d" ;
 
         _html += "<tr><th>" + xjson[data].descripcion + "</th>" + 
+        "<th>" + xjson[data].sedename + "</th>" +
+        "<th>" + xjson[data].labname + "</th>" +
         "<th>" + xjson[data].procesador + "</th>" +
         "<th>" + xjson[data].tarjeta_grafica + "</th>" +
         "<th>" + xjson[data].memoria_ram + "</th>" +
@@ -538,8 +540,6 @@ function updatehtml(xjson)
         "<th>" + _teclado + "</th>" +
         "<th>" + _lector_dvd + "</th>" +
         "<th>" + _sistema_operativo + "</th>" +
-        "<th>" + xjson[data].sedename + "</th>" +
-        "<th>" + xjson[data].labname + "</th>" +
         "<th>" + '<a class = "btn btn-primary" onclick="return validate_edit();"  href = "<?php echo base_url("index.php/user/editpc")?>?id=' + xjson[data].id_equipo + '"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar</a> ' + "</th>" +
         "<th>" + '<a class = "btn btn-danger" onclick="return validate_delete();"  href = "<?php echo current_url()?>?id=' + xjson[data].id_equipo + '&action=remove"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a> ' + "</th></tr>" ;
     }

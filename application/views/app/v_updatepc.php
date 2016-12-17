@@ -10,7 +10,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             <div class = "row">
                 <div class = "col-md-2">
                     <label>Numero Equipo</label>
-                    <input type = "text" class = "form-control" maxlength="10" name = "pc_num" value = "<?php echo $pc_num ; ?>" required=""> 
+                    <input type = "text" class = "form-control" maxlength="10" id = "pcnum" name = "pc_num" value = "<?php echo $pc_num ; ?>" autocomplete="off" required=""> 
+                    <label id = "labelalert" class = "fieldalert" ></label>
                 </div>
                 <div class = "col-md-5">
                     <label>Procesador</label>
@@ -93,7 +94,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 </div>
             </div>
         </div>
-        <input type = "submit" class = "btn btn-primary" value = "Actualizar equipo">
+        <input id = "sendbtn" type = "submit" class = "btn btn-primary" value = "Actualizar equipo">
     </form>
     <script type = "text/javascript">
         $("#select_sede").change(function()
@@ -121,5 +122,52 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 }
             );
         });
+
+        $("#select_lab").change(function()
+        {
+            validate_pcnumber();
+        });
+
+        $("#pcnum").keyup(function()
+        {
+           validate_pcnumber();
+        });
+
+        $("#pcnum").change(function()
+        {
+            validate_pcnumber();
+        });
+        var cansend = true;
+
+        function validate_pcnumber()
+        {
+            var labid = $("#select_lab").val() != "none" ? $("#select_lab").val() : 
+            "<?php echo $lab_id; ?>" ;
+            var currid = "<?php echo $pc_id ?>" ; 
+            var pcname = $("#pcnum").val();
+            $.ajax
+            ({
+                type : "POST" ,
+                url : "<?php echo base_url('index.php/user/canchange_pc'); ?>",
+                datatype : 'json' , 
+                data: {lab_id: labid , pc_name: pcname , ignoreid: currid},
+                success:
+                function (res)
+                {
+                   var m_exists = JSON.parse(res);
+                   if (m_exists)
+                   {
+                       $("#labelalert").text("Ya existe un equipo registrado con este numero");
+                       $("#pcnum").css("background-color" , "#ffdbdb"); 
+
+                   }else 
+                   {
+                        $("#pcnum").css("background-color" , "white"); 
+                        $("#labelalert").text("");
+                   }
+                   cansend = !m_exists; 
+                }
+            });
+        }
     </script>
 </div>

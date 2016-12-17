@@ -333,7 +333,8 @@ class User extends CI_Controller
                     $teclado_pc = $this->input->post('pc_teclado');
                     $dvd_pc = $this->input->post('pc_dvd');
                     $so_pc = $this->input->post('pc_so');
-                   
+
+                    $data['pc_id'] = $pcinfo->id_equipo;
                     $data['pc_num'] = $pcinfo->descripcion; // Numero pc establecido por el usuario
                     $data['pc_cpu'] = $pcinfo->procesador;  // Procesador 
                     $data['pc_gpu'] = $pcinfo->tarjeta_grafica; // Tarjeta de video
@@ -386,6 +387,22 @@ class User extends CI_Controller
             }
             // Pie de pagina 
             $this->end_page();
+        }
+    }
+
+    public function canchange_pc()
+    {
+        $labid = $this->input->post('lab_id'); 
+        $pcname = $this->input->post('pc_name');
+        $ignoreid = $this->input->post('ignoreid');
+
+        if (isset($labid) && isset($pcname))
+        {
+            $pc_id = $labid . "pc_" . $pcname ;  
+            echo json_encode($this->computer->isindb_ignoring($pc_id , $ignoreid));
+        }else 
+        {
+            echo json_encode(false);
         }
     }
     

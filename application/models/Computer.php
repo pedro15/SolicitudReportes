@@ -54,6 +54,20 @@ class Computer extends CI_Model
         }
     }
 
+    public function isindb_ignoring($id , $ignoringid)
+    { 
+        $db = $this->load->database('default' , TRUE);
+        $sql = "SELECT * FROM `equipo` WHERE `id_equipo` = '" . $id . "' AND `id_equipo` != '" . $ignoringid . "' ;" ;
+        $query = $db->query($sql);
+        if ($query->num_rows() > 0 )
+        {
+            return true ;
+        }else 
+        {
+            return false ;
+        }
+    }
+
     public function editpc ($pcnum , $lab_id , $newcpu , $newvideo , $newram , $newhdd , $newmotherboard , $newfuente , $newmonitor , $newteclado, $newdvd , $newso , $newlabid , $newnumpc)
     {
         
