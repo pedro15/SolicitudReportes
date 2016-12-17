@@ -8,8 +8,10 @@ class User extends CI_Controller
     function __construct()
 	{
 		parent::__construct();
-		$this->load->helper('url');
+		
+        $this->load->helper('url');
         $this->load->helper('string');
+        
         $this->load->model('laboratory');
         $this->load->model('computer');
         $this->load->model('sede');
@@ -318,6 +320,20 @@ class User extends CI_Controller
                 $pcinfo = $this->computer->get_pc_info($id);
                 if (isset($pcinfo))
                 {
+                    $num_pc = $this->input->post('pc_num');
+                    $id_lab = $this->input->post('lab_id');
+
+                    $cpu_pc = $this->input->post('pc_cpu');
+                    $video_pc = $this->input->post('pc_video');
+                    $ram_pc = $this->input->post('pc_ram');
+                    $hdd_pc = $this->input->post('pc_hdd');
+                    $motherboar_pc = $this->input->post('pc_motherboard');
+                    $fuente_pc = $this->input->post('pc_fuente');
+                    $monitor_pc = $this->input->post('pc_monitor');
+                    $teclado_pc = $this->input->post('pc_teclado');
+                    $dvd_pc = $this->input->post('pc_dvd');
+                    $so_pc = $this->input->post('pc_so');
+                   
                     $data['pc_num'] = $pcinfo->descripcion; // Numero pc establecido por el usuario
                     $data['pc_cpu'] = $pcinfo->procesador;  // Procesador 
                     $data['pc_gpu'] = $pcinfo->tarjeta_grafica; // Tarjeta de video
@@ -336,6 +352,29 @@ class User extends CI_Controller
                     $sedeinfo = $this->sede->get_sede($labinfo->id_sede);
                     $data['sede_name'] = $sedeinfo->nombre;
 
+                    if ( isset($num_pc) && isset($cpu_pc) && isset($video_pc)
+                    && isset($ram_pc) && isset($hdd_pc) && isset($motherboar_pc) 
+                    && isset($fuente_pc) )
+                    {
+                        $editnumpc = $pcinfo->descripcion;
+                        $editlabid = $pcinfo->id_laboratorio;
+
+                        if (isset($num_pc) && $num_pc != "none"  )
+                        {
+                            $editnumpc = $num_pc;
+                        }
+
+                        if (isset($id_lab) && $id_lab != "none" )
+                        {
+                            $editlabid = $id_lab;
+                        }
+
+                        if ($this->computer->editpc( $pcinfo->descripcion , $pcinfo->id_laboratorio , $cpu_pc , $video_pc , $ram_pc , $hdd_pc , $motherboar_pc, 
+                        $fuente_pc , $monitor_pc , $teclado_pc , $dvd_pc , $so_pc , $editlabid , $editnumpc ))
+                        {
+                            redirect('user/adminpc'); 
+                        }
+                    }
                     $this->load->view('app/v_updatepc.php',$data); 
                 }else
                 {

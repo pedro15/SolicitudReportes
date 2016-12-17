@@ -10,11 +10,11 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             <div class = "row">
                 <div class = "col-md-2">
                     <label>Numero Equipo</label>
-                    <input type = "text" class = "form-control" maxlength="10" name = "pc_num" value = "<?php echo $pc_num ; ?>"> 
+                    <input type = "text" class = "form-control" maxlength="10" name = "pc_num" value = "<?php echo $pc_num ; ?>" required=""> 
                 </div>
                 <div class = "col-md-5">
                     <label>Procesador</label>
-                    <input type = "text" class = "form-control" maxlength="45" name = "pc_cpu" value = "<?php echo $pc_cpu ; ?>">
+                    <input type = "text" class = "form-control" maxlength="45" name = "pc_cpu" value = "<?php echo $pc_cpu ; ?>" required="">
                 </div>
                 <div class = "col-md-5">
                     <label>Tarjeta de video</label>
@@ -43,7 +43,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
                 <div class = "col-md-5">
                     <label>Monitor</label>
-                    <input type = "text" class = "form-control" maxlength="45" name = "pc_monitor" value = "<?php echo $pc_monitor ;  ?>" >
+                    <input type = "text" class = "form-control" maxlength="45" name = "pc_monitor" value = "<?php echo $pc_monitor ;  ?>">
                 </div>
 
                 <div class = "col-md-5">
@@ -58,7 +58,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
                 <div class = "col-md-5">
                     <label>Sistema Operativo</label>
-                    <input type = "text" class = "form-control" maxlength="45" name = "pc_so" value = "<?php echo $pc_so ;  ?>" >
+                    <input type = "text" class = "form-control" maxlength="45" name = "pc_so" value = "<?php echo $pc_so ;  ?>">
                 </div>
             </div>
             <div class = "row">
@@ -69,7 +69,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                         {
                     ?>
                     <select id ="select_sede" name = "sede_id" class = "form-control">
-                        <option>Seleccionar</option>
+                        <option value = "none">Seleccionar</option>
                         <?php 
                             foreach($sedes as $sede)
                             {
@@ -88,7 +88,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 <div class = "col-md-5">
                     <label>Actualizar laboratorio: ( actual : <?php echo $lab_name; ?> )</label>
                     <select id = "select_lab" name = "lab_id" class = "form-control" >
-                        <option>Seleccione Sede</option>
+                        <option value = "none">Seleccione Sede</option>
                     </select>
                 </div>
             </div>
@@ -110,7 +110,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     function (res)
                     {
                         var json = JSON.parse(res);
-                        var _content = "<option>Seleccionar</option>";
+                        var _content = '<option value = "none">Seleccionar</option>';
                         for (data in json)
                         {
                             _content += '<option value="' + json[data].id_laboratorio 

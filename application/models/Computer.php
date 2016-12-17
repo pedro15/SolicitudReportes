@@ -54,7 +54,7 @@ class Computer extends CI_Model
         }
     }
 
-    public function editpc ($pcnum , $lab_id , $newcpu , $newvideo , $newram , $newhdd , $newmotherboard , $newfuente , $newlabid , $newnumpc)
+    public function editpc ($pcnum , $lab_id , $newcpu , $newvideo , $newram , $newhdd , $newmotherboard , $newfuente , $newmonitor , $newteclado, $newdvd , $newso , $newlabid , $newnumpc)
     {
         
         if ($this->isindb($lab_id, $pcnum))
@@ -62,9 +62,20 @@ class Computer extends CI_Model
             $db = $this->load->database('default' , TRUE);
             $pc_id = $newlabid . "pc_" .$newnumpc ; 
 
-            $sql = "UPDATE `equipo` SET `procesador` = '" . $newcpu . "', `tarjeta_grafica` = '" . $newvideo . "', `memoria_ram` = '" .  $newram . "', `disco_duro` = '" . 
-            $newhdd . "', `tarjeta_madre` = '" . $newmotherboard . "', `fuente_poder` = ' " . $newfuente . "', `id_laboratorio` = '" . $newlabid . "', `id_equipo` = '" . $pc_id . "' 
-            WHERE `id_equipo` = '" . $pcnum . "' ;" ; 
+            $sql = "UPDATE `equipo` SET " . 
+            "`descripcion` = '" . $newnumpc . "', " .
+            "`id_laboratorio` = '" . $newlabid . "', " .
+            "`id_equipo` = '" . $newlabid . "pc_" . $newnumpc . "', " .
+            "`procesador` = '" . $newcpu . "', " .
+            "`tarjeta_grafica` = '" . $newvideo . "', " .
+            "`memoria_ram` = '" . $newram . "', " .
+            "`disco_duro` = '" . $newhdd . "', " .
+            "`tarjeta_madre` = '". $newmotherboard . "', " .
+            "`fuente_poder` = '" . $newfuente . "', " .
+            "`monitor` = '" . $newmonitor . "', " .
+            "`teclado` = '" . $newteclado . "', " .
+            "`lector_dvd` = '" . $newdvd . "', " .
+            "`sistema_operativo` = '" . $newso . "' WHERE `id_equipo` = '" . $lab_id . "pc_" . $pcnum. "' ; " ; 
 
             $query = $db->query($sql);
             if ($db->affected_rows() > 0 )
