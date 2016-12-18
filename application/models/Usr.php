@@ -102,8 +102,8 @@ class Usr extends CI_Model
         if (!$this->is_in_database($ci))
         {
             $db = $this->load->database('default' , TRUE);
-            $sql = "INSERT INTO `usuario` (`cedula_usuario`, `nombre`, `clave`, `pregunta_seguridad`, `tipo`, `correo`) VALUES ('" . 
-            $ci . "','" . $name . "','" .  password_hash($pw , PASSWORD_DEFAULT ) . "','" . $security_question . "','" . $type . "','" . $email . "');" ;
+            $sql = "INSERT INTO `usuario` (`cedula_usuario`, `nombre`, `clave`, `pregunta_seguridad`, `tipo` , `habilitado` , `correo`) VALUES ('" . 
+            $ci . "','" . $name . "','" .  password_hash($pw , PASSWORD_DEFAULT ) . "','" . $security_question . "','" . $type . "', '1' , '" . $email . "');" ;
             $db->query($sql); 
             if ($db->affected_rows() > 0 )
             {

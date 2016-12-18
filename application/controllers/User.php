@@ -50,7 +50,6 @@ class User extends CI_Controller
             break;
 
             default:
-
                 $this->loginsystem->logout();
             break;
         }
@@ -131,7 +130,7 @@ class User extends CI_Controller
     =================================================*/
     public function admintickets()
     {
-        if ($this->canload_module(array(3))) //3  para probar modulo
+        if ($this->canload_module(array(3))) 
         {
 
             // pie de pagina
@@ -147,7 +146,7 @@ class User extends CI_Controller
     =================================================*/
     public function registersede()
     {
-        if ($this->canload_module(array(3))) //3  para probar modulo
+        if ($this->canload_module(array(3))) 
         {
             $name = $this->input->post('sede_nombre');
             $ubicacion = $this->input->post('sede_ubicacion');
@@ -209,23 +208,61 @@ class User extends CI_Controller
             $this->end_page();
         }
     }
-
+    
     /* Administrar laboratorio
     =================================================*/
     public function adminlab()
     {
         if ($this->canload_module(array(2,3)))
         {
+            $data['sedes'] = $this->sede->get_all();
+            $opc = $this->input->get('action');
+            $labid = $this->input->get('labid');
+            if (isset($opc) && isset($labid) && $this->laboratory->isin_db($labid))
+            {
+                switch($opc)
+                {
+                    case "edit" : 
+                        $namedata = $this->input->post('labname');
+                        if (isset($namedata))
+                        {
+                            if ($this->laboratory->edit($labid,$namedata))
+                            {
+                                $this->load_alert("Laboratorio actualizado correctamente" , "SUCCESS");
+                            }
+                        }
+                        $data['mlaboratory'] = $this->laboratory->get_lab($labid);
+                        $this->load->view('app/v_editlab.php',$data);
+                    break;
+                    case "delete" : 
+
+                    break;
+                } 
+            }else
+            {
+                $this->load->view('app/v_adminlab.php' , $data);
+            }
 
             // pie de pagina
             $this->end_page();
         }
     }
 
+    // Devuelve la lista de todos los laboratorios en un json
+    public function getall_labs()
+    {
+        $labs = $this->laboratory->get_all();
+        foreach ($labs as $key => $row)
+        {
+            $currsede = $this->sede->get_sede($labs[$key]->id_sede);
+            $labs[$key]->sedename = $currsede->nombre; 
+        }
+        echo json_encode($labs);
+    }
+
     /* ========================
     Equipos
     ==========================*/ 
-
 
     /* Registrar equipo ---
     =================================================*/
@@ -405,7 +442,7 @@ class User extends CI_Controller
             echo json_encode(false);
         }
     }
-    
+
     // obtiene todas las pcs y las devuelve en un json
     public function getallpcs()
     {
@@ -522,7 +559,7 @@ class User extends CI_Controller
             $this->end_page();
         }
     }
-
+    // Cambiar privilegio de usuario
     public function changetype()
     {
         if ($this->canload_module(array(3)))
