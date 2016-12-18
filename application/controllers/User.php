@@ -208,7 +208,7 @@ class User extends CI_Controller
             $this->end_page();
         }
     }
-    
+
     /* Administrar laboratorio
     =================================================*/
     public function adminlab()
@@ -235,14 +235,17 @@ class User extends CI_Controller
                         $this->load->view('app/v_editlab.php',$data);
                     break;
                     case "delete" : 
-
+                        if ($this->laboratory->remove($labid))
+                        {
+                            $this->load_alert("Laboratorio eliminado correctamente" , "SUCCESS");
+                        }
+                        $this->load->view('app/v_adminlab.php' , $data);
                     break;
                 } 
             }else
             {
                 $this->load->view('app/v_adminlab.php' , $data);
             }
-
             // pie de pagina
             $this->end_page();
         }
