@@ -171,12 +171,54 @@ class User extends CI_Controller
     =================================================*/
     public function adminsede()
     {
-        if ($this->canload_module(array(3))) //3  para probar modulo
+        if ($this->canload_module(array(3)))
         {
+            $idsede = $this->input->get('idsede');
+            $action = $this->input->get('action');
+            if (isset($idsede) && isset($action) && $this->sede->isin_db($idsede))
+            {
+                switch($action)
+                {
+                    case "edit" :                         
+                        $sedename = $this->input->post('sedename');
+                        $sedeloc = $this->input->post('sedelocation');
+                        if (isset($sedename))
+                        {
+                            if ($this->sede->edit($idsede,$sedename,$sedeloc))
+                            {
+                                $this->load_alert("Sede actualizada correctamente" , "SUCESS");
+                            }
+                        }
+                        $data['currentsede'] = $this->sede->get_sede($idsede);
+                        $this->load->view('app/v_updatesede.php' , $data);
+                    break;
 
+                    case "delete" :
+                        
+                        if ($this->sede->delete($idsede))
+                        {
+                            $this->load_alert("Sede eliminada correctamente" , "SUCESS");
+                        }
+                        $this->load->view('app/v_adminsede.php');
+                    break ;
+
+                    default : 
+                        $this->load->view('app/v_adminsede.php');
+                    break;
+                }
+            }else
+            {
+                $this->load->view('app/v_adminsede.php');
+            }
             // pie de pagina
             $this->end_page();
         }
+    }
+
+    public function getallsedes()
+    {
+        $sedes = $this->sede->get_all();
+        echo json_encode($sedes);
     }
 
     /* ========================
@@ -199,7 +241,7 @@ class User extends CI_Controller
                    $this->load_alert("Laboratorio registrado correctamente" , "SUCCESS");
                }
             }
-            
+
             $sedes = $this->sede->get_all();
             $data['rows_sedes'] = $sedes;
             $this->load->view('app/v_addlab.php' , $data);
