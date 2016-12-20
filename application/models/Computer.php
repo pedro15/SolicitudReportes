@@ -33,6 +33,14 @@ class Computer extends CI_Model
         $query = $db->query($sql);
         return $query->result_array();
     }
+
+    public function getby_lab($lab_id)
+    {
+        $db = $this->load->database('default' , TRUE);
+        $sql = "SELECT * FROM `equipo` WHERE `id_laboratorio` = '" . $lab_id . "' ;";
+        $query = $db->query($sql);
+        return $query->result();    
+    }
     
     public function isindb($lab_id , $num)
     {

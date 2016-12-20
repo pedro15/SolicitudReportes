@@ -63,7 +63,6 @@ class User extends CI_Controller
         $this->load->view('footer.php');
     }
 
-    
     /* devuelve TRUE si el nivel de acceso actual corresponde
     a los niveles de acceso especificados
     =================================================*/
@@ -126,14 +125,30 @@ class User extends CI_Controller
             $desc = $this->input->post('descripcion');
 
             if (isset($id_pc) && $this->computer->isindb_byid($id_pc) && 
-            isset($category) && isset($desc) ) 
+            isset($category) && isset($desc) && $id_pc != "none" ) 
             {
-                
+                $ci = $this->loginsystem->getuserdata()['usuario_ci'];
+                if ($this->support->send_ticket($id_pc,$desc,$category,$ci))
+                {
+                    $this->load_alert("Solicitud enviada correctamente" , "SUCESS");
+                }
             }
 
-            $this->load->view('app/v_sendticket.php');
+            $data['sedes'] = $this->sede->get_all(); 
+
+            $this->load->view('app/v_sendticket.php' , $data);
             // pie de pagina
             $this->end_page();
+        }
+    }
+
+    public function getpcsbylab()
+    {
+        $labid = $this->input->post('laboratoryid');
+        if (isset($labid))
+        {
+            $pcs = $this->computer->getby_lab ($labid);
+            echo json_encode($pcs);
         }
     }
 

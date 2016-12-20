@@ -1,13 +1,12 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.5.1
+-- version 4.5.4.1deb2ubuntu2
 -- http://www.phpmyadmin.net
-
--- Versión del servidor: 5.7.11
--- Versión de PHP: 5.6.19
+-- Servidor: localhost
+-- Versión del servidor: 5.7.16-0ubuntu0.16.04.1
+-- Versión de PHP: 5.6.29-1+deb.sury.org~xenial+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -15,10 +14,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `solicitud_reporte`
+-- Base de datos: `solicitud_reportes`
 --
-
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `equipo`
@@ -50,7 +47,7 @@ CREATE TABLE `falla` (
   `id_falla` varchar(20) NOT NULL,
   `id_equipo` varchar(45) NOT NULL,
   `descripcion` text,
-  `tipo` varchar(45) DEFAULT NULL
+  `tipo` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -76,7 +73,7 @@ CREATE TABLE `reporte` (
   `id_falla` varchar(20) NOT NULL,
   `cedula_usuario` int(11) NOT NULL,
   `fecha` date DEFAULT NULL,
-  `estado` varchar(45) DEFAULT NULL
+  `estado` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -111,8 +108,8 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`cedula_usuario`, `nombre`, `clave`, `pregunta_seguridad`, `tipo` , `habilitado` , `correo`) VALUES
-(23724512, 'Pedro Duran', '$2y$10$ff0hoC09WvbDGFLv3I2ede8KIjQyFOxBBwmrzV/WhGb676swqHxla', '', 3 , 1  ,'correo@dominio');
+INSERT INTO `usuario` (`cedula_usuario`, `nombre`, `clave`, `pregunta_seguridad`, `tipo`, `habilitado`, `correo`) VALUES
+(23724512, 'Pedro Duran', '$2y$10$ff0hoC09WvbDGFLv3I2ede8KIjQyFOxBBwmrzV/WhGb676swqHxla', '', 3, 1, 'correo@dominio');
 
 --
 -- Índices para tablas volcadas
@@ -167,7 +164,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `reporte`
 --
 ALTER TABLE `reporte`
-  MODIFY `id_reporte` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_reporte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Restricciones para tablas volcadas
 --
