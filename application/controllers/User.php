@@ -17,6 +17,7 @@ class User extends CI_Controller
         $this->load->model('sede');
         $this->load->model('usr');
         $this->load->model('loginsystem');
+        $this->load->model('support');
     }
 
     /* carga el header, la cabezera , y la barra de navegacion.
@@ -120,7 +121,17 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(1,2,3)))
         {
+            $id_pc = $this->input->post('idequipo');
+            $category = $this->input->post('category');
+            $desc = $this->input->post('descripcion');
 
+            if (isset($id_pc) && $this->computer->isindb_byid($id_pc) && 
+            isset($category) && isset($desc) ) 
+            {
+                
+            }
+
+            $this->load->view('app/v_sendticket.php');
             // pie de pagina
             $this->end_page();
         }
