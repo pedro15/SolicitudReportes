@@ -158,7 +158,8 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(3))) 
         {
-
+            
+            $this->load->view('app/v_adminticket.php');
             // pie de pagina
             $this->end_page();
         }

@@ -6,8 +6,12 @@ class Usr extends CI_Model
     function __construct()
     {
         parent::__construct();
+        if( ! ini_get('date.timezone') )
+        {
+            date_default_timezone_set('GMT');
+        }
     }
-
+    
     public function get_all()
     {
         $db = $this->load->database('default' , TRUE);
@@ -15,13 +19,13 @@ class Usr extends CI_Model
         $query = $db->query($sql);
         return $query->result();
     }
-
+    
     public function remove( $ci )
     {
         if($this->is_in_database($ci))
         {
             $db = $this->load->database('default' , TRUE);
-            $sql = "DELETE FROM `usuario` WHERE ( `tipo` = '2' OR `tipo` = '0' ) AND `cedula_usuario` = '".  $ci . "' ; "; 
+            $sql = "DELETE FROM `usuario` WHERE `cedula_usuario` = '".  $ci . "' ; "; 
             $query = $db->query($sql);
             if ( $db->affected_rows() > 0 )
             {

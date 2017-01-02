@@ -37,6 +37,11 @@ class Loginsystem extends CI_Model
         }
     }
 
+    public function login_external ($ci , $pass)
+    {
+        
+    }
+
     function is_disabled($ci)
     {
         $row = $this->get_user_data($ci);

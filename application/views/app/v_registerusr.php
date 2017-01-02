@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <input type = "submit" class = "btn btn-primary" value = "Registrar tecnico">
+        <input type = "submit" class = "btn btn-primary" value = "Registrar usuario">
     </form>
 </div>
 <script type = "text/javascript">
