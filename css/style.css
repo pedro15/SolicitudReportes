@@ -1,3 +1,14 @@
+.ui-widget-overlay {
+   background: #000;
+   opacity: .30;
+   filter: Alpha(Opacity=30);
+}
+
+.no-close .ui-dialog-titlebar-close 
+{
+  display: none;
+}
+
 /* Cuerpo
 ============================================== */ 
 html 
@@ -287,11 +298,19 @@ footer p
 {
   color: #f4f4f4;
   font-style: italic;
+  cursor: pointer;
 }
 
 .report-body
 {
   padding: 5px;
+}
+
+/* Jquery Modal windows */ 
+
+.dialog-container
+{
+    padding: 10px;
 }
 
 /* Administrar equipos

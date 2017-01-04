@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 ?>
+
 <div class = "container">
     <div class = "page-header">
         <h3>Administrar solicitudes de soporte tecnico</h3>
@@ -20,7 +21,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                             <img src = "<?php echo base_url('images/alerticons/red.png'); ?>" alt = "alerticon" width = "16" height = "16" />
                         </div>
                         <div class = "col-md-5">
-                            <a class = "report-header-link" href = ""><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Ver historial de cambios</a>
+                            <a class = "report-header-link"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Ver historial de cambios</a>
                         </div>
                     </div>
                 </div>
@@ -40,7 +41,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                                 <div class = "input-group-btn">
                                     <button type="button" class="btn btn-danger">
                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                    Eliminar</button>
+                                    Eliminar
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -77,9 +79,92 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             <?php 
                 }
             ?>
+            <div id = "paginate" >
+                
+            </div>
+    </div>
+</div>
+<div id = "dialog">
+    <div class = "dialog-container" > 
+        <table class = "table table-stripped">
+            <thead>
+                <tr>
+                
+                    <th><span class = "glyphicon glyphicon-user" aria-hidden = "true"></span> Estado</th>
+                    <th><span class = "glyphicon glyphicon-user" aria-hidden = "true"></span> Modificado por</th>
+                </tr>
+            </thead>
+            <tbody id = "table-dialog-fill" >
+                
+                <tr>
+                    <th>item</th>
+                    <th>Usuario</th>
+                </tr>
+
+                <tr>
+                    <th>item</th>
+                    <th>Usuario</th>
+                </tr>
+
+                <tr>
+                    <th>item</th>
+                    <th>Usuario</th>
+                </tr>
+
+                <tr>
+                    <th>item</th>
+                    <th>Usuario</th>
+                </tr>
+
+                 <tr>
+                    <th>item</th>
+                    <th>Usuario</th>
+                </tr>
+
+                 <tr>
+                    <th>item</th>
+                    <th>Usuario</th>
+                </tr>
+                
+            </tbody>
+        </table>
+        <div id = "table-dialog-pagination" >
+            
+        </div>
     </div>
 </div>
 
 <script type = "text/javascript">
 
+    
+
+    $(document).on('click' , '.report-header-link' , function (event)
+    {
+        $("#dialog").dialog("open"); 
+        event.preventDefault();       
+    });
+
+    $( "#dialog" ).on( "dialogopen", function( event, ui ) 
+    {
+
+    });
+
+    $("#dialog").dialog(
+    {
+        dialogClass: "no-close",
+        modal: true ,
+        autoOpen: false ,
+        draggable: false  ,
+        title: "Historial de cambios" ,
+        buttons:
+        [
+            {
+			    text: "Aceptar",
+			    click: function() 
+                {
+			    	$( this ).dialog( "close" );
+			    }
+		    }
+        ]
+    });
 </script>
