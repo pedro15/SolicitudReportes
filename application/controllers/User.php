@@ -158,10 +158,22 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(3))) 
         {
-            
-            $this->load->view('app/v_adminticket.php');
+            $data['sedes'] = $this->sede->get_all(); 
+            $this->load->view('app/v_adminticket.php' , $data);
             // pie de pagina
             $this->end_page();
+        }
+    }
+
+    // Devuelve todas las solicitudes de soporte tecnico en un JSON 
+
+    public function getallticketsjson()
+    {
+        $request = $this->input->post('request');
+        if (isset($request))
+        {
+           $data = $this->support->get_all();
+           echo json_encode($data);
         }
     }
 

@@ -45,16 +45,60 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             }   
         }
 
-        public function check_ticket()
+        public function get_all()
         {
+            $sql_falla = "SELECT * FROM `falla` ;" ;
+            $db = $this->load->database('default' , TRUE); 
+            $query = $db->query($sql_falla); 
+            $results = $query->result_array();
+            foreach ($results as $key => $current )
+            {
+                $sql_reportes = "SELECT * FROM `reporte` WHERE `id_falla` = '" .  $results[$key]['id_falla'] . "' ;" ; 
+                $query_reportes = $db->query($sql_reportes);  
+                $results[$key]['reportes'] = $query_reportes->result_array(); 
+                $actualestado = $query_reportes->last_row();
+                $results[$key]['estadoactual'] = $actualestado;
+                $pcid = $results[$key]['id_equipo'] ;
+                $current_pc = $this->computer->get_pc_info($pcid);
+                $results[$key]['equipoactual'] = $current_pc; 
+                $current_lab = $this->laboratory->get_lab($current_pc->id_laboratorio);
+                $results[$key]['laboratorioactual'] = $current_lab;
+                $current_sede = $this->sede->get_sede($current_lab->id_sede);
+                $results[$key]['sedeactual'] = $current_sede;
+                $current_user = $this->usr->get_data($actualestado->cedula_usuario);
+                $results[$key]['usuarioactual'] = $current_user;
+                $tipo = $results[$key]['tipo'] ; 
+                $categoria = "" ;
+                switch ($tipo)
+                {
+                    case "0" : 
+                        $categoria = "Mouse" ; 
+                    break ;
 
-        }
+                    case "1" : 
+                        $categoria = "Teclado" ; 
+                    break ;
 
-        public function check_damagedb()
-        {
+                    case "2" : 
+                        $categoria = "Monitor" ; 
+                    break; 
 
+                    case "3" :
+                        $categoria = "Sistema Operativo" ;
+                    break; 
+
+                    case "4" :
+                        $categoria = "No enciende" ; 
+                    break; 
+
+                    case "5" :
+                        $categoria = "Otro" ; 
+                    break;
+                }
+                $results[$key]['categoria'] = $categoria; 
+            }
+            return $results; 
         }
 
     }
-
 ?>
