@@ -184,7 +184,7 @@ class Usr extends CI_Model
         $db = $this->load->database('default' , TRUE);
         $sql = "SELECT * FROM `usuario` WHERE `cedula_usuario` = '" . $ci . "' ; " ; 
         $query = $db->query($sql);
-        return $query->row();
+        return $query->row_array();
     }
-
+    
 }

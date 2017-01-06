@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             $db->query($sql_falla);
             if ($db->affected_rows() > 0 )
             {
-                // Estado : 0 -> Sin reparar | 1 -> Nesesita Revision | 2 -> Reparado 
+                // Estado : 0 -> Sin reparar | 1 -> En revision | 2 -> Reparado 
 
                 $sql_reporte = "INSERT INTO `reporte` (`id_reporte`, `id_falla` , `cedula_usuario` , `fecha` , `estado`) VALUES (NULL,'" . $id_falla . "','" . 
                 $ci_user . "','" . date("y-m-d") . "', '0');" ; 
@@ -45,6 +45,37 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             }   
         }
 
+        public function get_reports($id_falla)
+        {
+            $db = $this->load->database('default' , TRUE); 
+            $sql_reportes = "SELECT * FROM `reporte` WHERE `id_falla` = '" .  $id_falla  . "' ;" ; 
+            $query_reportes = $db->query($sql_reportes);  
+            $allreports = $query_reportes->result_array(); 
+            foreach ( $allreports as $key => $current )
+            {
+                $current_user = $this->usr->get_data($allreports[$key]['cedula_usuario']); 
+                $allreports[$key]['nombreusuario'] = $current_user['nombre'];
+                $currestado = $allreports[$key]['estado'] ; 
+                $estado_text = "" ; 
+                switch($currestado)
+                {
+                    case "0" : 
+                        $estado_text = "Sin reparar" ; 
+                    break ;
+
+                    case "1" : 
+                        $estado_text = "En revision" ; 
+                    break; 
+
+                    case "2" : 
+                        $estado_text = "Reparado" ; 
+                    break ;
+                }
+                $allreports[$key]['estadotext'] = $estado_text ; 
+            }
+            return $allreports;
+        }
+
         public function get_all()
         {
             $sql_falla = "SELECT * FROM `falla` ;" ;
@@ -53,9 +84,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             $results = $query->result_array();
             foreach ($results as $key => $current )
             {
-                $sql_reportes = "SELECT * FROM `reporte` WHERE `id_falla` = '" .  $results[$key]['id_falla'] . "' ;" ; 
+                $sql_reportes = "SELECT * FROM `reporte` WHERE `id_falla` = '" .   $results[$key]['id_falla']   . "' ;" ; 
                 $query_reportes = $db->query($sql_reportes);  
-                $results[$key]['reportes'] = $query_reportes->result_array(); 
                 $actualestado = $query_reportes->last_row();
                 $results[$key]['estadoactual'] = $actualestado;
                 $pcid = $results[$key]['id_equipo'] ;
@@ -98,6 +128,21 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 $results[$key]['categoria'] = $categoria; 
             }
             return $results; 
+        }
+
+        public function updatereport($id_falla , $estado , $ci_user)
+        {
+             $db = $this->load->database('default' , TRUE); 
+             $sql = "INSERT INTO `reporte`(`id_reporte` , `id_falla`, `cedula_usuario` ,`fecha` , `estado` ) VALUES (" . 
+             "NULL,'" . $id_falla . "','" . $ci_user . "','" . date("y-m-d") . "','" . $estado . "');" ; 
+             $db->query($sql);
+             if ($db->affected_rows() > 0 )
+             {
+                 return true ;
+             }else 
+             {
+                 return false ; 
+             }
         }
 
     }

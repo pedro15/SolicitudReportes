@@ -57,42 +57,12 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         <table class = "table table-stripped">
             <thead>
                 <tr>
-                
-                    <th><span class = "glyphicon glyphicon-user" aria-hidden = "true"></span> Estado</th>
+                    <th><span class = "glyphicon glyphicon-calendar" aria-hidden = "true"></span> Fecha</th>
+                    <th><span class = "glyphicon glyphicon-info-sign" aria-hidden = "true"></span> Estado</th>
                     <th><span class = "glyphicon glyphicon-user" aria-hidden = "true"></span> Modificado por</th>
                 </tr>
             </thead>
             <tbody id = "table-dialog-fill" >
-                
-                <tr>
-                    <th>item</th>
-                    <th>Usuario</th>
-                </tr>
-
-                <tr>
-                    <th>item</th>
-                    <th>Usuario</th>
-                </tr>
-
-                <tr>
-                    <th>item</th>
-                    <th>Usuario</th>
-                </tr>
-
-                <tr>
-                    <th>item</th>
-                    <th>Usuario</th>
-                </tr>
-
-                 <tr>
-                    <th>item</th>
-                    <th>Usuario</th>
-                </tr>
-
-                 <tr>
-                    <th>item</th>
-                    <th>Usuario</th>
-                </tr>
                 
             </tbody>
         </table>
@@ -141,6 +111,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         modal: true ,
         autoOpen: false ,
         draggable: false  ,
+        minWidth: 400,
         title: "Historial de cambios" ,
         buttons:
         [
@@ -154,17 +125,42 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         ]
     });
 
-
-    function loaddialog(reports)
+    function loaddialog(id)
     {
-        console.log(reports);
+        $.ajax
+        ({
+            url: "<?php echo base_url('index.php/user/getallreportsjson'); ?>" ,
+            type: "POST" , 
+            dataType: 'json',
+            data: {idfalla: id },
+            success: function (data)
+            {
+                filltabledialogs(data);
+            }
+        });
         
         $("#dialog").dialog("open");    
     }
 
-    function changestate(id , newstate)
+    function changestate(id,val)
     {
-        
+        if (confirm("Desea actualizar el estado ?" ))
+        {
+            $.ajax
+            ({
+                url: "<?php echo base_url('index.php/user/requestchangereportstate'); ?>" ,
+                type: "POST" ,
+                data:  {reportid: id , newvalue: val },
+                success: function(data)
+                {
+                    if (data)
+                    {
+                        alert("Estado actualizado correctamente");
+                        updateticketdata();
+                    }
+                }
+            });
+        }
     }
 
     function updateticketdata()
@@ -182,6 +178,22 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         });
     }
 
+    function filltabledialogs(xjson)
+    {
+        var html = "" ; 
+        for (data in xjson)
+        {
+            var estadotxt = "" ; 
+            
+            html += 
+            '<tr>' 
+            + '<th>' + xjson[data].fecha + '</th>'
+            + '<th>' + xjson[data].estadotext + '</th>'
+            + '<th>' + xjson[data].nombreusuario + '</th>' 
+            + '</tr>' ; 
+        }
+        $("#table-dialog-fill").html(html);
+    }
 
     function filltickets(xjson)
     {
@@ -220,7 +232,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 + '<div class = "report-ticket-darkbody">' 
                 + '<div class = "row"><div class = "report-ticket-controls">'
                 + '<div class = "input-group" > <div class = "input-group-addon">Cambiar estado:</div>' 
-                + '<select class = "form-control" onchange = "changestate(\'' + xjson[data].id_falla + ',' + this.value + '\');" >' 
+                + '<select class = "form-control" onchange = "javascript:changestate(\'' + xjson[data].id_falla + '\'' + ',' + 'this.value)" >' 
                 + '<option value = "none">Seleccionar</option>' 
                 + '<option value = "0">Sin reparar</option>' 
                 + '<option value = "1">En revision</option>' 
@@ -252,7 +264,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 + '<div class = "report-body"><strong>Descripcion de la falla:</strong>'
                 + '<p>' + xjson[data].descripcion + '</p>' 
                 + '</div></div>'; 
-            $("#fillticket").html(html);
         }
+        $("#fillticket").html(html);
     }
 </script>

@@ -177,6 +177,28 @@ class User extends CI_Controller
         }
     }
 
+    public function getallreportsjson()
+    {
+        $id_falla = $this->input->post('idfalla');
+        if (isset($id_falla))
+        {
+            $data = $this->support->get_reports($id_falla);
+            echo json_encode($data);
+        }
+    }
+
+    public function requestchangereportstate()
+    {
+        $id = $this->input->post('reportid');
+        $newvalue = $this->input->post('newvalue'); 
+        if (isset($id) && isset($newvalue))
+        {
+            $ci = $this->loginsystem->getuserdata()['usuario_ci'];
+            $result = $this->support->updatereport($id , $newvalue , $ci);
+            echo json_encode($result);
+        }
+    }
+
     /* ========================
     Sedes
     ==========================*/ 
