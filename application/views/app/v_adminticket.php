@@ -163,6 +163,11 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         updateticketdata();
     });
 
+    $("#ch_categoria").change(function()
+    {
+        updateticketdata();
+    });
+
     $("#ch_sede").change(function()
     {
         updateticketdata();
@@ -184,6 +189,26 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     });
 
     $("#selectlab").change(function()
+    {
+        updateticketdata();
+    });
+
+    $("#ch_sede").change(function()
+    {
+        updateticketdata();
+    });
+
+    $("#ch_lab").change(function()
+    {
+        updateticketdata();
+    });
+
+    $("#ch_estado").change(function()
+    {
+        updateticketdata();
+    });
+
+    $("#selectcategoria").change(function()
     {
         updateticketdata();
     });
@@ -428,6 +453,16 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     });
 
                     xdata = estado_arr ; 
+                }
+
+                var categoriacheceked = $("#ch_categoria").is(':checked');
+                if (categoriacheceked)
+                {
+                    var categoria_arr = xdata.filter(function(value)
+                    {
+                        return value.tipo == $("#selectcategoria").val();
+                    });
+                    xdata = categoria_arr;
                 }
 
                 paginatetickets(xdata);
