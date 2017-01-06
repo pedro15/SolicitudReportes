@@ -16,7 +16,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         <link href="<?php echo base_url('/')?>css/pagination.css" rel="stylesheet" type ="text/css">
         <link href="<?php echo base_url('/')?>css/style.css" rel="stylesheet" type ="text/css">
         <!-- Javascript !-->
-        <script type="text/javascript" src="<?php echo base_url('/')?>js/Timer.js"></script>
         <script type="text/javascript" src="<?php echo base_url('/')?>js/jquery.js"></script>
         <script type="text/javascript" src= "<?php echo base_url('/')?>js/jquery-ui.min.js"></script>
         <script type = "text/javascript" src = "<?php echo base_url('/')?>js/app.js"></script>

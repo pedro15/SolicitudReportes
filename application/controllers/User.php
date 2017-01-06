@@ -167,6 +167,16 @@ class User extends CI_Controller
 
     // Devuelve todas las solicitudes de soporte tecnico en un JSON 
 
+    public function getpcinfojson()
+    {
+        $pcid = $this->input->post('pcid');
+        if (isset($pcid))
+        {
+            $result = $this->computer->get_pc_info($pcid);
+            echo json_encode($result);
+        }
+    }
+
     public function getallticketsjson()
     {
         $request = $this->input->post('request');
@@ -195,6 +205,16 @@ class User extends CI_Controller
         {
             $ci = $this->loginsystem->getuserdata()['usuario_ci'];
             $result = $this->support->updatereport($id , $newvalue , $ci);
+            echo json_encode($result);
+        }
+    }
+
+    public function requestdeletereport()
+    {
+        $id = $this->input->post('reportid');
+        if (isset($id))
+        {
+            $result = $this->support->remove($id);
             echo json_encode($result);
         }
     }

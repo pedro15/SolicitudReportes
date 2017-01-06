@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             <label>Sede</label>
             <div class = "input-group">
                 <div class = "input-group-addon">
-                    <input type = "checkbox" name = "ch_sede">
+                    <input type = "checkbox" id = "ch_sede">
                 </div>
                 <select id = "selectsede" class = "form-control">
                     <option value = "none">Seleccionar</option>
@@ -41,6 +41,40 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     </select>
                 </div>
             </div>
+
+            <div class = "col-md-5">
+                <label>Estado</label>
+                <div class = "input-group">
+                    <div class = "input-group-addon">
+                        <input type = "checkbox" id = "ch_estado" >
+                    </div>
+                    <select id = "selectestado" class = "form-control">
+                        <option value = "none">Seleccionar</option>
+                        <option value = "0">Sin Reparar</option>
+                        <option value = "1">En revision</option>
+                        <option value = "2">Reparado</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class = "col-md-5">
+                <label>Categoria</label>
+                <div class = "input-group" >
+                    <div class = "input-group-addon">
+                        <input type = "checkbox" id = "ch_categoria">
+                    </div>
+                    <select id = "selectcategoria" class = "form-control">
+                        <option value = "none">Seleccionar</option>
+                        <option value = "0">Mouse</option>
+                        <option value = "1">Teclado</option>
+                        <option value = "2">Monitor</option>
+                        <option value = "3">Sistema Operativo</option>
+                        <option value = "4">No enciende</option>
+                        <option value = "5">Otro</option>
+                    </select>
+                </div>
+            </div>
+
         </div>
     </form>
 </div>
@@ -52,6 +86,56 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 
     </div>
 </div>
+
+
+<div id = "pcdialog" >
+    <div class = "dialog-container" > 
+        <div class = "row">
+
+            <div class = "col-md-15">
+                <label>Disco duro: </label> <label id = "hdd_fill" ></label>
+            </div>
+
+            <div class = "col-md-15">
+                <label>Fuente poder: </label> <label id = "fuente_fill" ></label>
+            </div>
+
+            <div class = "col-md-15">
+                <label>Lector dvd: </label> <label id = "dvd_fill" ></label>
+            </div>
+
+            <div class = "col-md-15">
+                <label>Memoria ram: </label> <label id = "ram_fill" ></label>
+            </div>
+
+            <div class = "col-md-15">
+                <label>Monitor: </label> <label id = "monitor_fill" ></label>
+            </div>
+
+            <div class = "col-md-15">
+                <label>Procesador: </label> <label id = "cpu_fill" ></label>
+            </div>
+
+            <div class = "col-md-15">
+                <label>Tarjeta grafica: </label> <label id = "gpu_fill" ></label>
+            </div>
+
+            <div class = "col-md-15">
+                <label>Sistema Operativo: </label> <label id = "so_fill" ></label>
+            </div>
+
+            <div class = "col-md-15">
+                <label>Tarjeta Madre: </label> <label id = "motherboard_fill" ></label>
+            </div>
+
+            <div class = "col-md-15">
+                <label>Teclado: </label> <label id = "keyboard_fill" ></label>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <div id = "dialog">
     <div class = "dialog-container" > 
         <table class = "table table-stripped">
@@ -75,6 +159,31 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 <script type = "text/javascript">
 
     $(document).ready(function()
+    {
+        updateticketdata();
+    });
+
+    $("#ch_sede").change(function()
+    {
+        updateticketdata();
+    });
+
+    $("#ch_lab").change(function()
+    {
+        updateticketdata();
+    });
+
+    $("#ch_estado").change(function()
+    {
+        updateticketdata();
+    });
+
+    $("#selectestado").change(function()
+    {
+        updateticketdata();
+    });
+
+    $("#selectlab").change(function()
     {
         updateticketdata();
     });
@@ -103,6 +212,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 $("#selectlab").html(_html);
             }
         });
+        updateticketdata();
     });
 
     $("#dialog").dialog(
@@ -124,6 +234,27 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 		    }
         ]
     });
+    
+    $("#pcdialog").dialog(
+    {
+        dialogClass: "no-close",
+        modal: true ,
+        autoOpen: false ,
+        draggable: false  ,
+        minWidth: 400,
+        title: "Caracteristicas del equipo" ,
+        buttons:
+        [
+            {
+			    text: "Aceptar",
+			    click: function() 
+                {
+			    	$( this ).dialog( "close" );
+			    }
+		    }
+        ]
+    });
+
 
     function loaddialog(id)
     {
@@ -135,7 +266,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             data: {idfalla: id },
             success: function (data)
             {
-                filltabledialogs(data);
+               paginatestates(data);
             }
         });
         
@@ -144,23 +275,111 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
     function changestate(id,val)
     {
-        if (confirm("Desea actualizar el estado ?" ))
+        if (val != "none")
+        {
+            if (confirm("Desea actualizar el estado ?" )  )
+            {
+                $.ajax
+                ({
+                    url: "<?php echo base_url('index.php/user/requestchangereportstate'); ?>" ,
+                    type: "POST" ,
+                    dataType: 'json',
+                    data:  {reportid: id , newvalue: val },
+                    success: function(data)
+                    {
+                        if (data)
+                        {
+                            alert("Estado actualizado correctamente");
+                            updateticketdata();
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    function showpcinfo(id)
+    {
+        $.ajax
+        ({
+            url: "<?php echo base_url('index.php/user/getpcinfojson'); ?>" ,
+            type: "POST" ,
+            dataType: 'json',
+            data:  {pcid: id},
+            success: function(data)
+            {
+                $("#hdd_fill").text(data.disco_duro);
+
+                $("#fuente_fill").text(data.fuente_poder);
+
+                $("#dvd_fill").text(data.lector_dvd);
+
+                $("#ram_fill").text(data.memoria_ram);
+
+                $("#monitor_fill").text(data.monitor);
+
+                $("#cpu_fill").text(data.procesador);
+
+                $("#so_fill").text(data.sistema_operativo);
+
+                $("#motherboard_fill").text(data.tarjeta_madre);
+
+                $("#keyboard_fill").text(data.teclado);
+
+                $("#gpu_fill").text(data.tarjeta_grafica);
+
+                $("#pcdialog").dialog("open");
+            }
+        });
+    }
+
+    function removeticket(id)
+    {
+        if (confirm("Desea eliminar esta solicitud ?"))
         {
             $.ajax
             ({
-                url: "<?php echo base_url('index.php/user/requestchangereportstate'); ?>" ,
-                type: "POST" ,
-                data:  {reportid: id , newvalue: val },
-                success: function(data)
+                url: "<?php echo base_url('index.php/user/requestdeletereport'); ?>" ,
+                type: "POST" , 
+                data: {reportid: id},
+                success: function (data)
                 {
                     if (data)
                     {
-                        alert("Estado actualizado correctamente");
+                        alert("Solicitud eliminada correctamente");
                         updateticketdata();
                     }
                 }
             });
         }
+    }
+
+    function paginatetickets(json)
+    {
+        filltickets(json);
+        $("#paginate").pagination
+        ({
+            dataSource: json,
+            pageSize : 20,
+            callback: function(data, pagination) 
+            {
+               filltickets(data);
+            }
+        });
+    }
+
+    function paginatestates(json)
+    {
+        filltabledialogs(json);
+        $("#table-dialog-pagination").pagination
+        ({
+            dataSource: json,
+            pageSize : 10,
+            callback: function(data, pagination) 
+            {
+               filltabledialogs(data);
+            }
+        });
     }
 
     function updateticketdata()
@@ -173,7 +392,45 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             data: {request: true } ,
             success: function (data)
             {
-                filltickets(data);
+                console.log(data);
+                var xdata = data ;
+
+                var sedechecked = $("#ch_sede").is(':checked');
+
+                if (sedechecked)
+                {
+                    var sede_arr = xdata.filter(function (value)
+                    {
+                        return value.sedeactual.id_sede == $("#selectsede").val();
+                    });
+
+                    xdata = sede_arr;
+                }
+
+                var labchecked = $("#ch_lab").is(':checked');
+
+                if (labchecked)
+                {
+                    var lab_arr = xdata.filter(function (value)
+                    {
+                        return value.laboratorioactual.id_laboratorio == $("#selectlab").val();
+                    });
+
+                    xdata = lab_arr;
+                }
+
+                var estadochecked = $("#ch_estado").is(':checked');
+                if (estadochecked)
+                {
+                    var estado_arr = xdata.filter(function(value)
+                    {
+                        return value.estadoactual.estado == $("#selectestado").val();
+                    });
+
+                    xdata = estado_arr ; 
+                }
+
+                paginatetickets(xdata);
             }
         });
     }
@@ -239,8 +496,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 + '<option value = "2">Reparado</option>'
                 + '</select>' 
                 + '<div class = "input-group-btn">' 
-                + '<button type="button" class="btn btn-danger">'
-                + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar </button>' 
+                + '<a  class="btn btn-danger" onclick = "javascript:removeticket(\'' + xjson[data].id_falla + '\')" >'
+                + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar </a>' 
                 + '</div></div></div></div>'
                 + '<div class = "row" >'
                 + '<div class = "col-md-6">'
@@ -250,7 +507,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 + '<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span><strong> Laboratorio:</strong> ' +  xjson[data].laboratorioactual.descripcion 
                 + '</div>'
                 + '<div class = "col-md-6">'
-                + '<span class="glyphicon glyphicon-hdd" aria-hidden="true"></span><strong> Equipo:</strong> ' +  xjson[data].equipoactual.descripcion
+                + '<span class="glyphicon glyphicon-hdd" aria-hidden="true"></span><strong> Equipo:</strong> <a href = "#" onclick = "javascript:showpcinfo(\'' +  xjson[data].equipoactual.id_equipo + '\')">' +  xjson[data].equipoactual.descripcion + '</a>'
                 + '</div>'
                 + '<div class = "col-md-6">'
                 + '<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span><strong> Fecha:</strong> ' +  xjson[data].estadoactual.fecha

@@ -145,5 +145,19 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
              }
         }
 
+        public function remove($id)
+        {
+             $db = $this->load->database('default' , TRUE); 
+             $sql = "DELETE FROM `falla` WHERE `id_falla` = '" . $id . "' ; " ; 
+             $db->query($sql);
+             if ($db->affected_rows() > 0 )
+             {
+                 return true ; 
+             }else 
+             {
+                 return false ;
+             }
+        }
+
     }
 ?>
