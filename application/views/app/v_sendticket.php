@@ -99,7 +99,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 function (res)
                 {
                     var json = JSON.parse(res);
-                     var _content = '<option value = "none" >Seleccionar</option>' ;
+                    var _content = '<option value = "none" >Seleccionar</option>' ;
                     for (index in json)
                     {
                         _content += '<option value = "' + json[index].id_equipo + '">' 

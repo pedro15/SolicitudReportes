@@ -164,5 +164,17 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             return $this->config->item('computer_categories' , 'categories');
         }
 
+        public function get_categorie_name($categorieindex)
+        {
+            $cats = $this->get_categories();
+            if(array_key_exists($categorieindex , $cats))
+            {
+                return $cats[$categorieindex]; 
+            }else 
+            {
+                return "" ; 
+            }
+        }
+
     }
 ?>

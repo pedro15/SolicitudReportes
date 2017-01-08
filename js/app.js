@@ -18,6 +18,13 @@ function PrintElem(elem)
 // verifica si es numerico el evento. 
 function isNumberKey(evt)
 {
-    var charCode = (evt.which) ? evt.which : evt.keyCode
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
     return !(charCode > 31 && (charCode < 48 || charCode > 57));
+}
+
+function validadesharp(evt)
+{
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    return ( (charCode >= 48 && charCode <= 122) && (charCode != 58 ) && (charCode != 59 ) && (charCode != 61 ) && (charCode != 63 ) && (charCode != 91 ) && (charCode != 93 )   
+    ) || (charCode == 8 ) || (charCode == 32) || (charCode == 37) || (charCode == 39)  ; 
 }

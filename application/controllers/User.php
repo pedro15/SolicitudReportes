@@ -9,28 +9,26 @@ class User extends CI_Controller
     {
         $this->load->view('head.php');
         $this->load->view('letterhead.php');
-
         $usr_data = $this->loginsystem->getuserdata();
-
         $usr_type = $usr_data['usuario_tipo'];
-
         switch($usr_type)
         {
             case 1 :
                 // barra navegacion usuario
-
             break;
 
             case 2 :
                 // barra navegacion tecnico
                 $data['nombre_usuario'] = $usr_data['usuario_nombre'] ; 
                 $this->load->view('nav_tec.php' , $data);
+                $this->load->view('timerscript.php');
             break;
-                
+
             case 3 :
                  // barra navegacion administrador
-                  $data['nombre_usuario'] = $usr_data['usuario_nombre'] ; 
+                 $data['nombre_usuario'] = $usr_data['usuario_nombre'] ; 
                  $this->load->view('nav_admin.php' , $data);
+                 $this->load->view('timerscript.php');
             break;
 
             default:
@@ -759,28 +757,7 @@ class User extends CI_Controller
                         {
                             $current_tipofalla = $current_falla->tipo;
                             $current_txtfalla = "" ;
-                            switch ($current_tipofalla)
-                            {
-                                case "0" :
-                                    $current_txtfalla = "Mouse" ; 
-                                break ;
-                                case "1" :
-                                    $current_txtfalla = "Teclado" ; 
-                                break ;
-                                case "2" :
-                                    $current_txtfalla = "Monitor" ; 
-                                break ; 
-                                case "3" : 
-                                    $current_txtfalla = "Sistema Operativo" ; 
-                                break ;
-                                case "4" : 
-                                    $current_txtfalla = "No enciende" ; 
-                                break ;
-                                case "5" :
-                                    $current_txtfalla = "Otro" ; 
-                                break ;
-                            }
-
+                            $current_txtfalla = $this->support->get_categorie_name($current_tipofalla);
                             $counted = $this->stats->count_reports_category($current_tipofalla , $sede);
                             if (!in_array($current_txtfalla , $label_arr))
                             {

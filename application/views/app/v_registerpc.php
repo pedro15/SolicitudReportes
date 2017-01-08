@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             <div class = "row">
                 <div class = "col-md-2">
                     <label>Numero Equipo*</label>
-                    <input type = "text" class = "form-control" maxlength="10" name = "pc_num" required>
+                    <input type = "text" class = "form-control" maxlength="10" name = "pc_num" onkeypress = "return validadesharp(event);" required>
                 </div>
                 <div class = "col-md-5">
                     <label>Procesador*</label>
@@ -97,6 +97,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         <input type = "submit" class = "btn btn-primary" value = "Registrar Equipo">
     </form>
     <script type = "text/javascript">
+        
         $("#select_sede").change(function()
         {
             var _value = $("#select_sede").val();
