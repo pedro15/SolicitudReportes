@@ -14,6 +14,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         <link href="<?php echo base_url('/')?>bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type ="text/css">
         <link href="<?php echo base_url('/')?>css/jquery-ui.min.css" rel="stylesheet" type ="text/css">
         <link href="<?php echo base_url('/')?>css/pagination.css" rel="stylesheet" type ="text/css">
+        <link href="<?php echo base_url('/')?>chartist-js/chartist.css" rel="stylesheet" type ="text/css">
         <link href="<?php echo base_url('/')?>css/style.css" rel="stylesheet" type ="text/css">
         <!-- Javascript !-->
         <script type="text/javascript" src="<?php echo base_url('/')?>js/jquery.js"></script>

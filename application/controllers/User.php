@@ -3,23 +3,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
 class User extends CI_Controller 
 {    
-    /* Constructor de la clase, se usa para inicializar e importar librerias
-    =================================================*/
-    function __construct()
-	{
-		parent::__construct();
-		
-        $this->load->helper('url');
-        $this->load->helper('string');
-        
-        $this->load->model('laboratory');
-        $this->load->model('computer');
-        $this->load->model('sede');
-        $this->load->model('usr');
-        $this->load->model('loginsystem');
-        $this->load->model('support');
-    }
-
     /* carga el header, la cabezera , y la barra de navegacion.
     =================================================*/
     function start_page()
@@ -135,6 +118,7 @@ class User extends CI_Controller
             }
 
             $data['sedes'] = $this->sede->get_all(); 
+            $data['categorias'] = $this->support->get_categories();
 
             $this->load->view('app/v_sendticket.php' , $data);
             // pie de pagina
@@ -752,10 +736,82 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(2,3)))
         {
+            $tipo_busqueda  = $this->input->post('tipo-busqueda');
+            $fecha_inicio = $this->input->post('fechainicio');
+            $fecha_fin = $this->input->post('fechafin');
+            $sede = $this->input->post('sede');
+            $data_arr = array();
+            $label_arr = array();
 
+            if (isset( $fecha_inicio , $fecha_fin ) )
+            {
+                $reports = $this->stats->get_reports($fecha_inicio,$fecha_fin);
+                $ids_arr = array();
+
+                for ($i = 0; $i < count($reports) ; $i++)
+                {
+                    if (!in_array($reports[$i]['id_falla'], $ids_arr))
+                    {
+                        $current_falla = $this->support->get_falla($reports[$i]['id_falla']);
+                        $current_pc = $this->computer->get_pc_info($current_falla->id_equipo);
+                        
+                        if ($tipo_busqueda == "falla-comun")
+                        {
+                            $current_tipofalla = $current_falla->tipo;
+                            $current_txtfalla = "" ;
+                            switch ($current_tipofalla)
+                            {
+                                case "0" :
+                                    $current_txtfalla = "Mouse" ; 
+                                break ;
+                                case "1" :
+                                    $current_txtfalla = "Teclado" ; 
+                                break ;
+                                case "2" :
+                                    $current_txtfalla = "Monitor" ; 
+                                break ; 
+                                case "3" : 
+                                    $current_txtfalla = "Sistema Operativo" ; 
+                                break ;
+                                case "4" : 
+                                    $current_txtfalla = "No enciende" ; 
+                                break ;
+                                case "5" :
+                                    $current_txtfalla = "Otro" ; 
+                                break ;
+                            }
+
+                            $counted = $this->stats->count_reports_category($current_tipofalla , $sede);
+                            if (!in_array($current_txtfalla , $label_arr))
+                            {
+                                array_push($data_arr , $counted ) ; 
+                                array_push($label_arr , $current_txtfalla);
+                            }  
+
+                        }else if ($tipo_busqueda == "equipo-comun")
+                        {
+                            $current_pcid = $current_falla->id_equipo ; 
+                            $current_pc = $this->computer->get_pc_info($current_pcid);
+                            
+                        }
+                        array_push($ids_arr , $reports[$i]['id_falla']);
+                    }
+                }
+            }
+            $data['sedes'] = $this->sede->get_all();
+            $data['labels'] = $label_arr;
+            $data['series'] = $data_arr;
+            $this->load->view('app/v_stats.php', $data);
             // pie de pagina
             $this->end_page();
         }
+    }
+
+    public function generatepdf()
+    {
+        $this->fpdf->SetFont('Arial' , 'I' , 12);
+        $this->fpdf->Cell(500 , 60 , 'Hola mundo');
+        $this->fpdf->Output();
     }
 
     /* ========================

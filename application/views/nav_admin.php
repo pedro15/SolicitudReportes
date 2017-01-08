@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 ?>
+<script type="text/javascript" src="<?php echo base_url('/')?>js/Timer.js"></script>
 <nav class="navbar navbar-default navbar-static-top">
     <div class = "container">
         <div class = "navbar-header">

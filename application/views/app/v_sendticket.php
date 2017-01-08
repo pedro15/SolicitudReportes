@@ -36,16 +36,16 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                         <option value = "none">Seleccione Laboratorio</option>
                     </select>
                 </div>
-
                 <div class = "col-md-5">
                     <label>Categoria de la falla</label>
                     <select name = "category" class = "form-control" > 
-                        <option value = "0" >Mouse</option>
-                        <option value = "1" >Teclado</option>
-                        <option value = "2" >Monitor</option>
-                        <option value = "3" >Sistema operativo</option>
-                        <option value = "4" >Hardware equipo</option>
-                        <option value = "5">Otro</option>
+                        <?php 
+                            foreach ($categorias as $key => $cat)
+                            {
+                                $opc = '<option value ="' . $key . '">' . $categorias[$key] . '</option>' ; 
+                                echo $opc;
+                            }
+                        ?>
                     </select>
                 </div>
             </div>

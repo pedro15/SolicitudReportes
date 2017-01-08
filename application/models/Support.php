@@ -9,26 +9,17 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             $this->load->helper('string');
         }
 
+        // Tipo = Categoria
         public function send_ticket($id_equipo , $descripcion , $tipo , $ci_user)
         {
             $db = $this->load->database('default' , TRUE); 
             $id_falla = random_string('alnum', 17);
-            /*
-            Tipo:
-            0 -> Mouse 
-            1 -> Teclado
-            2 -> Monitor 
-            3 -> Sistema Operativo
-            4 -> No enciende 
-            5 -> Otro 
-            */ 
             $sql_falla = "INSERT INTO `falla` (`id_falla` , `id_equipo` , `descripcion` , `tipo`) VALUES('" . $id_falla . "','" . $id_equipo . "','" .  $descripcion 
             . "','" .  $tipo . "');" ;
             $db->query($sql_falla);
             if ($db->affected_rows() > 0 )
             {
                 // Estado : 0 -> Sin reparar | 1 -> En revision | 2 -> Reparado 
-
                 $sql_reporte = "INSERT INTO `reporte` (`id_reporte`, `id_falla` , `cedula_usuario` , `fecha` , `estado`) VALUES (NULL,'" . $id_falla . "','" . 
                 $ci_user . "','" . date("y-m-d") . "', '0');" ; 
                 $db->query($sql_reporte); 
@@ -157,6 +148,20 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
              {
                  return false ;
              }
+        }
+
+        public function get_falla($id_falla)
+        {
+            $db = $this->load->database('default' , TRUE); 
+            $sql = "SELECT * FROM `falla` WHERE `id_falla` = '" . $id_falla . "' ; " ;
+            $query = $db->query($sql);
+            return $query->row();
+        }
+
+        public function get_categories()
+        {
+            $this->config->load('categories',TRUE);
+            return $this->config->item('computer_categories' , 'categories');
         }
 
     }

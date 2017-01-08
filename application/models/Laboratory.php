@@ -5,7 +5,6 @@ class Laboratory extends CI_Model
     function  __construct()
     {
         parent::__construct();
-        $this->load->helper('string');
     }
 
     public function register($idsede , $desc)

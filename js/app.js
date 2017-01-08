@@ -14,8 +14,10 @@ function PrintElem(elem)
         mywindow.close();
         return true;
 }
+
 // verifica si es numerico el evento. 
-function isNumberKey(evt){
+function isNumberKey(evt)
+{
     var charCode = (evt.which) ? evt.which : evt.keyCode
     return !(charCode > 31 && (charCode < 48 || charCode > 57));
 }
