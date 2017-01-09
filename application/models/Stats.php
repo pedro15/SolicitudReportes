@@ -21,7 +21,18 @@ class Stats extends CI_Model
         $db = $this->load->database('default' , TRUE);
         $sql = "SELECT * FROM `falla` WHERE `id_equipo` = '" . $pcid . "' ;";
         $query = $db->query($sql);
-        return $query->num_rows();
+        $result = $query->result_array(); 
+        $cleanarr = array();
+        foreach ( $result as $current )
+        {
+            $current_pc = $this->computer->get_pc_info($current['id_equipo']);
+            $lab = $this->laboratory->get_lab($current_pc->id_laboratorio);
+            if ($lab->id_sede == $sedeid)
+            {
+                array_push($cleanarr , $current);
+            }
+        }
+        return count($cleanarr);
     }
 
     public function count_reports_category($categorynum , $sedeid)

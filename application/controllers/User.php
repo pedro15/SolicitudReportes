@@ -740,7 +740,6 @@ class User extends CI_Controller
             $sede = $this->input->post('sede');
             $data_arr = array();
             $label_arr = array();
-
             if (isset( $fecha_inicio , $fecha_fin ) )
             {
                 $reports = $this->stats->get_reports($fecha_inicio,$fecha_fin);
@@ -758,9 +757,9 @@ class User extends CI_Controller
                             $current_tipofalla = $current_falla->tipo;
                             $current_txtfalla = "" ;
                             $current_txtfalla = $this->support->get_categorie_name($current_tipofalla);
-                            $counted = $this->stats->count_reports_category($current_tipofalla , $sede);
                             if (!in_array($current_txtfalla , $label_arr))
                             {
+                                $counted = $this->stats->count_reports_category($current_tipofalla , $sede);
                                 array_push($data_arr , $counted ) ; 
                                 array_push($label_arr , $current_txtfalla);
                             }  
@@ -769,7 +768,14 @@ class User extends CI_Controller
                         {
                             $current_pcid = $current_falla->id_equipo ; 
                             $current_pc = $this->computer->get_pc_info($current_pcid);
-                            
+                            $current_lab = $this->laboratory->get_lab($current_pc->id_laboratorio);
+                            $computerdesc = $current_lab->descripcion . ' - ' . $current_pc->descripcion;
+                            if (!in_array($computerdesc , $label_arr) && $current_lab->id_sede == $sede )
+                            {
+                                $counted = $this->stats->count_reports_pc($current_pcid , $sede); 
+                                array_push($label_arr , $computerdesc);
+                                array_push($data_arr , $counted);
+                            }
                         }
                         array_push($ids_arr , $reports[$i]['id_falla']);
                     }

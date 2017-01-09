@@ -73,15 +73,15 @@ class Loginsystem extends CI_Model
         $query = $db->query($sql);
         return $query->row(); 
     }
-
+    
     public function logout()
     {
         if ($this->isloggedin())
         {
             $useritems = array('usuario_ci' , 'usuario_nombre' , 'usuario_tipo' , 'usuario_correo' , 'logged' );
             $this->session->unset_userdata($useritems);
-            redirect('/');
         }
+        redirect('/');
     }
 
     public function isloggedin()
