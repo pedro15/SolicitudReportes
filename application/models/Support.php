@@ -6,7 +6,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         function __construct()
         {
             parent::__construct();
-            $this->load->helper('string');
         }
 
         // Tipo = Categoria
@@ -90,32 +89,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 $results[$key]['usuarioactual'] = $current_user;
                 $tipo = $results[$key]['tipo'] ; 
                 $categoria = "" ;
-                switch ($tipo)
-                {
-                    case "0" : 
-                        $categoria = "Mouse" ; 
-                    break ;
-
-                    case "1" : 
-                        $categoria = "Teclado" ; 
-                    break ;
-
-                    case "2" : 
-                        $categoria = "Monitor" ; 
-                    break; 
-
-                    case "3" :
-                        $categoria = "Sistema Operativo" ;
-                    break; 
-
-                    case "4" :
-                        $categoria = "No enciende" ; 
-                    break; 
-
-                    case "5" :
-                        $categoria = "Otro" ; 
-                    break;
-                }
+                $categoria = $this->get_categorie_name($tipo);
                 $results[$key]['categoria'] = $categoria; 
             }
             return $results; 

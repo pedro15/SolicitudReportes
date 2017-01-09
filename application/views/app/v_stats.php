@@ -52,14 +52,20 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     <input type = "submit" class = "btn btn-primary" value = "Generar estadistica">
                 </div>
                 <div class = "col-md-3">
-                    <a class = "btn btn-primary" id = "printbtn" href = "<?php echo base_url() ?>index.php/user/generatepdf" target = "_blank">
+                    <a class = "btn btn-primary" id = "printbtn">
                          Imprimir  <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
                     </a>
                 </div>
             </div>
        </div>
     </form>
-    <div class = "ct-chart" >
+    <div id = "stats-container">
+        <div class = "container">
+            <div id = "stats-header">
+            </div>
+            <div class = "ct-chart" >
+            </div>
+        </div>
     </div>
 </div>
 <?php 
@@ -85,11 +91,13 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         <?php
     }
 ?>
+<div id = "editor"></div>
 <script type="text/javascript" src="<?php echo base_url('/')?>chartist-js/chartist.min.js"></script>
 <script type = "text/javascript">
 
      var labels_chart = [] ; 
      var series_chart = [] ; 
+     var chart;
 
       function initdates()
       {
@@ -108,6 +116,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
       function initchart()
       {
+
           $('input[name="labels[]"]').each(function()
           {
               labels_chart.push($(this).val());
@@ -129,7 +138,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 {
                     onlyInteger: true
                 }}]];
-                var chart = new Chartist.Bar('.ct-chart',data,options,responsiveOptions);
+                chart = new Chartist.Bar('.ct-chart',data,options,responsiveOptions);
           }
       }
       
@@ -141,12 +150,56 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
       $("#printbtn").click(function()
       {
+            var xhtml = 
+            '<div class = "row">' + 
+            '<div class = "col-md-7">' +
+            '<img alt="Membrete" src="<?php echo base_url("")?>images/MembreteFundacite.png">' +
+            '</div><div class = "col-md-4">' +
+            '<img alt="Membrete" src="<?php echo base_url("/")?>images/200.png">' + 
+            '</div></div>' + 
+            '<div class = "page-header"><h4>Estadisticas de solicitud de soporte tecnico:</h4></div>' ;
 
-      });
+            $("#stats-header").html(xhtml);
 
-      $("#generarbtn").click(function()
-      {
-          
+            $("#stats-container").print(
+            {
+                    // Use Global styles
+                    globalStyles : true, 
+
+                    // Add link with attrbute media=print
+                    mediaPrint : false, 
+
+                    //Custom stylesheet
+                   // stylesheet : "", 
+
+                    //Print in a hidden iframe
+                    iframe : false, 
+
+                    // Don't print this
+                   // noPrintSelector : ".avoid-this",
+
+                    // Add this on top
+                    append : "Estadisticas", 
+
+                    // Add this at bottom
+                    prepend : "OK",
+
+                    // Manually add form values
+                    manuallyCopyFormValues: true,
+
+                    // resolves after print and restructure the code for better maintainability
+                    deferred: $.Deferred(),
+
+                    // timeout
+                    timeout: 250,
+
+                    // Custom title
+                    title: null,
+
+                    // Custom document type
+                    doctype: '<!DOCTYPE html>'
+            });
+            $("#stats-header").html("");
       });
 
 </script>
