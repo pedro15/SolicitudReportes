@@ -68,7 +68,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 {
                     type: "POST" ,
                     url: "<?php echo base_url('index.php/user/getlabsbysede'); ?>",
-                    datatype : 'json', 
                     data: { id_sede_json: _value },
                     success: 
                     function (res)

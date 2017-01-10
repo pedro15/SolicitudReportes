@@ -12,6 +12,10 @@ class Login extends CI_Controller
 	
 	public function index()
 	{
+		if( ! ini_get('date.timezone') )
+		{
+			date_default_timezone_set('GMT');
+		}
 		$this->load->view('head.php');
 		$this->load->view('letterhead.php');
 		$ci = $this->input->post('cilogin');
@@ -28,7 +32,7 @@ class Login extends CI_Controller
 						redirect('user');
 					}else 
 					{
-						$data['message'] = "Fallo autenticacion";
+						$data['message'] = "Clave incorrecta.";
 						$this->load->view('app/v_login.php', $data);
 					}
 				}else 
@@ -38,7 +42,7 @@ class Login extends CI_Controller
 				}	
 			}else 
 			{
-				$data['message'] = "No existe usuario con la cedula: " . $ci;
+				$data['message'] = "No existe un usuario con la cedula: " . $ci;
 				$this->load->view('app/v_login.php', $data);
 			}
 		}else 

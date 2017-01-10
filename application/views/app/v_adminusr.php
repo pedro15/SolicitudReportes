@@ -37,7 +37,7 @@
                             <input type="checkbox" id = "ch_type">
                         </span>
                         <select id = "selecttype" class = "form-control">
-                            <option>Seleccionar</option>
+                            <option value = "none">Seleccionar</option>
                             <option value = "1">Participante/Instructor</option>
                             <option value = "2">Tecnico</option>
                             <option value = "3">Administrador</option>
@@ -67,7 +67,6 @@
         </div>
     </div>
 </div>
-<
 
 <script type = "text/javascript">
 
@@ -127,8 +126,7 @@ function updatetable()
     (
         {
             type : "POST",
-            url: "<?php echo base_url('index.php/user/getalltecs'); ?>",
-            datatype : 'json', 
+            url: "<?php echo base_url('index.php/user/getalltecs'); ?>"
             data: {},
             success:
             function (res)

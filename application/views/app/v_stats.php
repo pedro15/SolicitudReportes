@@ -116,7 +116,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
       function initchart()
       {
-
           $('input[name="labels[]"]').each(function()
           {
               labels_chart.push($(this).val());
@@ -141,7 +140,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 chart = new Chartist.Bar('.ct-chart',data,options,responsiveOptions);
           }
       }
-      
+
       $(document).ready(function()
       {
           initdates();
@@ -150,7 +149,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
       $("#printbtn").click(function()
       {
-            var xhtml = 
+            var xhtml =
             '<div class = "row">' + 
             '<div class = "col-md-7">' +
             '<img alt="Membrete" src="<?php echo base_url("")?>images/MembreteFundacite.png">' +
@@ -158,7 +157,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             '<img alt="Membrete" src="<?php echo base_url("/")?>images/200.png">' + 
             '</div></div>' + 
             '<div class = "page-header"><h4>Estadisticas de solicitud de soporte tecnico:</h4></div>' ;
-
             $("#stats-header").html(xhtml);
 
             $("#stats-container").print(
@@ -201,5 +199,4 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             });
             $("#stats-header").html("");
       });
-
 </script>

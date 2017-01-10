@@ -11,6 +11,7 @@
                  <div class = "col-md-8">
                     <label>Nuevo nivel de privilegio:</label>
                     <select name = "newtype" class = "form-control" >
+                        <option value = "none">Seleccionar</option>
                         <option value = "1" >Participante/Instructor</option>
                         <option value = "2" >Tecnico</option>
                         <option value = "3">Administrador</option>

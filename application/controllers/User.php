@@ -588,10 +588,7 @@ class User extends CI_Controller
                 $sec_question = "" ;
                 if ($this->usr->register($_ci , $_name , $default_pw , $sec_question , $type , $_email))
                 {
-                    $this->load_alert("Tecnico registrado correctamente ! <strong>la clave inicialmente es la Cedula</strong>, puede cambiarla una vez que ingrese en la seccion de : 'Perfil/Cambiar clave' " , "SUCCESS");
-                }else 
-                {
-                    $this->load_alert("Ya existe un usuario con la cedula: " . $_ci , "DANGER");
+                    $this->load_alert("Usuario registrado correctamente ! <strong>la clave inicialmente es la Cedula</strong>, puede cambiarla una vez que ingrese en la seccion de : 'Perfil/Cambiar clave' " , "SUCCESS");
                 }
             }
             $this->load->view('app/v_registerusr.php');
@@ -676,13 +673,13 @@ class User extends CI_Controller
             if (isset($ci))
             {
                 $newt = $this->input->post('newtype');
-                if (isset($newt))
+                if ($newt != "none" && !empty($newt))
                 {
                     if($this->usr->can_remove($ci))
                     {
                         if ($this->usr->change_type($ci , $newt))
                         {
-                            $this->load_alert("Estado cambiado correctamente" , "SUCCESS");
+                            $this->load_alert("Nivel de privilegio actualizado correctamente" , "SUCCESS");
                         }
                     }else 
                     {
@@ -693,8 +690,10 @@ class User extends CI_Controller
                 $row_data = $this->usr->get_data($ci);
                 if (isset($row_data))
                 {
-                    $data['nombre_usuario'] = $row_data->nombre ; 
-                    switch($row_data->tipo)
+                    $data['nombre_usuario'] = $row_data['nombre'] ; 
+                    $data['tipo'] = "" ;
+
+                    switch($row_data['tipo'])
                     {
                         case 1 : 
                             $data['tipo'] = "Participante/Instructor" ; 
@@ -708,6 +707,7 @@ class User extends CI_Controller
                             $data['tipo'] = "Administrador";
                         break; 
                     }
+
                     $this->load->view('app/v_changeusrtype.php' , $data);
                 }else 
                 {
@@ -790,13 +790,6 @@ class User extends CI_Controller
         }
     }
 
-    public function generatepdf()
-    {
-        $this->fpdf->SetFont('Arial' , 'I' , 12);
-        $this->fpdf->Cell(500 , 60 , 'Hola mundo');
-        $this->fpdf->Output();
-    }
-
     /* ========================
     Respaldo y restuauracion
     ==========================*/ 
@@ -807,7 +800,7 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(3)))
         {
-            
+            $this->syshelper->backup_database();
             // pie de pagina
             $this->end_page();
         }
@@ -819,6 +812,14 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(3)))
         {
+            $sql = $this->input->post('sqlstring');
+            if (isset($sql))
+            {
+                $this->syshelper->restore_database($sql);
+                print_r("ok");
+            }
+
+            $this->load->view('app/v_restoredb.php');
             // pie de pagina
             $this->end_page();
         }
@@ -834,7 +835,7 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(1,2,3)))
         {
-            
+
             // pie de pagina
             $this->end_page();
         }

@@ -4,9 +4,10 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 <div class = "fundacitebackground">
             <div>
                  <div class = "text-left">
-                 <img class="LoginHeaderIcon" id="logofundacite" alt="fundacite logo" src="<?php echo base_url('/')?>images/BannerIcons.png" width="100" height="100">
+                 <img class="LoginHeaderIcon" id="logofundacite" alt="fundacite logo" src="<?php echo base_url('/')?>images/BannerIcons.png" width="100" height="100" />
                  </div>
                  <div class ="text-center">
+                 <img alt = "SASTEC" src = "<?php echo base_url('/')?>images/logo_SASTEC.png" width = "350" height = "200"/>
                  <h3>Sistema Automatizado de Solicitud de Soporte Tecnico</h3>
                  <h4>Bienvenido</h4>
                  </div>
