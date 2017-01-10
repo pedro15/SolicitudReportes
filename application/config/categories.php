@@ -17,11 +17,4 @@ $config['computer_categories'] = array
     '5' => 'Otro' 
 );
 
-$config['status_categories'] = array 
-(
-    '0' => 'Sin reparar' ,
-    '1' => 'En revision' ,
-    '2' => 'Reparado' 
-);
-
 ?>

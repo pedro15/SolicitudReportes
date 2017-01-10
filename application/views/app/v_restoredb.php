@@ -3,7 +3,14 @@
 ?>
 <div class = "container">
     <div class = "page-header">
-        <h3>Restaurar base de datos</h3>
+        <div class = "row">
+            <div class = "col-xs-1">
+                <img src = "<?php echo base_url('images/db.png') ?>" alt = "database icon" width = "30" height = "30" style = "margin-top: 15px; " />
+            </div>
+            <div class = "col-md-5">
+                <h3>Restaurar base de datos</h3>
+            </div>
+        </div>
     </div>
     <div class = "alert alert-warning" > 
         <span class = "glyphicon glyphicon-exclamation-sign" aria-hidden = "true"  ></span>
@@ -11,11 +18,20 @@
     </div>
     <form id = "sendfrm" action = "#" method = "POST" enctype="multipart/form-data">
         <div class = "form-group">
+            <label>Archvio de restauracion (.sql) </label>
             <input type = "file"  onchange = "return checkfile(this);">
         </div>
-        <div class = "form-group">
-            <input type = "submit" onsubmit = "return validatesend();"  class = "btn btn-primary" value = "Restaurar">
+        <div class="progress">
+            <div id = "progress" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+              
+            </div>
         </div>
+        <div class = "form-group">
+            <button type = "submit" class = "btn btn-primary" > 
+                <span class = "glyphicon glyphicon-arrow-up" aria-hidden = "true"  ></span> Restaurar
+            </button>
+        </div>
+        
     </form>
 </div>
 <script type = "text/javascript">
@@ -46,31 +62,33 @@
             {
                 xdata = e.target.result;
             }
+            reader.onprogress = function (progress)
+            {
+                var total = (progress.loaded / progress.total ) * 100  ;
+                $("#progress").transition({ width: total + '%' } , 300) ; 
+            }
         }
-
     });
-
-    function validatesend()
-    {
-        console.log(cansend); 
-        console.log(xdata);
-
-        if (cansend && xdata != "")
-        {
-            return true ;
-        }else 
-        {
-            alert("No ha seleccionado ningun archivo o ha seleccionado un archivo invalido.");
-            return false ;
-        }
-    }
 
     $("#sendfrm").submit(function (event)
     {
-        var input = $("<input>")
-               .attr("type", "hidden")
-               .attr("name", "sqlstring").val(xdata);
-        $('#sendfrm').append($(input));
+        if (cansend == true && xdata != "")
+        {
+            if (confirm("Desea restaurar la base de datos con el archivo seleccionado? tome en cuenta que toda la informacion actual sera reemplazada con la nueva informacion que contiene dicho archivo."))
+            {
+                var input = $("<input>")
+                    .attr("type", "hidden")
+                    .attr("name", "sqlstring").val(xdata);
+                $('#sendfrm').append($(input));   
+            }else 
+            {
+                event.preventDefault();
+            }
+        }else 
+        {
+            alert("No ha seleccionado ningun archivo o ha seleccionado un archivo invalido.");
+            event.preventDefault();
+        }
     });
 
 </script>

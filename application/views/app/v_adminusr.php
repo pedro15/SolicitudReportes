@@ -126,7 +126,7 @@ function updatetable()
     (
         {
             type : "POST",
-            url: "<?php echo base_url('index.php/user/getalltecs'); ?>"
+            url: "<?php echo base_url('index.php/user/getalltecs'); ?>",
             data: {},
             success:
             function (res)

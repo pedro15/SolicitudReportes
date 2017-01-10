@@ -800,7 +800,13 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(3)))
         {
-            $this->syshelper->backup_database();
+            $request = $this->input->post('request');
+            if (isset($request))
+            {
+                $this->syshelper->backup_database();
+                unset($request);
+            }
+            $this->load->view('app/v_backupdb.php');
             // pie de pagina
             $this->end_page();
         }
@@ -816,9 +822,9 @@ class User extends CI_Controller
             if (isset($sql))
             {
                 $this->syshelper->restore_database($sql);
-                print_r("ok");
+                $this->load_alert("Operacion ejecutada correctamente" , "SUCCESS");
             }
-
+            
             $this->load->view('app/v_restoredb.php');
             // pie de pagina
             $this->end_page();

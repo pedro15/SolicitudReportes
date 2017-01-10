@@ -34,24 +34,28 @@ class Syshelper extends CI_Model
     public function restore_database($backup)
     {
         $this->clear_tables();
+
         $sqlclean = "SET FOREIGN_KEY_CHECKS=0;" ;
-        
+
         foreach ( explode("\n" , $backup) as $line  )
         {
-            if ($line[0] && $line[0] != "#") // ERROR:  Uninitialized string offset: 0
+            if (!empty($line) && $line[0] != "#")
             {
                 $sqlclean .= $line . "\n" ; 
             }
         }
-
+        
         $sqlclean .= "SET FOREIGN_KEY_CHECKS=1;\n" ; 
 
-        foreach (explode(";\n" , $sqlclean ) as $sql ) 
+        $arrstr = explode(";" , $sqlclean ) ; 
+
+        foreach ( $arrstr as $sql ) 
         {
-            $sql = tirm($sql); // ERROR: Call to undefined function tirm() 
-            if ($sql)
+            $sql = rtrim($sql); 
+            if (!empty($sql))
             {
-                $this->db->query($sql);
+                 $launchsql = $sql . ";" ;  
+                 $this->db->query($launchsql);
             }
         }
         return true ;
