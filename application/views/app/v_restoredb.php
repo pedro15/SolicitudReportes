@@ -54,7 +54,7 @@
     $("input[type=file]").change(function()
     {
         
-        if (this.files && this.files[0]) 
+        if (this.files && this.files[0] && cansend == true ) 
         {
             var reader = new FileReader();
             reader.readAsText(this.files[0]);

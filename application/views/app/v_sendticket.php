@@ -8,7 +8,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     <form action = "#" method = "POST">
         <div class = "form-group">
             <div class = "row">
-
                 <div class = "col-md-5">
                     <Label>Sede</label>
                     <select id = "select_sede" class = "form-control" >
@@ -50,8 +49,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 </div>
             </div>
             <div class = "row">
-                <label>Desscripcion de la falla:</label>
-                <textarea class = "form-control" name = "descripcion" rows = "15" cols = "0" maxlenght = "600">
+                <label >Desscripcion de la falla</label> <label id = "desclabel"> (Caracteres restantes: 600):</label>
+                <textarea id = "desc" class = "form-control" name = "descripcion" rows = "5" maxlength="600">
 
                 </textarea>
             </div>
@@ -60,6 +59,15 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     </form>
 </div>
 <script type = "text/javascript">
+
+      $("#desc").keyup(function()
+      {
+          var max = 600 ; 
+          var l = $(this).val().length ; 
+          var txt = "(Caracteres restantes: " + (max - l) + " ):" ; 
+          $("#desclabel").text(txt);
+      });
+
       $("#select_sede").change(function()
         {
             var _value = $("#select_sede").val();

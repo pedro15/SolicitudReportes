@@ -141,6 +141,7 @@ class User extends CI_Controller
         if ($this->canload_module(array(3))) 
         {
             $data['sedes'] = $this->sede->get_all(); 
+            $data['categorias'] = $this->support->get_categories(); 
             $this->load->view('app/v_adminticket.php' , $data);
             // pie de pagina
             $this->end_page();

@@ -304,6 +304,13 @@ footer p
 .report-body
 {
   padding: 5px;
+  min-height: 200px;
+}
+
+.report-body p 
+{
+  word-break: break-all;
+  white-space: normal;
 }
 
 /* Jquery Modal windows */ 
