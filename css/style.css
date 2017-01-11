@@ -17,6 +17,11 @@ html
   min-height: 100%;
 }
 
+a:hover 
+{
+  cursor: pointer;
+}
+
 body 
 {
   /* Margen segun el height de el pie de pagina */
@@ -298,19 +303,18 @@ footer p
 {
   color: #f4f4f4;
   font-style: italic;
-  cursor: pointer;
 }
 
 .report-body
 {
   padding: 5px;
-  min-height: 200px;
+  min-height: 220px;
+  overflow: hidden;
 }
 
 .report-body p 
 {
-  word-break: break-all;
-  white-space: normal;
+  word-break: normal;
 }
 
 /* Jquery Modal windows */ 

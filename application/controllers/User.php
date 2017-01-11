@@ -847,6 +847,15 @@ class User extends CI_Controller
         }
     }
 
+    public function updatepassword()
+    {
+        if ($this->canload_module(array(1,2,3)))
+        {
+            $this->load->view('app/v_updatepassword.php') ;
+            $this->end_page();
+        }   
+    }
+
     /* ========================
     Extras
     ==========================*/ 

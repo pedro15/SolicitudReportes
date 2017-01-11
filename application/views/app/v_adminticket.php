@@ -91,7 +91,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     </div>
 </div>
 
-
 <div id = "pcdialog" >
     <div class = "dialog-container" > 
         <div class = "row">
@@ -546,7 +545,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 + '<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span><strong> Laboratorio:</strong> ' +  xjson[data].laboratorioactual.descripcion 
                 + '</div>'
                 + '<div class = "col-md-6">'
-                + '<span class="glyphicon glyphicon-hdd" aria-hidden="true"></span><strong> Equipo:</strong> <a href = "#" onclick = "javascript:showpcinfo(\'' +  xjson[data].equipoactual.id_equipo + '\')">' +  xjson[data].equipoactual.descripcion + '</a>'
+                + '<span class="glyphicon glyphicon-hdd" aria-hidden="true"></span><strong> Equipo:</strong> <a onclick = "javascript:showpcinfo(\'' +  xjson[data].equipoactual.id_equipo + '\')">' +  xjson[data].equipoactual.descripcion + '</a>'
                 + '</div>'
                 + '<div class = "col-md-6">'
                 + '<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span><strong> Fecha:</strong> ' +  xjson[data].estadoactual.fecha
