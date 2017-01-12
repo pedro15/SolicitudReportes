@@ -12,10 +12,6 @@ class Login extends CI_Controller
 	
 	public function index()
 	{
-		if( ! ini_get('date.timezone') )
-		{
-			date_default_timezone_set('GMT');
-		}
 		$this->load->view('head.php');
 		$this->load->view('letterhead.php');
 		$ci = $this->input->post('cilogin');
