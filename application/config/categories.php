@@ -17,4 +17,13 @@ $config['computer_categories'] = array
     '5' => 'Otro' 
 );
 
+$config['security_questions'] = array
+(
+    '0' => 'Nombre de tu primera mascota',
+    '1' => 'Apellido de tu madre',
+    '2' => 'Fruta favorita',
+    '3' => 'Direccion de nacimiento',
+    '4' => 'Color favorito'
+);
+
 ?>

@@ -3,6 +3,17 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
 class User extends CI_Controller 
 {    
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->library('encryption');
+        $this->encryption->initialize(
+        array(
+                'cipher' => 'aes-256',
+                'mode' => 'ctr',
+        ));
+    }
+
     /* carga el header, la cabezera , y la barra de navegacion.
     =================================================*/
     function start_page()
@@ -842,7 +853,31 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(1,2,3)))
         {
-            $this->load->view('app/v_updateprofile.php') ;
+            $new_username = $this->input->post('username') ; 
+            $new_email = $this->input->post('useremail') ;
+            $question_id = $this->input->post('questionid');
+            $question = $this->input->post('question');
+            $question_active = $this->input->post('questionenabled') ;
+            $r = $this->input->post('request');
+            $userdata = $this->loginsystem->getuserdata();
+            $ci = $userdata['usuario_ci']; 
+            if (isset($r) && $r == true  )
+            {
+                if($this->usr->update_profile($ci , $new_username , $new_email, 
+                $question_id , $question , $question_active))
+                {
+                    $this->load_alert("Perfil actualizado correctamente" , "SUCCESS");
+                }
+            }
+            $currentuser = $this->loginsystem->get_user_data($ci);
+            $questions = $this->usr->get_questions() ;
+            $data['nombre'] = $currentuser->nombre ; 
+            $data['correo'] =  $currentuser->correo ; 
+            $data['pregunta'] = $currentuser->pregunta_seguridad ; 
+            $data['respuesta'] = $this->encryption->decrypt( $currentuser->respuesta_seguridad ) ; 
+            $data['questions'] = $questions;
+            $data['question_enabled'] = $currentuser->pregunta_activada ; 
+            $this->load->view('app/v_updateprofile.php', $data) ;
             $this->end_page();
         }
     }

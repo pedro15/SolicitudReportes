@@ -6,10 +6,12 @@ class Usr extends CI_Model
     function __construct()
     {
         parent::__construct();
-        if( ! ini_get('date.timezone') )
-        {
-            date_default_timezone_set('GMT');
-        }
+        $this->load->library('encryption');
+        $this->encryption->initialize(
+        array(
+                'cipher' => 'aes-256',
+                'mode' => 'ctr',
+        ));
     }
     
     public function get_all()
@@ -28,27 +30,6 @@ class Usr extends CI_Model
             $sql = "DELETE FROM `usuario` WHERE `cedula_usuario` = '".  $ci . "' ; "; 
             $query = $db->query($sql);
             if ( $db->affected_rows() > 0 )
-            {
-                return true ;
-            }else 
-            {
-                return false ;
-            }
-        }else 
-        {
-            return false;
-        }
-    }
-
-    public function edit($ci , $new_ci , $new_name , $new_pw , $new_question , $new_email)
-    {
-        if($this->is_in_database($ci))
-        {
-            $db = $this->load->database('default' , TRUE);
-            $sql = "UPDATE `usuario` SET `cedula_usuario` = '" . $new_ci . "', `nombre` = '" . $new_name . "', `pregunta_seguridad` = '" . $new_question . 
-            "', `correo` = '" . $new_email . "' WHERE `cedula_usuario` = '" . $ci . "' ;" ; 
-            $query = $db->query($sql);
-            if ($db->affected_rows() > 0 )
             {
                 return true ;
             }else 
@@ -100,6 +81,50 @@ class Usr extends CI_Model
             return false;
         }
     }
+
+    function update_profile($ci , $new_name , $new_email , $new_questionid , $new_question , $questionenabled )
+    {
+         if($this->is_in_database($ci))
+        {
+            $q_enabled = $questionenabled == 'on' ?  '1' : '0' ; 
+            $db = $this->load->database('default' , TRUE);
+            $sql = "UPDATE `usuario` SET  `nombre` = '" . $new_name . "', `pregunta_seguridad` = '" . $new_questionid . 
+            "', `respuesta_seguridad` = '" . $this->encryption->encrypt($new_question) . "' , `pregunta_activada` = '" . $q_enabled . "'  , `correo` = '" . $new_email . "' WHERE `cedula_usuario` = '" . $ci . "' ;" ; 
+            $query = $db->query($sql);
+            if ($db->affected_rows() > 0 )
+            {
+                return true ;
+            }else 
+            {
+                return false ;
+            }
+        }else 
+        {
+            return false;
+        }
+    }
+
+    function change_password($ci , $new_password)
+    {
+        if($this->is_in_database($ci))
+        {
+            $db = $this->load->database('default' , TRUE);
+            $encrypted_password = password_hash($new_password , PASSWORD_DEFAULT );
+            $sql = "UPDATE `usuario` SET  `clave` = '" . $encrypted_password . "'  WHERE `cedula_usuario` = '" . $ci . "' ;" ; 
+            $query = $db->query($sql);
+            if ($db->affected_rows() > 0 )
+            {
+                return true ;
+            }else 
+            {
+                return false ;
+            }
+        }else 
+        {
+            return false;
+        }
+    }
+    
 
     function register($ci , $name , $pw , $security_question , $type , $email  )
     {
@@ -187,4 +212,22 @@ class Usr extends CI_Model
         return $query->row_array();
     }
     
+    public function get_questions()
+    {
+        $this->config->load('categories',TRUE);
+        return $this->config->item('security_questions' , 'categories');
+    }
+
+    public function get_question_name($id)
+    {
+        $questions = $this->get_questions();
+        if (array_key_exists($id))
+        {
+            return $questions[$id];
+        }else 
+        {
+            return "" ; 
+        }
+    }
+
 }

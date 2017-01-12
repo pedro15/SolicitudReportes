@@ -23,6 +23,9 @@ class Loginsystem extends CI_Model
                     'usuario_nombre' => $user_data->nombre,
                     'usuario_tipo' => $user_data->tipo,
                     'usuario_correo' => $user_data->correo,
+                    'usuario_pregunta' => $user_data->pregunta_seguridad,
+                    'usuario_respuesta' => $user_data->respuesta_seguridad,
+                    'usuario_pregunta_activa' => $user_data->pregunta_activada,
                     'logged' => true
                 );
                 $this->session->set_userdata($data);
@@ -78,7 +81,8 @@ class Loginsystem extends CI_Model
     {
         if ($this->isloggedin())
         {
-            $useritems = array('usuario_ci' , 'usuario_nombre' , 'usuario_tipo' , 'usuario_correo' , 'logged' );
+            $useritems = array('usuario_ci' , 'usuario_nombre' ,
+             'usuario_tipo' , 'usuario_correo' , 'logged' , 'usuario_pregunta' , 'usuario_respuesta' );
             $this->session->unset_userdata($useritems);
         }
         redirect('/');
@@ -103,9 +107,11 @@ class Loginsystem extends CI_Model
             'usuario_ci' => $this->session->usuario_ci,
             'usuario_nombre' => $this->session->usuario_nombre,
             'usuario_tipo' => $this->session->usuario_tipo,
-            'usuario_correo' => $this->session->usuario_correo
+            'usuario_correo' => $this->session->usuario_correo,
+            'usuario_pregunta' => $this->session->usuario_pregunta ,
+            'usuario_respuesta' => $this->session->usuario_respuesta,
+            'usuario_pregunta_activa' => $this->session->usuario_pregunta_activa
         );
     }
 }
-
 ?>
