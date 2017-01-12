@@ -882,13 +882,32 @@ class User extends CI_Controller
         }
     }
 
+    /*  Cambiar clave
+    ==================================================*/
     public function updatepassword()
     {
         if ($this->canload_module(array(1,2,3)))
         {
+            $current_pass = $this->input->post('currentpw') ;
+            $new_pass = $this->input->post('newpass');
+            if (isset($current_pass , $new_pass))
+            {
+                $current_usr = $this->loginsystem->getuserdata();
+                $ci = $current_usr['usuario_ci'] ; 
+                if ($this->loginsystem->verify_password($ci , $current_pass))
+                {
+                    if ($this->usr->change_password($ci , $new_pass))
+                    {
+                         $this->load_alert("Clave actualizada correctamente" , "SUCCESS");
+                    }
+                }else 
+                {
+                    $this->load_alert("Clave actual invalida" , "DANGER");
+                }
+            }
             $this->load->view('app/v_updatepassword.php') ;
             $this->end_page();
-        }   
+        }
     }
 
     /* ========================

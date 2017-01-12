@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     <div class = "page-header">
         <h3>Cambiar clave</h3>
     </div>
-    <form action = "#" method = "POST" >
+    <form  action = "#" method = "POST" onsubmit="return validateform();" >
          <div class = "form-group">
                  <div class = "row">
                      <div class = "col-md-5">
@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     <div class = "col-md-5">
                         <label>Escriba la nueva clave:</label>
                         <div class = "input-group form-group">
-                            <input id = "pass" type = "password" class = "form-control" maxlength="20">
+                            <input name = "newpass" id = "pass" type = "password" class = "form-control" maxlength="20">
                             <div class = "input-group-addon" id = "addonpw" >
                                 <span id = "s-newp" class = "" aira-hidden = "true" ></span>
                             </div>
@@ -172,5 +172,17 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     {
         checkconfirmation();
     });
+
+
+    function validateform()
+    {
+        if (validpassword && confirmedpassword )
+        {
+            return true ;
+        }else 
+        {
+            return false ;
+        }
+    }
     
 </script>

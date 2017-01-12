@@ -8,14 +8,13 @@ class Loginsystem extends CI_Model
         parent::__construct();
         $this->load->library('session');
     }
-
+    
     public function login_internal($ci , $pass)
     {
         $user_data = $this->get_user_data($ci);
         if (isset($user_data))
         {
-            $encr_pw = $user_data->clave; 
-            if (password_verify($pass , $encr_pw))
+            if ($this->verify_password($ci , $pass ))
             {
                 $data = array
                 (
@@ -37,6 +36,19 @@ class Loginsystem extends CI_Model
         }else 
         {
             return false;
+        }
+    }
+
+    public function verify_password($ci , $pass )
+    {
+        $user_data = $this->get_user_data($ci);
+        if (isset($user_data))
+        {
+            $encr_pw = $user_data->clave;
+            return password_verify($pass , $encr_pw);
+        }else 
+        {
+            return false ;
         }
     }
 
