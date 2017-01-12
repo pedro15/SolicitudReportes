@@ -149,7 +149,7 @@ class User extends CI_Controller
     =================================================*/
     public function admintickets()
     {
-        if ($this->canload_module(array(3))) 
+        if ($this->canload_module(array(2,3))) 
         {
             $data['sedes'] = $this->sede->get_all(); 
             $data['categorias'] = $this->support->get_categories(); 
