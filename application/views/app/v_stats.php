@@ -151,7 +151,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
       {
             var xhtml =
             '<div class = "row">' + 
-            '<div class = "col-md-7">' +
+            '<div class = "col-md-6">' +
             '<img alt="Membrete" src="<?php echo base_url("")?>images/MembreteFundacite.png">' +
             '</div><div class = "col-md-4">' +
             '<img alt="Membrete" src="<?php echo base_url("/")?>images/200.png">' + 
@@ -180,7 +180,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     append : "Estadisticas", 
 
                     // Add this at bottom
-                    prepend : "OK",
+                   // prepend : "OK",
 
                     // Manually add form values
                     manuallyCopyFormValues: true,

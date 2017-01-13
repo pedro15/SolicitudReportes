@@ -334,8 +334,7 @@ function updatetable()
     (
         {
             type : "POST",
-            url: "<?php echo base_url('index.php/user/getallpcs'); ?>",
-            datatype : 'json', 
+            url: "<?php echo base_url('index.php/user/getallpcs'); ?>", 
             data: {} ,
             success:
             function (res)

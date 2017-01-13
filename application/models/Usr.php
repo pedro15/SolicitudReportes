@@ -204,6 +204,15 @@ class Usr extends CI_Model
         }
     }
 
+    public function has_admins()
+    {
+         $db = $this->load->database('default' , TRUE); 
+         $sql = "SELECT * FROM `usuario` WHERE `tipo` = '3' ; " ;
+         $query = $db->query($sql) ; 
+         $row = $query->row();
+         return isset($row); 
+    }
+
     public function get_data($ci)
     {
         $db = $this->load->database('default' , TRUE);

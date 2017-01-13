@@ -14,6 +14,30 @@ class Syshelper extends CI_Model
         $this->load->helper('download');
     }
 
+    public function install_database()
+    {
+        $url = base_url('database/database.sql');
+        $sql_script = file_get_contents( $url , FILE_USE_INCLUDE_PATH);
+        return $this->restore_database($sql_script);
+    }
+
+    public function database_valid()
+    {
+        $tabla_equipo = $this->db->table_exists('equipo');
+        $tabla_falla = $this->db->table_exists('falla');
+        $tabla_laboratorio = $this->db->table_exists('laboratorio');
+        $tabla_reporte = $this->db->table_exists('reporte');
+        $tabla_sede = $this->db->table_exists('sede');
+        $tabla_usuario = $this->db->table_exists('usuario');
+
+        return $tabla_equipo && 
+        $tabla_falla && 
+        $tabla_laboratorio && 
+        $tabla_reporte && 
+        $tabla_sede && 
+        $tabla_usuario ; 
+    }
+
     public function backup_database()
     {
         $fecha = date("Y-m-d.g.i.s");
@@ -39,7 +63,7 @@ class Syshelper extends CI_Model
 
         foreach ( explode("\n" , $backup) as $line  )
         {
-            if (!empty($line) && $line[0] != "#")
+            if (!empty($line) && ($line[0] != "#" && $line[0] != "-" ) )
             {
                 $sqlclean .= $line . "\n" ; 
             }
@@ -63,11 +87,42 @@ class Syshelper extends CI_Model
 
     public function clear_tables()
     {
-        $drop_usuarios = "DELETE  FROM `usuario` ; " ; 
-        $drop_sedes = "DELETE  FROM `sede` ; " ; 
-        $this->db->query($drop_usuarios); 
-        $this->db->query($drop_sedes); 
+        if ($this->database_valid())
+        {
+            $drop_usuarios = "DELETE  FROM `usuario` ; " ; 
+            $drop_sedes = "DELETE  FROM `sede` ; " ; 
+            $this->db->query($drop_usuarios); 
+            $this->db->query($drop_sedes); 
+        }
     }
-} 
 
+    function encode_security_answer($plaintext)
+    {
+        $p_arr =  explode(" " , $plaintext);
+        $p_final  = "" ; 
+        $maxelm = count($p_arr);
+        foreach ( $p_arr as $key => $element )
+        {
+            $p_final .= $p_arr[$key] ;
+            if ($key + 1 < $maxelm)
+            {
+                $p_final .= '*' ;
+            }
+        }
+    }
+
+    function verify_security_answer( $question , $answer )
+    {
+        $encoded_q = $this->encode_security_answer($question); 
+        $encoded_a = $this->encode_security_answer($answer);
+        if ($encoded_q === $encoded_a)
+        {
+            return true ; 
+        }else 
+        {
+            return false ; 
+        }
+    }
+
+} 
 ?>

@@ -26,6 +26,9 @@ class User extends CI_Controller
         {
             case 1 :
                 // barra navegacion usuario
+                $data['nombre_usuario'] = $usr_data['usuario_nombre'] ; 
+                $this->load->view('nav_user.php' , $data);
+                $this->load->view('timerscript.php');
             break;
 
             case 2 :

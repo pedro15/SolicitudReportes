@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     <?php
                        }else 
                        {
-                           echo '<p>No hay sedes registradas</p>' ; 
+                           echo '<p>No hay sedes registradas</p>' ;
                        }
                     ?>
                  </div>

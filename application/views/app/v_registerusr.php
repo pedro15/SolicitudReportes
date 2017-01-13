@@ -1,5 +1,5 @@
 <?php
-    defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
+defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 ?>
 <div class = "container">
     <div class = "page-header">
@@ -22,6 +22,7 @@
                 <div class = "col-md-5">
                     <label>Nivel de privilegio</label> 
                     <select name = "usrtype" class = "form-control"> 
+                        <option value = "1" >Participante/Instructor</option>
                         <option value = "2" >Tecnico</option>
                         <option value = "3">Administrador</option>
                     </select>
@@ -32,17 +33,16 @@
     </form>
 </div>
 <script type = "text/javascript">
+
 // Validacion en base de datos Cedula de identidad
 var cansend = true ;
-
 function validate_ci()
 {
       var civalue = $("#cifield").val();
-         $.ajax(
+        $.ajax(
         {
             type : "POST",
-            url: "<?php echo base_url('index.php/user/usr_ci_validation'); ?>",
-            datatype : 'json', 
+            url: "<?php echo base_url('index.php/user/usr_ci_validation'); ?>", 
             data: { cedula_user: civalue } ,
             success:
             function (res)
