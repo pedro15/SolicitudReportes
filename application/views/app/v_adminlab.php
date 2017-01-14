@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     <label>Nombre laboratorio</label>
                     <div class = "input-group">
                         <span class = "input-group-addon">
-                            <input type = "checkbox" id = "check_labname" >
+                            <input type = "checkbox" id = "check_labname" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro">
                         </span>
                         <input type = "text" id = "txt_labname" class = "form-control">
                     </div>
@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     <label>Nombre sede</label>
                     <div class = "input-group">
                         <span class = "input-group-addon">
-                            <input type = "checkbox" id = "check_sedename" >
+                            <input type = "checkbox" id = "check_sedename" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro">
                         </span>
                         <select id = "txt_sedename" class = "form-control">
                             <option value = "none">Seleccionar</option>
@@ -57,6 +57,16 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 </div>
 <script type = "text/javascript">
 
+    $('[data-toggle="tooltip"]').mouseenter(function()
+    {
+        $(this).tooltip('show');
+    });
+
+    $('[data-toggle="tooltip"]').mouseout(function()
+    {
+        $(this).tooltip('hide');
+    });
+    
     var json  = "" ; 
 
     function validate_edit()

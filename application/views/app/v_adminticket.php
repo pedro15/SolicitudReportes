@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             <label>Sede</label>
             <div class = "input-group">
                 <div class = "input-group-addon">
-                    <input type = "checkbox" id = "ch_sede">
+                    <input type = "checkbox" id = "ch_sede" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                 </div>
                 <select id = "selectsede" class = "form-control">
                     <option value = "none">Seleccionar</option>
@@ -34,7 +34,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 <label>Laboratorio</label>
                 <div class = "input-group">
                     <div class = "input-group-addon">
-                        <input type = "checkbox" id = "ch_lab" > 
+                        <input type = "checkbox" id = "ch_lab" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" > 
                     </div>
                     <select id = "selectlab" class = "form-control" >
                         <option value = "none" >Seleccionar</option>
@@ -46,7 +46,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 <label>Estado</label>
                 <div class = "input-group">
                     <div class = "input-group-addon">
-                        <input type = "checkbox" id = "ch_estado" >
+                        <input type = "checkbox" id = "ch_estado" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                     </div>
                     <select id = "selectestado" class = "form-control">
                         <option value = "none">Seleccionar</option>
@@ -61,7 +61,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 <label>Categoria</label>
                 <div class = "input-group" >
                     <div class = "input-group-addon">
-                        <input type = "checkbox" id = "ch_categoria">
+                        <input type = "checkbox" id = "ch_categoria" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                     </div>
                     <select id = "selectcategoria" class = "form-control">
                         <option value = "none">Seleccionar</option>
@@ -160,6 +160,17 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 </div>
 
 <script type = "text/javascript">
+
+    
+    $('[data-toggle="tooltip"]').mouseenter(function()
+    {
+        $(this).tooltip('show');
+    });
+    $('[data-toggle="tooltip"]').mouseout(function()
+    {
+        $(this).tooltip('hide');
+    });
+
 
     $(document).ready(function()
     {

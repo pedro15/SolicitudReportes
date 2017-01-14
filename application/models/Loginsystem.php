@@ -7,6 +7,9 @@ class Loginsystem extends CI_Model
     {
         parent::__construct();
         $this->load->library('session');
+        $this->load->library('encryption');
+        $this->encryption->initialize(
+        array('cipher' => 'aes-256'));
     }
     
     public function login_internal($ci , $pass)
@@ -39,6 +42,23 @@ class Loginsystem extends CI_Model
         }
     }
 
+    public function set_user_data($ci)
+    {
+        $user_data = $this->get_user_data($ci);
+        $data = array
+        (
+            'usuario_ci' => $user_data->cedula_usuario,
+            'usuario_nombre' => $user_data->nombre,
+            'usuario_tipo' => $user_data->tipo,
+            'usuario_correo' => $user_data->correo,
+            'usuario_pregunta' => $user_data->pregunta_seguridad,
+            'usuario_respuesta' => $user_data->respuesta_seguridad,
+            'usuario_pregunta_activa' => $user_data->pregunta_activada,
+            'logged' => true
+        );
+        $this->session->set_userdata($data);
+    }
+
     public function verify_password($ci , $pass )
     {
         $user_data = $this->get_user_data($ci);
@@ -52,11 +72,52 @@ class Loginsystem extends CI_Model
         }
     }
 
-    public function login_external ($ci , $pass)
+    public function has_user_question($ci)
     {
-        
+        $usr = $this->get_user_data($ci); 
+        if (isset($usr))
+        {
+            $q_enabled = $usr->pregunta_activada ; 
+            $r_security = $usr->respuesta_seguridad ; 
+            $ison = (int)$q_enabled > 0 ; 
+            return $ison && !empty($r_security); 
+        }else 
+        {
+            return false ; 
+        }
     }
 
+    public function get_user_question($ci)
+    {
+         $usr = $this->get_user_data($ci); 
+        if (isset($usr))
+        { 
+            $p_security = $usr->pregunta_seguridad ; 
+            return $this->usr->get_question_name($p_security);
+        }else      
+        {
+            return "" ; 
+        }
+    }
+    
+    function verify_user_answer( $ci , $answer )
+    {
+        $usr = $this->get_user_data($ci);
+        if (isset($usr))
+        {
+            $decrypted_q = $this->encryption->decrypt($usr->respuesta_seguridad);
+            $q = strtolower($decrypted_q);
+            $a = strtolower($answer);
+            if ($q === $a)
+            {
+                return true ; 
+            }else 
+            {
+                return false ; 
+            }
+        }
+    }
+    
     function is_disabled($ci)
     {
         $row = $this->get_user_data($ci);

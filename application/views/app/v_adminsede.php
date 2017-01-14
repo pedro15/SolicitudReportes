@@ -12,7 +12,7 @@
                         <label>Nombre</label>
                         <div class = "input-group">
                             <span class = "input-group-addon">
-                                <input type = "checkbox" id = "ch_sede" >
+                                <input type = "checkbox" id = "ch_sede" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                             </span>
                             <input type = "text" class = "form-control" id = "txt_sede"> 
                         </div>
@@ -21,7 +21,7 @@
                         <label>Ubicacion</label>
                         <div class = "input-group">
                             <span class = "input-group-addon">
-                                <input type = "checkbox" id = "ch_location" >
+                                <input type = "checkbox" id = "ch_location" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                             </span>
                             <input type = "text" class = "form-control" id = "txt_location"> 
                         </div>
@@ -46,6 +46,16 @@
 </div>
 
 <script type = "text/javascript">
+
+    $('[data-toggle="tooltip"]').mouseenter(function()
+    {
+        $(this).tooltip('show');
+    });
+
+    $('[data-toggle="tooltip"]').mouseout(function()
+    {
+        $(this).tooltip('hide');
+    });
 
     var json = "" ;
     function validate_delete()

@@ -11,14 +11,38 @@ class Syshelper extends CI_Model
         parent::__construct();
         $this->db = $this->load->database('default' , TRUE) ;
         $this->dbutility = $this->load->dbutil($this->db , TRUE);
-        $this->load->helper('download');
+        $this->load->library('encryption');
+        $this->load->helper('file');
+        $this->encryption->initialize(
+        array('cipher' => 'aes-256'));
     }
 
     public function install_database()
     {
-        $url = base_url('database/database.sql');
+        $url = base_url('resources/database.sql');
         $sql_script = file_get_contents( $url , FILE_USE_INCLUDE_PATH);
         return $this->restore_database($sql_script);
+    }
+
+    public function restore_from_backup($backupid)
+    {
+        $backups = $this->get_backups_file_list();
+        $backups_count = count($backups);
+        if (isset($backups) && $backups_count > 0 )
+        {
+            if ($backupid < $backups_count)
+            {
+                $url = base_url('backups/' . $backups[$backupid] );
+                $sql_script = file_get_contents($url , FILE_USE_INCLUDE_PATH);
+                return $this->restore_database($sql_script);
+            }else 
+            {
+                return false ; 
+            }
+        }else 
+        {
+            return false ;
+        }
     }
 
     public function database_valid()
@@ -38,28 +62,46 @@ class Syshelper extends CI_Model
         $tabla_usuario ; 
     }
 
+    public function get_backups_file_list()
+    {
+        $allfiles = scandir('./backups/');
+        $backups = array();
+        foreach ($allfiles as $file)
+        {
+            $parts = explode('.' , $file );
+            $p_lenght = count($parts);
+            $elm = $parts[$p_lenght - 1] ; 
+            if ($elm == 'sql' )
+            {
+                array_push($backups , $file);
+            }
+        }
+        return $backups;
+    }
+
     public function backup_database()
     {
-        $fecha = date("Y-m-d.g.i.s");
-    
+        $fecha = date("Y-m-d.g-i-s");
         $filename = 'respaldo-' . $fecha . '.sql'; 
         $prefs = array
         (
-            'format'        => 'txt',        // gzip, zip, txt
-            'filename'      => $filename ,   // File name
-            'add_drop'      => TRUE,         // Whether to add DROP TABLE statements to backup file
-            'add_insert'    => TRUE,         // Whether to add INSERT data to backup file
-            'newline'       => "\n"          // Newline character used in backup file
+            'format'        => 'txt',        
+            'filename'      => $filename ,   
+            'add_drop'      => TRUE,         
+            'add_insert'    => TRUE,
+            'foreign_key_checks' => FALSE ,         
+            'newline'       => "\n"          
         );
         $backup = $this->dbutility->backup($prefs);
-        force_download( $filename , $backup);
+        $p = './backups/'  . $filename ;
+        return  write_file( $p  , $backup );
     }
 
     public function restore_database($backup)
     {
         $this->clear_tables();
 
-        $sqlclean = "SET FOREIGN_KEY_CHECKS=0;" ;
+        $sqlclean = "" ;
 
         foreach ( explode("\n" , $backup) as $line  )
         {
@@ -68,8 +110,6 @@ class Syshelper extends CI_Model
                 $sqlclean .= $line . "\n" ; 
             }
         }
-        
-        $sqlclean .= "SET FOREIGN_KEY_CHECKS=1;\n" ; 
 
         $arrstr = explode(";" , $sqlclean ) ; 
 
@@ -95,34 +135,5 @@ class Syshelper extends CI_Model
             $this->db->query($drop_sedes); 
         }
     }
-
-    function encode_security_answer($plaintext)
-    {
-        $p_arr =  explode(" " , $plaintext);
-        $p_final  = "" ; 
-        $maxelm = count($p_arr);
-        foreach ( $p_arr as $key => $element )
-        {
-            $p_final .= $p_arr[$key] ;
-            if ($key + 1 < $maxelm)
-            {
-                $p_final .= '*' ;
-            }
-        }
-    }
-
-    function verify_security_answer( $question , $answer )
-    {
-        $encoded_q = $this->encode_security_answer($question); 
-        $encoded_a = $this->encode_security_answer($answer);
-        if ($encoded_q === $encoded_a)
-        {
-            return true ; 
-        }else 
-        {
-            return false ; 
-        }
-    }
-
 } 
 ?>

@@ -14,7 +14,7 @@
                     <label>Nombre</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_name">
+                        <input type="checkbox" id = "ch_name" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                     </span>
                     <input type="text" id = "txt_name" class="form-control" name = "filtrername">
                     </div>
@@ -24,7 +24,7 @@
                     <label>Cedula</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_ci">
+                    <input type="checkbox" id = "ch_ci" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                     </span>
                     <input type="text" onkeypress="return isNumberKey(event);" maxlength="11" id = "txt_ci" class="form-control" name = "filtrerci" >
                     </div>
@@ -34,7 +34,7 @@
                     <label>Nivel de privilegio</label>
                     <div class = "input-group">
                         <span class="input-group-addon">
-                            <input type="checkbox" id = "ch_type">
+                            <input type="checkbox" id = "ch_type" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                         </span>
                         <select id = "selecttype" class = "form-control">
                             <option value = "none">Seleccionar</option>
@@ -69,6 +69,15 @@
 </div>
 
 <script type = "text/javascript">
+
+$('[data-toggle="tooltip"]').mouseenter(function()
+{
+    $(this).tooltip('show');
+});
+$('[data-toggle="tooltip"]').mouseout(function()
+{
+    $(this).tooltip('hide');
+});
 
 function validate_delete()
 {

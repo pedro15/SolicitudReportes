@@ -13,7 +13,7 @@
                     <label>Procesador</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_cpu"  >
+                    <input type="checkbox" id = "ch_cpu" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro"  >
                     </span>
                     <input type="text" id = "txt_cpu" class="form-control">
                     </div>
@@ -23,7 +23,7 @@
                     <label>Tarjeta grafica</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_gpu"  >
+                    <input type="checkbox" id = "ch_gpu" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro"  >
                     </span>
                     <input type="text" id = "txt_gpu" class="form-control">
                     </div>
@@ -33,7 +33,7 @@
                     <label>Memoria Ram:</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_ram"  >
+                    <input type="checkbox" id = "ch_ram" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                     </span>
                     <input type="text" id = "txt_ram" class="form-control">
                     </div>
@@ -43,7 +43,7 @@
                     <label>Disco duro:</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_hdd"  >
+                    <input type="checkbox" id = "ch_hdd" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro"  >
                     </span>
                     <input type="text" id = "txt_hdd" class="form-control">
                     </div>
@@ -53,7 +53,7 @@
                     <label>Tarjeta madre</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_mother"  >
+                    <input type="checkbox" id = "ch_mother" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                     </span>
                     <input type="text" id = "txt_mother" class="form-control">
                     </div>
@@ -63,7 +63,7 @@
                     <label>Fuente de poder</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_power"  >
+                    <input type="checkbox" id = "ch_power" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                     </span>
                     <input type="text" id = "txt_power" class="form-control">
                     </div>
@@ -73,7 +73,7 @@
                     <label>Monitor</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_monitor">
+                    <input type="checkbox" id = "ch_monitor" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                     </span>
                     <input type="text" id = "txt_monitor" class="form-control">
                     </div>
@@ -83,7 +83,7 @@
                     <label>Teclado</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_teclado">
+                    <input type="checkbox" id = "ch_teclado" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                     </span>
                     <input type="text" id = "txt_teclado" class="form-control">
                     </div>
@@ -93,7 +93,7 @@
                     <label>Lector CD / DVD</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_dvd">
+                    <input type="checkbox" id = "ch_dvd" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                     </span>
                     <input type="text" id = "txt_dvd" class="form-control">
                     </div>
@@ -103,7 +103,7 @@
                     <label>Sistema Operativo</label>
                     <div class="input-group">
                     <span class="input-group-addon">
-                    <input type="checkbox" id = "ch_so">
+                    <input type="checkbox" id = "ch_so" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                     </span>
                     <input type="text" id = "txt_so" class="form-control">
                     </div>
@@ -113,7 +113,7 @@
                     <label>Sede</label>
                         <div class="input-group">
                         <span class="input-group-addon">
-                        <input type="checkbox" id = "ch_sede" name = "canfiltrername" >
+                        <input type="checkbox" id = "ch_sede" name = "canfiltrername" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                         </span>
                         <?php 
                             if (isset($sedes))
@@ -142,7 +142,7 @@
                     <label>Laboratorio</label>
                         <div class="input-group">
                         <span class="input-group-addon">
-                        <input type="checkbox" id = "ch_lab" name = "canfiltrername" >
+                        <input type="checkbox" id = "ch_lab" name = "canfiltrername" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                         </span>
                         <select id = "select_lab" class = "form-control" > 
 
@@ -181,6 +181,16 @@
         </div>
     </div>
 <script type = "text/javascript">
+
+$('[data-toggle="tooltip"]').mouseenter(function()
+{
+    $(this).tooltip('show');
+});
+
+$('[data-toggle="tooltip"]').mouseout(function()
+{
+    $(this).tooltip('hide');
+});
 
 $(document).ready(function()
 {

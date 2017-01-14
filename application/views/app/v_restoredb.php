@@ -2,6 +2,7 @@
     defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 ?>
 <div class = "container">
+    
     <div class = "page-header">
         <div class = "row">
             <div class = "col-xs-1">
@@ -14,81 +15,154 @@
     </div>
     <div class = "alert alert-warning" > 
         <span class = "glyphicon glyphicon-exclamation-sign" aria-hidden = "true"  ></span>
-        Debe seleccionar el archivo .sql que ha descargado en la seccion 'Respaldo de base de datos', dicho archivo <strong>NO</strong> se debe editar.
+        Seleccione un elemento de la lista de respaldos, luego haga click en el boton 'restaurar' para ejecutar la restauracion del mismo.
     </div>
-    <form id = "sendfrm" action = "#" method = "POST" enctype="multipart/form-data">
+    <form action = "#" method = "POST">
         <div class = "form-group">
-            <label>Archvio de restauracion (.sql) </label>
-            <input type = "file"  onchange = "return checkfile(this);">
-        </div>
-        <div class="progress">
-            <div id = "progress" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-              
+            <label>Buscar:</label>
+            <div class = "input-group">
+                <div class = "input-group-addon">
+                    <input type = "checkbox" id = "ch_filter" > 
+                </div>
+                <input type = "text" id = "txt_filter" class = "form-control">
             </div>
         </div>
-        <div class = "form-group">
-            <button type = "submit" class = "btn btn-primary" > 
-                <span class = "glyphicon glyphicon-arrow-up" aria-hidden = "true"  ></span> Restaurar
-            </button>
-        </div>
-        
     </form>
+    <div class = "table-responsive">
+        <table class = "table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Respaldo
+                    </th>
+                </tr>
+            </thead>
+            <tbody id = "backupfill" >
+
+            </tbody>
+        </table>
+    </div>
+    <div id = "paginate">
+    </div>
 </div>
+
+<div id = "dialog-loading">
+    <label>Restaurando base de datos, por favor espere.</label>
+    <div id="fountainG">
+    	<div id="fountainG_1" class="fountainG"></div>
+    	<div id="fountainG_2" class="fountainG"></div>
+    	<div id="fountainG_3" class="fountainG"></div>
+    	<div id="fountainG_4" class="fountainG"></div>
+    	<div id="fountainG_5" class="fountainG"></div>
+    	<div id="fountainG_6" class="fountainG"></div>
+    	<div id="fountainG_7" class="fountainG"></div>
+    	<div id="fountainG_8" class="fountainG"></div>
+    </div>
+</div>
+
 <script type = "text/javascript">
-    var cansend = false ;
-    var xdata = "" ; 
-    function checkfile(sender) 
+    
+    function populate(xjson)
     {
-        var validExts = new Array(".sql");
-        var fileExt = sender.value;
-        fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
-        if (validExts.indexOf(fileExt) < 0){
-          alert("Archivo invalido seleccionado, el archivo debe ser de tipo: " +
-                   validExts.toString() );
-          cansend = false;
-        }
-        else{ cansend = true; }
-        return cansend; 
+        updatehtml(xjson);
+        $("#paginate").pagination
+        ({
+                dataSource: xjson,
+                pageSize : 20,
+                callback: function(data, pagination) 
+                {
+                   xjson = data;
+                   updatehtml(xjson);
+                }
+        });
     }
 
-    $("input[type=file]").change(function()
+    function updatebackups()
     {
-        
-        if (this.files && this.files[0] && cansend == true ) 
-        {
-            var reader = new FileReader();
-            reader.readAsText(this.files[0]);
-            reader.onload = function (e) 
+        $.ajax
+        ({
+            url: "<?php echo base_url('index.php/user/get_backupsjson'); ?>" ,
+            type: "POST" ,
+            data: {request: true },
+            success: 
+            function (data)
             {
-                xdata = e.target.result;
+                var json = JSON.parse(data);
+                populate(json);
             }
-            reader.onprogress = function (progress)
-            {
-                var total = (progress.loaded / progress.total ) * 100  ;
-                $("#progress").transition({ width: total + '%' } , 300) ; 
-            }
-        }
-    });
+        });
+    }
 
-    $("#sendfrm").submit(function (event)
+    function Restore(xid)
     {
-        if (cansend == true && xdata != "")
+        if (confirm("Desea restaurar la base de datos con el elemento seleccionado?"))
         {
-            if (confirm("Desea restaurar la base de datos con el archivo seleccionado? tome en cuenta que toda la informacion actual sera reemplazada con la nueva informacion que contiene dicho archivo."))
-            {
-                var input = $("<input>")
-                    .attr("type", "hidden")
-                    .attr("name", "sqlstring").val(xdata);
-                $('#sendfrm').append($(input));   
-            }else 
-            {
-                event.preventDefault();
-            }
-        }else 
-        {
-            alert("No ha seleccionado ningun archivo o ha seleccionado un archivo invalido.");
-            event.preventDefault();
+            $.ajax
+            ({
+                 url: "<?php echo base_url('index.php/user/call_backup'); ?>" ,
+                 type: "POST" ,
+                 data: {id: xid },
+                 success:
+                 function (val)
+                 {
+                     $("#dialog-loading").dialog("close");
+                     console.log(val);
+                     if (val == true )
+                     {
+                         alert("Base de datos restaurada correctamente");
+                     }else 
+                     {
+                         alert("Error al restaurar base de datos");
+                     }
+                 },
+                 error: function (val)
+                 {
+                     console.log(val);
+                 },
+                 beforeSend: function (val)
+                 {
+                     $("#dialog-loading").dialog("open");
+                 }
+            });
         }
+    }
+
+    function Remove(xid)
+    {
+        if (confirm("Desea eliminar el elemento seleccionado?"))
+        {
+            
+        }
+    }
+
+    function updatehtml(xjson)
+    {
+        html = '' ; 
+        for (i = 0; i < xjson.length ; i++)
+        {
+            html+= 
+            '<tr>' +
+            '<th>' + xjson[i] + '</th>' +  
+            '<th>' + '<a class = "btn btn-primary" onclick = "Restore(' + i + ');" >' + 'Restaurar' +  '</a>' + '</th>' +  
+            '<th>' + '<a class = "btn btn-danger" onclick = "Remove(' + i + ');" >' + 'Eliminar' +  '</a>' + '</th>' +
+            '</tr>' ;   
+        }
+        $("#backupfill").html(html);
+    }
+
+    $(document).ready(function()
+    {
+        updatebackups();
+        $("#dialog-loading").dialog(
+        {
+            dialogClass: "no-close",
+            modal: true ,
+            autoOpen: false ,
+            draggable: false  ,
+            minWidth: 400,
+            title: "Restaurando base de datos..."
+        });
+
     });
 
 </script>

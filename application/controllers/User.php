@@ -8,10 +8,7 @@ class User extends CI_Controller
         parent::__construct();
         $this->load->library('encryption');
         $this->encryption->initialize(
-        array(
-                'cipher' => 'aes-256',
-                'mode' => 'ctr',
-        ));
+        array('cipher' => 'aes-256'));
     }
 
     /* carga el header, la cabezera , y la barra de navegacion.
@@ -98,7 +95,7 @@ class User extends CI_Controller
         }else
         {
             $this->start_page();
-            
+            $this->load->view('app/v_default.php');
             $this->end_page();
         }
     }
@@ -818,7 +815,13 @@ class User extends CI_Controller
             $request = $this->input->post('request');
             if (isset($request))
             {
-                $this->syshelper->backup_database();
+                if($this->syshelper->backup_database())
+                {
+                    $this->load_alert("Respaldo creado correctamente" , "SUCCESS");
+                }else 
+                {
+                     $this->load_alert("Error al crear el respaldo" , "DANGER");
+                }
                 unset($request);
             }
             $this->load->view('app/v_backupdb.php');
@@ -839,10 +842,31 @@ class User extends CI_Controller
                 $this->syshelper->restore_database($sql);
                 $this->load_alert("Operacion ejecutada correctamente" , "SUCCESS");
             }
-            
             $this->load->view('app/v_restoredb.php');
             // pie de pagina
             $this->end_page();
+        }
+    }
+
+    public function get_backupsjson()
+    {
+        $request = $this->input->post('request');
+        if (isset($request) && $request )
+        {
+            echo json_encode($this->syshelper->get_backups_file_list());
+        }else 
+        {
+            echo json_encode(false);
+        }
+    }
+
+    public function call_backup()
+    {
+        $id = $this->input->post('id');
+        if (isset($id))
+        {
+            $result = $this->syshelper->restore_from_backup($id);
+            echo json_encode($result);
         }
     }
 
@@ -864,7 +888,7 @@ class User extends CI_Controller
             $r = $this->input->post('request');
             $userdata = $this->loginsystem->getuserdata();
             $ci = $userdata['usuario_ci']; 
-            if (isset($r) && $r == true  )
+            if (isset($r) && $r == true )
             {
                 if($this->usr->update_profile($ci , $new_username , $new_email, 
                 $question_id , $question , $question_active))

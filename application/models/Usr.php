@@ -8,10 +8,7 @@ class Usr extends CI_Model
         parent::__construct();
         $this->load->library('encryption');
         $this->encryption->initialize(
-        array(
-                'cipher' => 'aes-256',
-                'mode' => 'ctr',
-        ));
+        array('cipher' => 'aes-256'));
     }
     
     public function get_all()
@@ -230,7 +227,7 @@ class Usr extends CI_Model
     public function get_question_name($id)
     {
         $questions = $this->get_questions();
-        if (array_key_exists($id))
+        if (array_key_exists($id,$questions))
         {
             return $questions[$id];
         }else 

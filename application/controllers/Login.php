@@ -28,9 +28,16 @@ class Login extends CI_Controller
 					{
 						if (!$this->loginsystem->is_disabled($ci))
 						{
-							if ( $this->loginsystem->login_internal($ci,$pw))
+							if ( $this->loginsystem->verify_password($ci,$pw))
 							{
-								redirect('user');
+								if ($this->loginsystem->has_user_question($ci))
+								{
+									redirect('/login/securityquestion?ci=' . $ci ); 
+								}else 
+								{
+									$this->loginsystem->set_user_data($ci);
+									redirect('user');
+								}
 							}else 
 							{
 								$data['message'] = "Clave incorrecta.";
@@ -81,7 +88,7 @@ class Login extends CI_Controller
 			}else if ($request_type == 'db') 
 			{
 				$this->syshelper->install_database();
-				redirect('/');
+				redirect('/');$this->load->view('head.php');
 			}
 		}
 		if($this->syshelper->database_valid())
@@ -96,6 +103,33 @@ class Login extends CI_Controller
 		}else 
 		{
 			$this->load->view('app/v_installdb.php') ; 
+		}
+	}
+
+	public function securityquestion()
+	{
+		$ci = $this->input->get('ci') ; 
+		if ($this->loginsystem->has_user_question($ci))
+		{
+			$this->load->view('head.php');
+			$q = $this->loginsystem->get_user_question($ci);
+			$data['question'] = $q ;
+			$a = $this->input->post('user_a') ;
+			if (isset($a))
+			{
+				if ($this->loginsystem->verify_user_answer($ci,$a))
+				{
+					$this->loginsystem->set_user_data($ci);
+					redirect('user');
+				}else 
+				{
+					$data['errormsg'] = "Respuesta de seguridad invalida" ; 
+				}
+			}
+			$this->load->view('app/v_validatequestion.php', $data);
+		}else 
+		{
+			redirect('/');
 		}
 	}
 
