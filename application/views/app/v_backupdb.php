@@ -14,7 +14,7 @@
     </div>
     <div class = "alert alert-warning" > 
         <span class = "glyphicon glyphicon-exclamation-sign" aria-hidden = "true"  ></span>
-        Para descargar el archivo de restauracion presione el boton "Respaldar base de datos"  y se descargara un archivo con la informacion actual de la base de datos. 
+        Haga click en el boton 'Respaldar base de datos' para crear un nuevo punto de restauracion con la informacion actual de la base de datos. 
     </div> 
     <form action = "#" method = "POST" >
         <input type = "hidden" name = "request" value = "true">

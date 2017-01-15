@@ -22,7 +22,7 @@
             <label>Buscar:</label>
             <div class = "input-group">
                 <div class = "input-group-addon">
-                    <input type = "checkbox" id = "ch_filter" > 
+                    <input type = "checkbox" id = "ch_filter" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" > 
                 </div>
                 <input type = "text" id = "txt_filter" class = "form-control">
             </div>
@@ -61,14 +61,29 @@
 </div>
 
 <script type = "text/javascript">
+
+    $('[data-toggle="tooltip"]').mouseenter(function()
+    {
+        $(this).tooltip('show');
+    });
+    $('[data-toggle="tooltip"]').mouseout(function()
+    {
+        $(this).tooltip('hide');
+    });
+
+    $("#ch_filter").change(function(){ updatebackups(); }); 
     
+    $("#txt_filter").keyup(function(){ updatebackups(); });
+
+    $("#txt_filter").change(function(){ updatebackups(); });
+
     function populate(xjson)
     {
         updatehtml(xjson);
         $("#paginate").pagination
         ({
                 dataSource: xjson,
-                pageSize : 20,
+                pageSize : 8,
                 callback: function(data, pagination) 
                 {
                    xjson = data;
@@ -88,6 +103,16 @@
             function (data)
             {
                 var json = JSON.parse(data);
+                var filter_enabled = $("#ch_filter").is(':checked');
+                if (filter_enabled)
+                {
+                    var filter_arr = json.filter(function(val)
+                    {
+                        var filterval = $("#txt_filter").val();
+                        return val.includes(filterval);
+                    });
+                    json = filter_arr;
+                }
                 populate(json);
             }
         });
@@ -106,18 +131,14 @@
                  function (val)
                  {
                      $("#dialog-loading").dialog("close");
-                     console.log(val);
-                     if (val == true )
+                     var result = JSON.parse(val);
+                     if (result == true )
                      {
                          alert("Base de datos restaurada correctamente");
                      }else 
                      {
                          alert("Error al restaurar base de datos");
                      }
-                 },
-                 error: function (val)
-                 {
-                     console.log(val);
                  },
                  beforeSend: function (val)
                  {
@@ -131,20 +152,30 @@
     {
         if (confirm("Desea eliminar el elemento seleccionado?"))
         {
-            
+            $.ajax
+            ({
+                 url: "<?php echo base_url('index.php/user/call_remove_backup'); ?>" ,
+                 type: "POST" ,
+                 data: {id: xid },
+                 success:
+                 function (val)
+                 {
+                     updatebackups();
+                 }
+            });
         }
     }
 
     function updatehtml(xjson)
     {
         html = '' ; 
-        for (i = 0; i < xjson.length ; i++)
+        for (i = xjson.length - 1 ; i >= 0 ; i--)
         {
             html+= 
             '<tr>' +
             '<th>' + xjson[i] + '</th>' +  
-            '<th>' + '<a class = "btn btn-primary" onclick = "Restore(' + i + ');" >' + 'Restaurar' +  '</a>' + '</th>' +  
-            '<th>' + '<a class = "btn btn-danger" onclick = "Remove(' + i + ');" >' + 'Eliminar' +  '</a>' + '</th>' +
+            '<th>' + '<a class = "btn btn-primary" onclick = "Restore(' + i + ');" >' + '<span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span> ' +  'Restaurar' +  '</a>' + '</th>' +  
+            '<th>' + '<a class = "btn btn-danger" onclick = "Remove(' + i + ');" >' + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> ' +  'Eliminar' +  '</a>' + '</th>' +
             '</tr>' ;   
         }
         $("#backupfill").html(html);

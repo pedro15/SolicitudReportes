@@ -870,6 +870,16 @@ class User extends CI_Controller
         }
     }
 
+    public function call_remove_backup()
+    {
+        $id = $this->input->post('id');
+        if (isset($id))
+        {
+            $result = $this->syshelper->delete_backup($id);
+            echo json_encode($result);
+        }
+    }
+
     /* ========================
     Perfil 
     ===========================*/

@@ -24,6 +24,9 @@ CREATE TABLE `equipo` (
   CONSTRAINT `equipo_ibfk_1` FOREIGN KEY (`id_laboratorio`) REFERENCES `laboratorio` (`id_laboratorio`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `equipo` (`id_equipo`, `descripcion`, `procesador`, `tarjeta_grafica`, `memoria_ram`, `disco_duro`, `tarjeta_madre`, `fuente_poder`, `monitor`, `teclado`, `lector_dvd`, `sistema_operativo`, `id_laboratorio`) VALUES ('Hoq6eysnMOlXFm3g9upc_01', '01', 'Amd fx 6300', 'gtx 650 ti', '8Gb ram', '500gb ', 'Msi amd 970', '500w', 'LG 19\"', 'VIT', 'LG', 'Canaima', 'Hoq6eysnMOlXFm3g9u');
+
+
 #
 # TABLE STRUCTURE FOR: falla
 #
@@ -55,6 +58,9 @@ CREATE TABLE `laboratorio` (
   CONSTRAINT `laboratorio_ibfk_1` FOREIGN KEY (`id_sede`) REFERENCES `sede` (`id_sede`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `laboratorio` (`id_laboratorio`, `id_sede`, `descripcion`) VALUES ('Hoq6eysnMOlXFm3g9u', 'FJgVABw2Gd5SQOHYXT0', 'Laboratorio 1');
+
+
 #
 # TABLE STRUCTURE FOR: reporte
 #
@@ -72,7 +78,7 @@ CREATE TABLE `reporte` (
   KEY `id_falla` (`id_falla`) USING BTREE,
   CONSTRAINT `reporte_ibfk_5` FOREIGN KEY (`id_falla`) REFERENCES `falla` (`id_falla`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `reporte_ibfk_6` FOREIGN KEY (`cedula_usuario`) REFERENCES `usuario` (`cedula_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # TABLE STRUCTURE FOR: sede
@@ -86,6 +92,10 @@ CREATE TABLE `sede` (
   `nombre` varchar(45) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id_sede`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `sede` (`id_sede`, `ubicacion`, `nombre`) VALUES ('FJgVABw2Gd5SQOHYXT0', 'Merida', 'Fundacite Merida');
+INSERT INTO `sede` (`id_sede`, `ubicacion`, `nombre`) VALUES ('PsMKgi3RZHQkUuwJB24', 'El vigia', 'Fundacite el vigia');
+
 
 #
 # TABLE STRUCTURE FOR: usuario

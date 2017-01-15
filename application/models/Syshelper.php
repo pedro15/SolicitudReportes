@@ -45,6 +45,26 @@ class Syshelper extends CI_Model
         }
     }
 
+    public function delete_backup($backupid)
+    {
+        $backups = $this->get_backups_file_list();
+        $backups_count = count($backups);
+        if (isset($backups) && $backups_count > 0 )
+        {
+            if ($backupid < $backups_count)
+            {
+                 $p = './backups/'  . $backups[$backupid] ;
+                 return unlink($p);
+            }else 
+            {
+                return false ; 
+            }
+        }else 
+        {
+            return false ;
+        }
+    }
+
     public function database_valid()
     {
         $tabla_equipo = $this->db->table_exists('equipo');
@@ -81,7 +101,7 @@ class Syshelper extends CI_Model
 
     public function backup_database()
     {
-        $fecha = date("Y-m-d.g-i-s");
+        $fecha = date("Y-m-d.G-i-s");
         $filename = 'respaldo-' . $fecha . '.sql'; 
         $prefs = array
         (
