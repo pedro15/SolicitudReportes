@@ -160,7 +160,7 @@
                  success:
                  function (val)
                  {
-                     updatebackups();
+                    updatebackups();
                  }
             });
         }
