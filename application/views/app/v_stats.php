@@ -27,11 +27,11 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             <div class = "row">                
                 <div class = "col-md-6">
                     <label>Fecha Inicio:</label>
-                    <input type = "text" class = "form-control" id = "date-start" onkeydown="return false;" name = "fechainicio" required>
+                    <input type = "text" class = "form-control" id = "date-start" onkeydown="return false;" name = "fechainicio" value = "<?php if (isset($fechainicio)) echo $fechainicio; ?>" required>
                 </div>
                 <div class = "col-md-6">
                      <label>Fecha fin:</label>
-                    <input type = "text" class = "form-control" id = "date-end" onkeydown="return false;" name = "fechafin" required>
+                    <input type = "text" class = "form-control" id = "date-end" onkeydown="return false;" name = "fechafin" value = "<?php if (isset($fechafin)) echo $fechafin; ?>" required>
                 </div>
             </div>
        </div>
@@ -65,6 +65,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             </div>
             <div class = "ct-chart" >
             </div>
+            <div id = "stats-body">
+            </div>
         </div>
     </div>
 </div>
@@ -86,6 +88,12 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                         ' ; 
                         echo $opc;
                     }
+                    if (isset($currentsede))
+                    {
+                        $opc = '<input type = "hidden" name = "sedecurr" value ="' . $currentsede . '" >
+                            ' ; 
+                        echo $opc;
+                    }
                 ?>
             </form>
         <?php
@@ -98,6 +106,15 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
      var labels_chart = [] ; 
      var series_chart = [] ; 
      var chart;
+
+     $(document).ready(function()
+     {
+         var currsede =  $('input[name="sedecurr"]').val();
+         if (currsede != undefined )
+         {
+             $("#selectsede").val(currsede).change();
+         }
+     });
 
       function initdates()
       {
@@ -149,6 +166,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
       $("#printbtn").click(function()
       {
+           var opcselected = $('input[name="tipo-busqueda"]'); 
+           var opctxt = ( opcselected.is(':checked') ) ? 'fallas comunes' : 'equipos con mas fallas' ;
             var xhtml =
             '<div class = "row">' + 
             '<div class = "col-md-6">' +
@@ -156,8 +175,15 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             '</div><div class = "col-md-4">' +
             '<img alt="Membrete" src="<?php echo base_url("/")?>images/200.png">' + 
             '</div></div>' + 
-            '<div class = "page-header"><h4>Estadisticas de solicitud de soporte tecnico:</h4></div>' ;
+            '<div class = "page-header"><h4>Estadisticas (' + opctxt + ') </h4>' + 
+            '<p>Fecha: ' + "<?php echo date('Y-m-d'); ?>" + '</p>' + 
+            '<p>Fecha inicio estadistica: ' + $("#date-start").val() + '</p>' + 
+            '<p>Fecha fin estadistica: ' + $("#date-end").val() + '</p>' + 
+            '<p>Sede: ' + $("#selectsede option:selected").text() + '</p></div>' ;
+
             $("#stats-header").html(xhtml);
+
+            //$("#stats-body").html(bhtml);
 
             $("#stats-container").print(
             {

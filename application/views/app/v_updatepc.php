@@ -8,12 +8,12 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     <form action = "#" method = "POST" >
         <div class = "form-group">
             <div class = "row">
-                <div class = "col-md-2">
+                <div class = "col-md-3">
                     <label>Numero Equipo</label>
                     <input type = "text" class = "form-control" maxlength="10" id = "pcnum" name = "pc_num" value = "<?php echo $pc_num ; ?>" autocomplete="off" required=""> 
                     <label id = "labelalert" class = "fieldalert" ></label>
                 </div>
-                <div class = "col-md-5">
+                <div class = "col-md-7">
                     <label>Procesador</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_cpu" value = "<?php echo $pc_cpu ; ?>" required="">
                 </div>

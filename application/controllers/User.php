@@ -770,6 +770,7 @@ class User extends CI_Controller
             $label_arr = array();
             if (isset( $fecha_inicio , $fecha_fin ) )
             {
+
                 $reports = $this->stats->get_reports($fecha_inicio,$fecha_fin);
                 $ids_arr = array();
 
@@ -808,6 +809,12 @@ class User extends CI_Controller
                         array_push($ids_arr , $reports[$i]['id_falla']);
                     }
                 }
+                $data['fechainicio'] = $fecha_inicio ;
+                $data['fechafin'] = $fecha_fin ;
+            }
+            if (isset($sede))
+            {
+                $data['currentsede'] = $sede ;
             }
             $data['sedes'] = $this->sede->get_all();
             $data['labels'] = $label_arr;
