@@ -164,6 +164,7 @@ class User extends CI_Controller
         if ($this->canload_module(array(1,2,3))) 
         {
             $data['sedes'] = $this->sede->get_all(); 
+            $data['userci'] = $this->loginsystem->getuserdata()['usuario_ci'] ;  
             $data['categorias'] = $this->support->get_categories(); 
             $this->load->view('app/v_viewtickets.php' , $data);
             // pie de pagina

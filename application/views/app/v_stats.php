@@ -172,7 +172,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
               labels: labels_chart,
               series: [series_chart]
             },{fullWidth: true, height: 600, axisY: { onlyInteger: true,offset: 20}});
-          }
             var itemsbody = '' ; 
             for (var i = series_chart.length - 1; i >= 0  ; i--)
             {
@@ -185,6 +184,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             itemsbody + 
             '</tbody></table></div>' ;  
             $("#stats-body").html(bhtml);
+          }
       }
       $(document).ready(function()
       {
