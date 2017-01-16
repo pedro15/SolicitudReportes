@@ -8,30 +8,32 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     <form action = "#" method = "POST" >
         <div class = "form-group">
             <div class = "row">
-                <div class = "col-md-2">
+                <div class = "col-md-3">
                     <label>Numero Equipo*</label>
                     <input type = "text" class = "form-control" maxlength="10" name = "pc_num" onkeypress = "return validadesharp(event);" required>
                 </div>
-                <div class = "col-md-5">
+                <div class = "col-md-7">
                     <label>Procesador*</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_cpu" required>
                 </div>
-                <div class = "col-md-5">
-                    <label>Tarjeta de video</label>
-                    <input type = "text" class = "form-control" maxlength="45" name = "pc_video">
-                </div>
             </div>
             <div class = "row">
+
                 <div class = "col-md-5">
                     <label>Memoria Ram*</label>
                     <input type = "text" class = "form-control"  maxlength="45" name = "pc_ram" required>
                 </div>
+
                 <div class = "col-md-5">
                     <label>Disco duro*</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_hdd" required>
                 </div>
-            </div>
-            <div class = "row">
+                
+                <div class = "col-md-5">
+                    <label>Tarjeta de video</label>
+                    <input type = "text" class = "form-control" maxlength="45" name = "pc_video">
+                </div>
+
                 <div class = "col-md-5">
                     <label>Tarjeta Madre*</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_motherboard" required>
@@ -52,6 +54,11 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 </div>
 
                 <div class = "col-md-5">
+                    <label>Mouse</label>
+                    <input type = "text" class = "form-control" maxlength="45" name = "pc_mouse">
+                </div>
+
+                <div class = "col-md-5">
                     <label>Lector CD/DVD</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_dvd">
                 </div>
@@ -69,7 +76,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                         {
                     ?>
                     <select id ="select_sede" name = "sede_id" class = "form-control">
-                        <option>Seleccionar</option>
+                        <option value = "none">Seleccionar</option>
                         <?php 
                                foreach($sedes as $sede)
                                 {
@@ -88,7 +95,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 <div class = "col-md-5">
                     <label>Registrar en laboratorio:</label>
                     <select id = "select_lab" name = "lab_id" class = "form-control" >
-                        <option>Seleccione Sede</option>
+                        <option value = "none" >Seleccione Sede</option>
                     </select>
                 </div>
             </div>
@@ -112,7 +119,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     function (res)
                     {
                         var json = JSON.parse(res);
-                        var _content = "<option>Seleccionar</option>";
+                        var _content = '<option value = "none" >Seleccionar</option>';
                         for (data in json)
                         {
                             _content += '<option value="' + json[data].id_laboratorio 

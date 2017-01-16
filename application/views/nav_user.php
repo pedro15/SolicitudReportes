@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Soporte Tecnico<span class="caret"></span></a>
                   <ul class="dropdown-menu">
                         <li><a href="<?php echo base_url('index.php/user/sendticket')?>">Enviar solicitud</a></li>
-                        <li><a href="<?php echo base_url('index.php/user/admintickets')?>">consultar solicitudes enviadas</a></li>
+                        <li><a href="<?php echo base_url('index.php/user/viewtickets')?>">Administrar Solicitudes</a></li>
                   </ul>
                 </li>
              <!-- Herramientas !-->

@@ -1,10 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
-/* 
-    En este archivo se define la configuracion de las categorias para las solicitudes de soporte tecnico y estados de las mismas,
-    puede agregar mas categorias pero tome en cuenta que si se elimina categorias
-    y ya existen registros con dicha categoria en la base de datos, se perdera la informacion de la categoria.
+/*
+| ------------------------------------------------------------------------------------
+|  Categorias
+| -------------------------------------------------------------------------------------
+| En este archivo se especifican las categorias usadas en las 
+| solicitudes de soporte tecnico y en las preguntas de seguridad,
+| puede agregar y modificar dichas categorias, pero tome en cuenta 
+| que si tiene registros en la base de datos estos estaran afectados con dichos cambios.
+|
 */
 
 $config['computer_categories'] = array

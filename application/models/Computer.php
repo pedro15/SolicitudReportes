@@ -3,15 +3,15 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
 class Computer extends CI_Model
 {
-    public function register($num,$cpu,$video,$ram,$hdd,$motherboard,$fuente,$monitor,$teclado,$lector_dvd,$sistema_operativo,$lab_id)
+    public function register($num,$cpu,$video,$ram,$hdd,$motherboard,$fuente,$monitor,$teclado,$mouse,$lector_dvd,$sistema_operativo,$lab_id)
     {
         if (!$this->isindb($lab_id , $num))
         {
             $db = $this->load->database('default' , TRUE);
             $pc_id = $lab_id . "pc_" .$num ;  
-            $sql = "INSERT INTO `equipo` (`id_equipo`, `descripcion`, `procesador`, `tarjeta_grafica`, `memoria_ram`, `disco_duro`, `tarjeta_madre`, `fuente_poder`, `monitor`, `teclado`, `lector_dvd`, `sistema_operativo`, `id_laboratorio`)
+            $sql = "INSERT INTO `equipo` (`id_equipo`, `descripcion`, `procesador`, `tarjeta_grafica`, `memoria_ram`, `disco_duro`, `tarjeta_madre`, `fuente_poder`, `monitor`, `teclado` , `mouse` , `lector_dvd`, `sistema_operativo`, `id_laboratorio`)
              VALUES('" . $pc_id . "','" . $num . "','" . $cpu  .  "','" . $video . "','" . $ram . "','" . $hdd . "','" . $motherboard 
-             . "','" . $fuente . "','" . $monitor . "','" . $teclado . "','" . $lector_dvd . "','" . $sistema_operativo . "','" .  $lab_id . "');" ; 
+             . "','" . $fuente . "','" . $monitor . "','" . $teclado . "','" . $mouse . "','" . $lector_dvd . "','" . $sistema_operativo . "','" .  $lab_id . "');" ; 
              $query = $db->query($sql);
              if ($db->affected_rows() > 0 )
              {
@@ -76,7 +76,7 @@ class Computer extends CI_Model
         }
     }
 
-    public function editpc ($pcnum , $lab_id , $newcpu , $newvideo , $newram , $newhdd , $newmotherboard , $newfuente , $newmonitor , $newteclado, $newdvd , $newso , $newlabid , $newnumpc)
+    public function editpc ($pcnum , $lab_id , $newcpu , $newvideo , $newram , $newhdd , $newmotherboard , $newfuente , $newmonitor , $newteclado , $newmouse , $newdvd , $newso , $newlabid , $newnumpc)
     {
         
         if ($this->isindb($lab_id, $pcnum))
@@ -96,9 +96,9 @@ class Computer extends CI_Model
             "`fuente_poder` = '" . $newfuente . "', " .
             "`monitor` = '" . $newmonitor . "', " .
             "`teclado` = '" . $newteclado . "', " .
+            "`mouse` = '" . $newmouse . "', " .
             "`lector_dvd` = '" . $newdvd . "', " .
             "`sistema_operativo` = '" . $newso . "' WHERE `id_equipo` = '" . $lab_id . "pc_" . $pcnum. "' ; " ; 
-
             $query = $db->query($sql);
             if ($db->affected_rows() > 0 )
             {

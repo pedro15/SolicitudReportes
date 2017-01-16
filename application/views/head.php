@@ -4,9 +4,10 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 <!DOCTYPE html>
 <html>
 <head> 
-        <title>Solicitud de soporte tecnico</title>
+        <title>SASSTEC</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="<?php echo base_url('/')?>images/favicon.ico" rel="shortcut icon">
         <!-- Css !-->
         <link rel="Stylesheet" href="<?php echo base_url('/')?>css/reset.css" type ="text/css">
         <link href="<?php echo base_url('/')?>chartist-js/chartist.css" rel="stylesheet" type="text/css" />

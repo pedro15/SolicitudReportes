@@ -16,7 +16,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `equipo`
 --
 
-CREATE TABLE IF NOT EXISTS `equipo` (
+CREATE TABLE `equipo` (
   `id_equipo` varchar(45) NOT NULL,
   `descripcion` varchar(10) NOT NULL,
   `procesador` varchar(45) DEFAULT NULL,
@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `equipo` (
   `fuente_poder` varchar(45) DEFAULT NULL,
   `monitor` varchar(45) NOT NULL,
   `teclado` varchar(45) NOT NULL,
+  `mouse` varchar(45) NOT NULL,
   `lector_dvd` varchar(45) NOT NULL,
   `sistema_operativo` varchar(45) NOT NULL,
   `id_laboratorio` varchar(20) NOT NULL

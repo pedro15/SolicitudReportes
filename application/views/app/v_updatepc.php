@@ -17,26 +17,28 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     <label>Procesador</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_cpu" value = "<?php echo $pc_cpu ; ?>" required="">
                 </div>
-                <div class = "col-md-5">
-                    <label>Tarjeta de video</label>
-                    <input type = "text" class = "form-control" maxlength="45" name = "pc_video" value = "<?php echo $pc_gpu ;  ?>">
-                </div>
             </div>
             <div class = "row">
-                <div class = "col-md-5">
+                 <div class = "col-md-5">
                     <label>Memoria Ram</label>
                     <input type = "text" class = "form-control"  maxlength="45" name = "pc_ram" value = "<?php echo $pc_ram ;  ?>">
                 </div>
+
                 <div class = "col-md-5">
                     <label>Disco duro</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_hdd" value = "<?php echo $pc_hdd ;  ?>">
                 </div>
-            </div>
-            <div class = "row">
+
                 <div class = "col-md-5">
                     <label>Tarjeta Madre</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_motherboard" value = "<?php echo $pc_tm ;  ?>">
                 </div>
+
+                <div class = "col-md-5">
+                    <label>Tarjeta de video</label>
+                    <input type = "text" class = "form-control" maxlength="45" name = "pc_video" value = "<?php echo $pc_gpu ;  ?>">
+                </div>
+
                 <div class = "col-md-5">
                     <label>Fuente de poder</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_fuente" value = "<?php echo $pc_fp ;  ?>" >
@@ -50,6 +52,11 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 <div class = "col-md-5">
                     <label>Teclado</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_teclado" value = "<?php echo $pc_teclado ;  ?>">
+                </div>
+
+                <div class = "col-md-5">
+                    <label>Mouse</label>
+                    <input type = "text" class = "form-control" maxlength="45" name = "pc_mouse" value = "<?php echo $pc_mouse ; ?>">
                 </div>
 
                 <div class = "col-md-5">

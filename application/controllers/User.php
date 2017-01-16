@@ -159,6 +159,18 @@ class User extends CI_Controller
         }
     }
 
+    public function viewtickets()
+    {
+        if ($this->canload_module(array(1,2,3))) 
+        {
+            $data['sedes'] = $this->sede->get_all(); 
+            $data['categorias'] = $this->support->get_categories(); 
+            $this->load->view('app/v_viewtickets.php' , $data);
+            // pie de pagina
+            $this->end_page();
+        }
+    }
+
     // Devuelve todas las solicitudes de soporte tecnico en un JSON 
 
     public function getpcinfojson()
@@ -402,13 +414,15 @@ class User extends CI_Controller
             $dvd_pc = $this->input->post('pc_dvd');
             $so_pc = $this->input->post('pc_so');
             $id_lab = $this->input->post('lab_id');
+            $mouse_pc = $this->input->post('pc_mouse');
 
-            if ( isset($num_pc) && isset($cpu_pc) && isset($video_pc)
+
+            if ( isset($num_pc) && isset($cpu_pc)
             && isset($ram_pc) && isset($hdd_pc) && isset($motherboar_pc) 
-            && isset($fuente_pc) && isset($id_lab) && !($id_lab == "Seleccione Sede" || $id_lab == "Seleccionar" ) )
+            && isset($fuente_pc) && isset($id_lab) && $id_lab != "none" )
             {
                 if ($this->computer->register($num_pc,$cpu_pc,$video_pc,$ram_pc,$hdd_pc,$motherboar_pc,
-                $fuente_pc, $monitor_pc , $teclado_pc , $dvd_pc , $so_pc ,$id_lab))
+                $fuente_pc, $monitor_pc , $teclado_pc , $mouse_pc , $dvd_pc , $so_pc ,$id_lab))
                 {
                     $this->load_alert("Equipo registrado correctamente" , "SUCESS");
                 }else 
@@ -416,8 +430,8 @@ class User extends CI_Controller
                     $this->load_alert("Este equipo ya se encuentra registrado", "DANGER");
                 }
             }
-            $data['sedes'] = $this->sede->get_all();
 
+            $data['sedes'] = $this->sede->get_all();
             $this->load->view('app/v_registerpc.php' , $data);
             // pie de pagina
             $this->end_page();
@@ -488,6 +502,7 @@ class User extends CI_Controller
                     $fuente_pc = $this->input->post('pc_fuente');
                     $monitor_pc = $this->input->post('pc_monitor');
                     $teclado_pc = $this->input->post('pc_teclado');
+                    $mouse_pc = $this->input->post('pc_mouse');
                     $dvd_pc = $this->input->post('pc_dvd');
                     $so_pc = $this->input->post('pc_so');
 
@@ -501,6 +516,7 @@ class User extends CI_Controller
                     $data['pc_fp'] = $pcinfo->fuente_poder; // Fuente de poder
                     $data['pc_monitor'] = $pcinfo->monitor; // Monitor
                     $data['pc_teclado'] = $pcinfo->teclado ; // Teclado
+                    $data['pc_mouse'] = $pcinfo->mouse ; // Mouse
                     $data['pc_dvd'] = $pcinfo->lector_dvd ; // Lector dvd 
                     $data['pc_so'] = $pcinfo->sistema_operativo; // sistema operativo
                     $data['lab_id'] = $pcinfo->id_laboratorio; // id de laboratorio
@@ -528,7 +544,7 @@ class User extends CI_Controller
                         }
 
                         if ($this->computer->editpc( $pcinfo->descripcion , $pcinfo->id_laboratorio , $cpu_pc , $video_pc , $ram_pc , $hdd_pc , $motherboar_pc, 
-                        $fuente_pc , $monitor_pc , $teclado_pc , $dvd_pc , $so_pc , $editlabid , $editnumpc ))
+                        $fuente_pc , $monitor_pc , $teclado_pc , $mouse_pc , $dvd_pc , $so_pc , $editlabid , $editnumpc ))
                         {
                             redirect('user/adminpc'); 
                         }

@@ -169,6 +169,7 @@
                     <th>Fuente poder</th>
                     <th>Monitor</th>
                     <th>Teclado</th>
+                    <th>Mouse</th>
                     <th>Lector CD/DVD</th>
                     <th>Sistema Operativo</th>
                 </tr>
@@ -529,24 +530,26 @@ function validate_delete()
 function updatehtml(xjson)
 {
     var _html = "" ;
-    for (data in xjson)
+    for ( data in xjson)
     {
         var _monitor = (xjson[data].monitor != "" ) ? xjson[data].monitor  : "n/d" ;
         var _teclado = (xjson[data].teclado != "") ? xjson[data].teclado : "n/d" ;
+        var _mouse = (xjson[data].mouse != "") ? xjson[data].mouse : "n/d" ;
         var _lector_dvd = (xjson[data].lector_dvd != "") ? xjson[data].lector_dvd : "n/d" ;
         var _sistema_operativo = (xjson[data].sistema_operativo != "") ? xjson[data].sistema_operativo : "n/d" ;
-
+        var _tarjeta_video = (xjson[data].tarjeta_grafica != "") ? xjson[data].tarjeta_grafica : "n/d" ; 
         _html += "<tr><th>" + xjson[data].descripcion + "</th>" + 
         "<th>" + xjson[data].sedename + "</th>" +
         "<th>" + xjson[data].labname + "</th>" +
         "<th>" + xjson[data].procesador + "</th>" +
-        "<th>" + xjson[data].tarjeta_grafica + "</th>" +
+        "<th>" + _tarjeta_video + "</th>" +
         "<th>" + xjson[data].memoria_ram + "</th>" +
         "<th>" + xjson[data].disco_duro + "</th>" +
         "<th>" + xjson[data].tarjeta_madre + "</th>" +
         "<th>" + xjson[data].fuente_poder + "</th>" +
         "<th>" + _monitor + "</th>" +
         "<th>" + _teclado + "</th>" +
+        "<th>" + _mouse + "</th>" +
         "<th>" + _lector_dvd + "</th>" +
         "<th>" + _sistema_operativo + "</th>" +
         "<th>" + '<a class = "btn btn-primary" onclick="return validate_edit();"  href = "<?php echo base_url("index.php/user/editpc")?>?id=' + xjson[data].id_equipo + '"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar</a> ' + "</th>" +
