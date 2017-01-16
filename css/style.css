@@ -398,7 +398,7 @@ footer p
 ============================================== */ 
 
 .ct-series-a .ct-point, .ct-series-a .ct-line, .ct-series-a .ct-bar, .ct-series-a .ct-slice-donut {
-   stroke: #31474c; 
+   stroke: #ce4444; 
    -webkit-print-color-adjust: exact; 
 }
 

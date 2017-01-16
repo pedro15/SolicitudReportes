@@ -770,7 +770,6 @@ class User extends CI_Controller
             $label_arr = array();
             if (isset( $fecha_inicio , $fecha_fin ) )
             {
-
                 $reports = $this->stats->get_reports($fecha_inicio,$fecha_fin);
                 $ids_arr = array();
 
@@ -798,7 +797,7 @@ class User extends CI_Controller
                             $current_pcid = $current_falla->id_equipo ; 
                             $current_pc = $this->computer->get_pc_info($current_pcid);
                             $current_lab = $this->laboratory->get_lab($current_pc->id_laboratorio);
-                            $computerdesc = $current_lab->descripcion . ' - ' . $current_pc->descripcion;
+                            $computerdesc = $current_lab->descripcion . ' -Equipo: ' . $current_pc->descripcion;
                             if (!in_array($computerdesc , $label_arr) && $current_lab->id_sede == $sede )
                             {
                                 $counted = $this->stats->count_reports_pc($current_pcid , $sede); 
@@ -815,6 +814,10 @@ class User extends CI_Controller
             if (isset($sede))
             {
                 $data['currentsede'] = $sede ;
+            }
+            if (isset($tipo_busqueda))
+            {
+                $data['busquedatipo'] = $tipo_busqueda ; 
             }
             $data['sedes'] = $this->sede->get_all();
             $data['labels'] = $label_arr;

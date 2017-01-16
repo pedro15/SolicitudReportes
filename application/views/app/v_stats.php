@@ -39,19 +39,19 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             <label>Tipo</label>
             <div class = "row">
                 <div class = "col-md-3">
-                     <input type = "radio" name = "tipo-busqueda" value = "falla-comun" checked> <label>Falla mas comun</label>
+                     <input type = "radio" id = "radio-falla" name = "tipo-busqueda" value = "falla-comun"> <label>Falla mas comun</label>
                 </div>
                 <div class = "col-md-3">
-                     <input type = "radio" name = "tipo-busqueda" value = "equipo-comun"> <label>Equipo con mas fallas</label>
+                     <input type = "radio" if = "radio-equipo"  name = "tipo-busqueda" value = "equipo-comun"> <label>Equipo con mas fallas</label>
                 </div>
             </div>
        </div>
        <div class = "form-group">
             <div class = "row">
-                <div class = "col-md-2">
+                <div class = "col-md-2 col-xs-3">
                     <input type = "submit" class = "btn btn-primary" value = "Generar estadistica">
                 </div>
-                <div class = "col-md-3">
+                <div class = "col-md-2 col-xs-2">
                     <a class = "btn btn-primary" id = "printbtn">
                          Imprimir  <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
                     </a>
@@ -59,11 +59,11 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             </div>
        </div>
     </form>
-    <div id = "stats-container">
+    <div id = "stats-container"  >
         <div class = "container">
             <div id = "stats-header">
             </div>
-            <div class = "ct-chart" >
+            <div class = "ct-golden-section ct-chart" >
             </div>
             <div id = "stats-body">
             </div>
@@ -94,27 +94,47 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                             ' ; 
                         echo $opc;
                     }
+                    if (isset($busquedatipo))
+                    {
+                        $opc = '<input type = "hidden" name = "opcurr" value ="' . $busquedatipo . '" >
+                            '; 
+                        echo $opc;    
+                    }
                 ?>
             </form>
         <?php
     }
 ?>
-<div id = "editor"></div>
-<script type="text/javascript" src="<?php echo base_url('/')?>chartist-js/chartist.min.js"></script>
 <script type = "text/javascript">
 
      var labels_chart = [] ; 
-     var series_chart = [] ; 
-     var chart;
+     var series_chart = [] ;
 
-     $(document).ready(function()
-     {
-         var currsede =  $('input[name="sedecurr"]').val();
-         if (currsede != undefined )
-         {
-             $("#selectsede").val(currsede).change();
-         }
-     });
+      function orderarr()
+      {
+          if (labels_chart.length > 0 && series_chart.length > 0 )
+          {
+              for (var i = 0; i < series_chart.length ; i++)
+              {
+                  for (var j = 0 ; j < series_chart.length ; j++)
+                  {
+                    var _next = i + 1 ; 
+                    if (_next < series_chart.length )
+                    {
+                         if ( series_chart[j] >  series_chart[_next] )
+                         {
+                             series_aux = series_chart[j];
+                             labels_aux = labels_chart[j];
+                             series_chart[j] = series_chart[_next] ; 
+                             series_chart[_next] = series_aux ;
+                             labels_chart[j] = labels_chart[_next] ; 
+                             labels_chart[_next] = labels_aux ; 
+                         }
+                    }
+                  }
+              }
+          }
+      }
 
       function initdates()
       {
@@ -143,31 +163,51 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
               series_chart.push(parseInt($(this).val()));
           });
 
+          orderarr();
+
           if (labels_chart.length > 0 && series_chart.length > 0 )
           {
-              var data = {labels: labels_chart , series: series_chart};
-              var options = {distributeSeries: true};
-              var responsiveOptions = [
-              ['screen and (min-width: 641px) and (max-height: 1024px)', {
-                showPoint: false,
-                axisY: 
-                {
-                    onlyInteger: true
-                }}]];
-                chart = new Chartist.Bar('.ct-chart',data,options,responsiveOptions);
+            new Chartist.Bar('.ct-chart', 
+            {
+              labels: labels_chart,
+              series: [series_chart]
+            },{fullWidth: true, height: 600, axisY: { onlyInteger: true,offset: 20}});
           }
+            var itemsbody = '' ; 
+            for (var i = series_chart.length - 1; i >= 0  ; i--)
+            {
+                itemsbody += '<tr>' + '<th>' + labels_chart[i] + '</th>' + '<th>' + series_chart[i] + '</th>'  + '</tr>' ; 
+            }
+            var bhtml = '<div class = "table-responsive">' + 
+            '<table class = "table table-stripped table-bordered">' + 
+            '<thead><tr><th>Elemento</th><th>Cantidad</th></thead>' + 
+            '<tbody>' + 
+            itemsbody + 
+            '</tbody></table></div>' ;  
+            $("#stats-body").html(bhtml);
       }
-
       $(document).ready(function()
       {
-          initdates();
-          initchart();
+         initdates();
+         initchart();
+         var currsede =  $('input[name="sedecurr"]').val();
+         if (currsede != undefined )
+         {
+             $("#selectsede").val(currsede).change();
+         }
       });
 
       $("#printbtn").click(function()
       {
-           var opcselected = $('input[name="tipo-busqueda"]'); 
-           var opctxt = ( opcselected.is(':checked') ) ? 'fallas comunes' : 'equipos con mas fallas' ;
+            var opcselected = $('input[name="opcurr"]').val(); 
+            var opctxt = "" ; 
+            if (opcselected == 'falla-comun')
+            {
+                opctxt = "falla mas comun" ;
+            }else if (opcselected == 'equipo-comun')
+            {
+                opctxt = "equipos con mas fallas" ; 
+            }
             var xhtml =
             '<div class = "row">' + 
             '<div class = "col-md-6">' +
@@ -182,8 +222,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             '<p>Sede: ' + $("#selectsede option:selected").text() + '</p></div>' ;
 
             $("#stats-header").html(xhtml);
-
-            //$("#stats-body").html(bhtml);
 
             $("#stats-container").print(
             {
@@ -218,7 +256,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     timeout: 250,
 
                     // Custom title
-                    title: null,
+                    title: 'Estadisticas',
 
                     // Custom document type
                     doctype: '<!DOCTYPE html>'
@@ -226,3 +264,4 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             $("#stats-header").html("");
       });
 </script>
+<script type="text/javascript" src="<?php echo base_url('/')?>chartist-js/chartist.min.js"></script>
