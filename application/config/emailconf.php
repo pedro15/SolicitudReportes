@@ -11,10 +11,11 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
 $config['emailcredentials'] = array
 (
-    'email' => '' , //Correo electronico
-    'password' => '' , // Clave del correo electronico
-    'port' => '' , // Puerto usado por el cliente de correo electronico
-    'enabled' => FALSE // determina si esta activado esta funcion, debe asignarla como TRUE junto con sus credenciales para hacerla funcionar.
+    'email' => 'lastframegames@gmail.com' , //Correo electronico 
+    'password' => 'LastFrameGames2015$' , // Clave del correo electronico
+    'port' => 465 ,  // Puerto usado por el servidor de correo
+    'host' => 'ssl://smtp.googlemail.com' , // host del servidor de correo
+    'enabled' => true // determina si esta activado esta funcion, debe asignarla como true junto con sus credenciales para hacerla funcionar.
 );
 
 ?>

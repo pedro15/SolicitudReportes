@@ -22,15 +22,15 @@ class Usr extends CI_Model
     public function getsendmails()
     {
          $db = $this->load->database('default' , TRUE);
-         $sql = "SELECT * FROM `usuario` WHERE `tipo` = '3' OR `tipo` = '2' ;" ; 
+         $sql = "SELECT * FROM `usuario` WHERE `tipo` = '3' OR `tipo` = '2' AND `habilitado` = '1' ;" ; 
          $mailsarr = array();
          $query = $db->query($sql);
-         $result = $query->result;
+         $result = $query->result();
          foreach ($result as $item)
          {
-             if (!empty($result->correo))
+             if (!empty($item->correo))
              {
-                 array_push($mailsarr,$item);
+                 array_push($mailsarr,$item->correo);
              }
          }
          return $mailsarr;

@@ -1001,7 +1001,7 @@ class User extends CI_Controller
             $this->end_page();
         }
     }
-
+    
     /* Salir
     =================================================*/
     public function logout()

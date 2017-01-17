@@ -6,13 +6,9 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         function __construct()
         {
             parent::__construct();
-            $this->load->library('email');
-            $config['protocol'] = 'smtp';
-            $config['charset'] = 'iso-8859-1';
-            $config['wordwrap'] = TRUE;
-            $config['mailtype'] = 'html';
-            $this->email->initialize($config);
             $this->load->model('usr');
+            $this->load->model('computer');
+            $this->load->model('laboratory');
         }
 
         public function get_mail_credentials()
@@ -25,6 +21,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         {
             $response = null;
             system("ping -c 1 google.com", $response);
+            
             if($response == 0)
             {
                 return true ;
@@ -53,24 +50,54 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     $ec = $this->get_mail_credentials();
                     if ($ec['enabled'] == true )
                     {
-                        if (isconn)
-                        {
-                            $mails = $this->usr->getsendmails();
-                            $this->email->from( $ec['email'] , 'SASSTEC Correo');
-                            $this->email->bcc($mails);
-                            $this->email->subject('Nueva solicitud de soporte tecnico');
-                            
+                            $config = Array(
+                                'protocol' => 'smtp',
+                                'smtp_host' =>  $ec['host'] ,
+                                'smtp_port' =>  $ec['port'] ,
+                                'smtp_user' =>  $ec['email'] ,
+                                'smtp_pass' =>  $ec['password'] ,
+                                'mailtype' => 'html',
+                                'charset' => 'utf-8',
+                                'wordwrap' => TRUE
+                            );
+
                             $htmldata = file_get_contents('resources/mailtemplate.html');
                             $user = $this->loginsystem->get_user_data($ci_user);
                             
-                            $htmldata = str_replace('%from%' , $user->nombre );
+                            $htmldata = str_replace('%from%' , $user->nombre , $htmldata);
                             
+                            $catname = $this->get_categorie_name($tipo);
                             
+                            $htmldata = str_replace('%cat%' , $catname , $htmldata);
                             
-                            $this->email->message('Testing the email class.');
+                            $htmldata = str_replace('%descripcion%' , $descripcion , $htmldata);
+                            
+                            $pc = $this->computer->get_pc_info($id_equipo);
 
-                            $this->email->send();
-                        }
+                            $htmldata = str_replace('%pc%' , $pc->descripcion , $htmldata);
+                            
+                            $lab = $this->laboratory->get_lab($pc->id_laboratorio);
+                            
+                            $htmldata = str_replace( '%laboratorio%' , $lab->descripcion , $htmldata);
+                            $htmldata = str_replace( '%url%' , base_url() , $htmldata);
+
+                            $this->load->library('email' , $config);
+                            $this->email->set_newline("\r\n");
+
+                            $mails = $this->usr->getsendmails();
+
+                            foreach($mails as $email)
+                            {
+                                $this->email->from( $ec['email'] , 'SASSTEC Correo');
+                                $this->email->to($email);
+                                $this->email->subject('Nueva solicitud de soporte tecnico');
+                                $this->email->message($htmldata);
+                                $s = $this->email->send();
+                                if( $s == false )
+                                {
+                                    show_error($this->email->print_debugger());
+                                }
+                            }                            
                     }
                     return true ;
                 }else 
