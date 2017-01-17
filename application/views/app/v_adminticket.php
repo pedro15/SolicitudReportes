@@ -165,6 +165,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
 <script type = "text/javascript">
 
+    var fjson ;
     
     $('[data-toggle="tooltip"]').mouseenter(function()
     {
@@ -486,6 +487,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 }
 
                 paginatetickets(xdata);
+                fjson = xdata ;
             }
         });
     }
@@ -505,6 +507,27 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             + '</tr>' ; 
         }
         $("#table-dialog-fill").html(html);
+    }
+
+    function downloadpdf(xid)
+    {
+        var curr ;
+        for ( elm in fjson )
+        {
+            if (fjson[elm].id_falla = xid)
+            {
+                curr = fjson[elm] ; 
+                break;
+            }
+        }
+        console.log(curr);
+        if (curr != undefined )
+        {
+            var doc = new jsPDF();
+            doc.text('Sistema de solicitud de soporte tecnico', 15, 10);
+            doc.text('Planilla de solicitud', 15, 20);
+            doc.save('solicitud-' + xid  + '.pdf');
+        }
     }
 
     function filltickets(xjson)
@@ -553,7 +576,10 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 + '<div class = "input-group-btn">' 
                 + '<a  class="btn btn-danger" onclick = "javascript:removeticket(\'' + xjson[data].id_falla + '\')" >'
                 + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar </a>' 
-                + '</div></div></div></div>'
+                + '</div>'
+                + '</div>'
+                + '<a class ="btn btn-primary" onclick= "javascript:downloadpdf(\'' + xjson[data].id_falla + '\')" >'  + '<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Descargar PDF </a>'
+                + '</div></div>'
                 + '<div class = "row" >'
                 + '<div class = "col-md-6">'
                 + '<span class="glyphicon glyphicon-home" aria-hidden="true"></span><strong> Sede:</strong> ' +  xjson[data].sedeactual.nombre 
