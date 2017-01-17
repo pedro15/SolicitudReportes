@@ -39,7 +39,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             <label>Tipo</label>
             <div class = "row">
                 <div class = "col-md-3">
-                     <input type = "radio" id = "radio-falla" name = "tipo-busqueda" value = "falla-comun"> <label>Falla mas comun</label>
+                     <input type = "radio" id = "radio-falla" name = "tipo-busqueda" value = "falla-comun" checked > <label>Falla mas comun</label>
                 </div>
                 <div class = "col-md-3">
                      <input type = "radio" if = "radio-equipo"  name = "tipo-busqueda" value = "equipo-comun"> <label>Equipo con mas fallas</label>

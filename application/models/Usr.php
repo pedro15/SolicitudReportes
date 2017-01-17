@@ -19,6 +19,23 @@ class Usr extends CI_Model
         return $query->result();
     }
     
+    public function getsendmails()
+    {
+         $db = $this->load->database('default' , TRUE);
+         $sql = "SELECT * FROM `usuario` WHERE `tipo` = '3' OR `tipo` = '2' ;" ; 
+         $mailsarr = array();
+         $query = $db->query($sql);
+         $result = $query->result;
+         foreach ($result as $item)
+         {
+             if (!empty($result->correo))
+             {
+                 array_push($mailsarr,$item);
+             }
+         }
+         return $mailsarr;
+    }
+
     public function remove( $ci )
     {
         if($this->is_in_database($ci))

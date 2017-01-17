@@ -89,12 +89,13 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 
     </div>
 </div>
-<form name = "dataform" > 
+<form name = "dataform" action = "#" mathod = "POST" > 
     <?php 
         $opc = '<input type = "hidden" id = "userci" value ="' . $userci . '">' ; 
         echo $opc;
     ?>
 </form>
+
 <script type = "text/javascript">
 
     $('[data-toggle="tooltip"]').mouseenter(function()

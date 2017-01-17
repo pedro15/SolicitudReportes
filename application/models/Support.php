@@ -6,6 +6,32 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         function __construct()
         {
             parent::__construct();
+            $this->load->library('email');
+            $config['protocol'] = 'smtp';
+            $config['charset'] = 'iso-8859-1';
+            $config['wordwrap'] = TRUE;
+            $config['mailtype'] = 'html';
+            $this->email->initialize($config);
+            $this->load->model('usr');
+        }
+
+        public function get_mail_credentials()
+        {
+            $this->config->load('emailconf',TRUE);
+            return $this->config->item('emailcredentials' , 'emailconf');
+        }
+
+        function isconn()
+        {
+            $response = null;
+            system("ping -c 1 google.com", $response);
+            if($response == 0)
+            {
+                return true ;
+            }else 
+            {
+                return false ;
+            }
         }
 
         // Tipo = Categoria
@@ -24,6 +50,28 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 $db->query($sql_reporte); 
                 if ($db->affected_rows() > 0 )
                 {
+                    $ec = $this->get_mail_credentials();
+                    if ($ec['enabled'] == true )
+                    {
+                        if (isconn)
+                        {
+                            $mails = $this->usr->getsendmails();
+                            $this->email->from( $ec['email'] , 'SASSTEC Correo');
+                            $this->email->bcc($mails);
+                            $this->email->subject('Nueva solicitud de soporte tecnico');
+                            
+                            $htmldata = file_get_contents('resources/mailtemplate.html');
+                            $user = $this->loginsystem->get_user_data($ci_user);
+                            
+                            $htmldata = str_replace('%from%' , $user->nombre );
+                            
+                            
+                            
+                            $this->email->message('Testing the email class.');
+
+                            $this->email->send();
+                        }
+                    }
                     return true ;
                 }else 
                 {
