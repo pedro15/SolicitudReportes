@@ -10,7 +10,7 @@ class User extends CI_Controller
         $this->encryption->initialize(
         array('cipher' => 'aes-256'));
     }
-
+    
     /* carga el header, la cabezera , y la barra de navegacion.
     =================================================*/
     function start_page()
@@ -1001,7 +1001,7 @@ class User extends CI_Controller
             $this->end_page();
         }
     }
-    
+
     /* Salir
     =================================================*/
     public function logout()

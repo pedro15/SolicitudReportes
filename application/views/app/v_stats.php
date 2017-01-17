@@ -212,8 +212,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             '<div class = "row">' + 
             '<div class = "col-md-6">' +
             '<img alt="Membrete" src="<?php echo base_url("")?>images/MembreteFundacite.png">' +
-            '</div><div class = "col-md-4">' +
-            '<img alt="Membrete" src="<?php echo base_url("/")?>images/200.png">' + 
             '</div></div>' + 
             '<div class = "page-header"><h4>Estadisticas (' + opctxt + ') </h4>' + 
             '<p>Fecha: ' + "<?php echo date('Y-m-d'); ?>" + '</p>' + 
@@ -223,6 +221,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
             $("#stats-header").html(xhtml);
 
+            //Libreria imprimir
             $("#stats-container").print(
             {
                     // Use Global styles
@@ -235,7 +234,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                    // stylesheet : "", 
 
                     //Print in a hidden iframe
-                    iframe : false, 
+                    iframe : true, 
 
                     // Don't print this
                    // noPrintSelector : ".avoid-this",
@@ -264,4 +263,4 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             $("#stats-header").html("");
       });
 </script>
-<script type="text/javascript" src="<?php echo base_url('/')?>chartist-js/chartist.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url('/')?>js/chartist-js/chartist.min.js"></script>

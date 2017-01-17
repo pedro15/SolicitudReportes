@@ -14,20 +14,24 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
 $config['computer_categories'] = array
 (
-    '0' => 'Mouse' , 
-    '1' => 'Teclado' ,
-    '2' => 'Monitor' ,
-    '3' => 'Sistema Operativo' ,
-    '4' => 'Hardware equipo' , 
-    '5' => 'Otro' 
+    'No prende/inicia' ,
+    'Se reinicia' ,
+    'Configurar mail' ,
+    'Archivos perdios' ,
+    'Bloqueo' ,
+    'Mensajes de error' ,
+    'Mouse' ,
+    'Teclado' ,  
+    'Fuente de poder' , 
+    'Otro'  
 );
 
 $config['security_questions'] = array
 (
-    '0' => 'Nombre de tu primera mascota',
-    '1' => 'Apellido de tu madre',
-    '2' => 'Fruta favorita',
-    '3' => 'Color favorito'
+ 'Nombre de tu primera mascota',
+ 'Apellido de tu madre',
+ 'Fruta favorita',
+ 'Color favorito'
 );
 
 ?>

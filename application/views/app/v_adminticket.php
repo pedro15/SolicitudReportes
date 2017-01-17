@@ -96,31 +96,27 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         <div class = "row">
 
             <div class = "col-md-15">
-                <label>Disco duro: </label> <label id = "hdd_fill" ></label>
-            </div>
-
-            <div class = "col-md-15">
-                <label>Fuente poder: </label> <label id = "fuente_fill" ></label>
-            </div>
-
-            <div class = "col-md-15">
-                <label>Lector dvd: </label> <label id = "dvd_fill" ></label>
+                <label>Procesador: </label> <label id = "cpu_fill" ></label>
             </div>
 
             <div class = "col-md-15">
                 <label>Memoria ram: </label> <label id = "ram_fill" ></label>
             </div>
 
-            <div class = "col-md-15">
-                <label>Monitor: </label> <label id = "monitor_fill" ></label>
-            </div>
-
-            <div class = "col-md-15">
-                <label>Procesador: </label> <label id = "cpu_fill" ></label>
-            </div>
-
-            <div class = "col-md-15">
+             <div class = "col-md-15">
                 <label>Tarjeta grafica: </label> <label id = "gpu_fill" ></label>
+            </div>
+
+             <div class = "col-md-15">
+                <label>Tarjeta Madre: </label> <label id = "motherboard_fill" ></label>
+            </div>
+
+            <div class = "col-md-15">
+                <label>Disco duro: </label> <label id = "hdd_fill" ></label>
+            </div>
+
+             <div class = "col-md-15">
+                <label>Fuente poder: </label> <label id = "fuente_fill" ></label>
             </div>
 
             <div class = "col-md-15">
@@ -128,11 +124,19 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             </div>
 
             <div class = "col-md-15">
-                <label>Tarjeta Madre: </label> <label id = "motherboard_fill" ></label>
+                <label>Monitor: </label> <label id = "monitor_fill" ></label>
             </div>
 
             <div class = "col-md-15">
                 <label>Teclado: </label> <label id = "keyboard_fill" ></label>
+            </div>
+
+            <div class = "col-md-15">
+                <label>Mouse: </label> <label id = "mouse_fill" ></label>
+            </div>
+
+             <div class = "col-md-15">
+                <label>Lector dvd: </label> <label id = "dvd_fill" ></label>
             </div>
 
         </div>
@@ -365,6 +369,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
                 $("#keyboard_fill").text(data.teclado);
 
+                $("#mouse_fill").text(data.mouse);
+
                 $("#gpu_fill").text(data.tarjeta_grafica);
 
                 $("#pcdialog").dialog("open");
@@ -528,8 +534,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 }
                 html += 
                 '<div class = "col-md-5 report-ticket" >'
-                + ' <div class = "report-header">'
-                + ' <div class = "row">' 
+                + '<div class = "report-header">'
+                + '<div class = "row">' 
                 + '<div class = "col-md-5">' 
                 + 'Estado: <strong>' + estado + '</strong>' 
                 + ' <img src ="' + iconurl + '" alt="alerticon" width = "16" height = "16" />'
