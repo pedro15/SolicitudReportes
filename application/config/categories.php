@@ -17,7 +17,7 @@ $config['computer_categories'] = array
     'No prende/inicia' ,
     'Se reinicia' ,
     'Configurar mail' ,
-    'Archivos perdios' ,
+    'Archivos perdidos' ,
     'Bloqueo' ,
     'Mensajes de error' ,
     'Mouse' ,
