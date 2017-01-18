@@ -984,7 +984,7 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(1,2,3)))
         {
-
+            $this->load->view('app/v_manual.php');
             // pie de pagina
             $this->end_page();
         }
