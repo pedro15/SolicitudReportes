@@ -438,7 +438,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             data: {request: true } ,
             success: function (data)
             {
-                console.log(data);
                 var xdata = data ;
 
                 var sedechecked = $("#ch_sede").is(':checked');
@@ -509,24 +508,104 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         $("#table-dialog-fill").html(html);
     }
 
+    function addimagefromurl(url, callback) 
+    {
+    	var img = new Image, data, ret={data: null, pending: true};
+    	img.onError = function() 
+        {
+    		throw new Error('Cannot load image: "'+url+'"');
+    	}
+    	img.src = url;
+    	img.onload = function() {
+    		var canvas = document.createElement('canvas');
+    		document.body.appendChild(canvas);
+    		canvas.width = img.width;
+    		canvas.height = img.height;
+    		var ctx = canvas.getContext('2d');
+    		ctx.drawImage(img, 0, 0);
+    		data = canvas.toDataURL('image/png').slice('data:image/png;base64,'.length);
+    		data = atob(data)
+    		document.body.removeChild(canvas);
+    		ret['data'] = data;
+    		ret['pending'] = false;
+    		if (typeof callback === 'function') {
+    			callback(data);
+    		}
+    	}
+    	return ret;
+    }
+
+    function getxcenter(text , doc )
+    {
+        var textWidth = doc.getStringUnitWidth(text) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+        return (doc.internal.pageSize.width - textWidth) / 2;
+    }
+
     function downloadpdf(xid)
     {
+        updateticketdata();
         var curr ;
         for ( elm in fjson )
         {
-            if (fjson[elm].id_falla = xid)
+            if (fjson[elm].id_falla == xid)
             {
                 curr = fjson[elm] ; 
-                break;
+                if (curr != undefined )
+                {
+                    var doc = new jsPDF();
+                    doc.setLineWidth(0.5);
+
+                    var titulo = 'Sistema de solicitud de soporte técnico (SASSTEC)' ; 
+
+                    doc.text( titulo , getxcenter(titulo,doc) , 30);
+                
+                    var subtitulo = 'Solicitud de soporte técnico' ;
+                
+                    doc.text( subtitulo , getxcenter(subtitulo,doc) , 45);
+                
+                    doc.line(10, 48, 200, 48);
+                
+                    doc.text('Equipo: ' + curr.equipoactual.descripcion , 10 , 55  );
+                    doc.text('Categoria: ' + curr.categoria , 100 , 55  );
+
+                    doc.line(10, 58 , 200, 58);
+                
+                    doc.text('Laboratorio: ' + curr.laboratorioactual.descripcion , 10 , 65  );
+                    doc.text('Fecha: ' + curr.estadoactual.fecha , 100 , 65  );
+                
+                    doc.line(10, 70 , 200, 70);
+                
+                    doc.text('Enviado por: ' + curr.usuarioactual.nombre , 10 , 77  );
+                
+                    doc.line(10, 80 , 200, 80);
+                
+                    doc.text('Descripción de la falla: ' , 10 , 86 );
+
+                    var paragraph =  doc.splitTextToSize(curr.descripcion,190);
+                
+                    doc.text(paragraph , 10 , 93 );
+
+                    doc.line(10, 150 , 200,150);
+
+                    doc.text('Observaciones:' , 10 , 160 );
+                    doc.setLineWidth(0.3);
+                    doc.line(10, 165 , 200 , 165);
+                    doc.line(10, 175 , 200 , 175);
+                    doc.line(10, 185 , 200 , 185);
+                    doc.line(10, 195 , 200 , 195);
+                    doc.line(10, 205 , 200 , 205);
+                    doc.line(10, 215 , 200 , 215);
+                    doc.line(10, 225 , 200 , 225);
+                    doc.line(10, 235 , 200 , 235);
+                    doc.line(10, 245 , 200 , 245);
+
+                    addimagefromurl('../../images/MembreteFundacite.png' , function(imgdata){
+                        doc.addImage(imgdata , 'PNG' ,10,0,150,12);
+                        doc.save('solicitud-' + xid  + '.pdf');
+                    });
+                    break;
+                }
             }
-        }
-        console.log(curr);
-        if (curr != undefined )
-        {
-            var doc = new jsPDF();
-            doc.text('Sistema de solicitud de soporte tecnico', 15, 10);
-            doc.text('Planilla de solicitud', 15, 20);
-            doc.save('solicitud-' + xid  + '.pdf');
         }
     }
 
