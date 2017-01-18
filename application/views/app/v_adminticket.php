@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
 <div class = "container">
     <div class = "page-header">
-        <h3>Administrar solicitudes de soporte tecnico</h3>
+        <h3>Administrar solicitudes de soporte técnico</h3>
     </div>
     <form method = "post" action = "#">
         <label>Filtrar por:</label>
@@ -58,7 +58,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             </div>
 
             <div class = "col-md-5">
-                <label>Categoria</label>
+                <label>Categoría</label>
                 <div class = "input-group" >
                     <div class = "input-group-addon">
                         <input type = "checkbox" id = "ch_categoria" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
@@ -100,11 +100,11 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             </div>
 
             <div class = "col-md-15">
-                <label>Memoria ram: </label> <label id = "ram_fill" ></label>
+                <label>Memoria RAM: </label> <label id = "ram_fill" ></label>
             </div>
 
              <div class = "col-md-15">
-                <label>Tarjeta grafica: </label> <label id = "gpu_fill" ></label>
+                <label>Tarjeta gráfica: </label> <label id = "gpu_fill" ></label>
             </div>
 
              <div class = "col-md-15">
@@ -136,7 +136,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             </div>
 
              <div class = "col-md-15">
-                <label>Lector dvd: </label> <label id = "dvd_fill" ></label>
+                <label>Lector CD / DVD: </label> <label id = "dvd_fill" ></label>
             </div>
 
         </div>
@@ -286,7 +286,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         autoOpen: false ,
         draggable: false  ,
         minWidth: 400,
-        title: "Caracteristicas del equipo" ,
+        title: "Características del equipo" ,
         buttons:
         [
             {
@@ -381,7 +381,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
     function removeticket(id)
     {
-        if (confirm("Desea eliminar esta solicitud ?"))
+        if (confirm("Desea ELIMINAR esta solicitud ?"))
         {
             $.ajax
             ({
@@ -566,7 +566,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     doc.line(10, 48, 200, 48);
                 
                     doc.text('Equipo: ' + curr.equipoactual.descripcion , 10 , 55  );
-                    doc.text('Categoria: ' + curr.categoria , 100 , 55  );
+                    doc.text('Categoría: ' + curr.categoria , 100 , 55  );
 
                     doc.line(10, 58 , 200, 58);
                 
@@ -625,7 +625,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     break;
 
                     case "1": 
-                        estado = "En revision" ;
+                        estado = "En revisión" ;
                         iconurl += "yellow.png" ;  
                     break ;
 
@@ -676,7 +676,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 + '<span class="glyphicon glyphicon-user" aria-hidden="true"></span><strong> Enviado por:</strong> ' +  xjson[data].usuarioactual.nombre
                 + '</div>'
                 + '<div class = "col-md-6">'
-                + '<span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span><strong> Categoria:</strong> ' +  xjson[data].categoria
+                + '<span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span><strong> Categoría:</strong> ' +  xjson[data].categoria
                 + '</div></div></div>'
                 + '<div class = "report-body"><strong>Descripcion de la falla:</strong>'
                 + '<p>' + xjson[data].descripcion + '</p>' 

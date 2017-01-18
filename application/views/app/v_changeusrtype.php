@@ -3,7 +3,7 @@
 ?>
 <div class = "container">
     <div class = "page-header">
-        <h3>Editar nivel de privilegio para : <?php echo  $nombre_usuario . " ( " . $tipo . " ) " ; ?></h3>
+        <h3>Editar nivel de privilegio para: <?php echo  $nombre_usuario . " ( " . $tipo . " ) " ; ?></h3>
     </div>
     <form method = "POST" action = "#" >
         <div class = "form-group">
@@ -12,8 +12,8 @@
                     <label>Nuevo nivel de privilegio:</label>
                     <select name = "newtype" class = "form-control" >
                         <option value = "none">Seleccionar</option>
-                        <option value = "1" >Participante/Instructor</option>
-                        <option value = "2" >Tecnico</option>
+                        <option value = "1" >Participante / Instructor</option>
+                        <option value = "2" >Técnico</option>
                         <option value = "3">Administrador</option>
                     </select>
                 </div>

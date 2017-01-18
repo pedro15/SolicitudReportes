@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         <div class = "form-signin">
             <div class = "alert alert-warning" > 
                 <span class = "glyphicon glyphicon-exclamation-sign" aria-hidden = "true"  ></span>
-                La base de datos del sistema parece vacia, para instalarla haga click en el boton "Instalar"
+                La base de datos del sistema parece vacía, para instalarla haga clic en el botón "Instalar"
             </div>
             <div class = "page-header">
                 <h3>Instalar base de datos</h3>

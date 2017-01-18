@@ -15,15 +15,15 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     <input type = "email" name = "email" class = "form-control" required>
                 </div>
                 <div class = "col-md-5">
-                    <label>Cedula</label> 
+                    <label>Cédula:</label> 
                     <label id = "alertlabel" class = "fieldalert" ></label>
                     <input id = "cifield" type = "text" onkeypress="return isNumberKey(event);"  name = "userci" class = "form-control" required>
                 </div>
                 <div class = "col-md-5">
                     <label>Nivel de privilegio</label> 
                     <select name = "usrtype" class = "form-control"> 
-                        <option value = "1" >Participante/Instructor</option>
-                        <option value = "2" >Tecnico</option>
+                        <option value = "1" >Participante / Instructor</option>
+                        <option value = "2" >Técnico</option>
                         <option value = "3">Administrador</option>
                     </select>
                 </div>
@@ -51,7 +51,7 @@ function validate_ci()
                 if (isin_database)
                 {
                     $("#cifield").css("background-color" , "#ffdbdb"); 
-                    $("#alertlabel").text("Ya existe un usuario registrado con esta cedula"); 
+                    $("#alertlabel").text("Ya existe un usuario registrado con esta cédula"); 
                     cansend = false ;
                 }else 
                 {

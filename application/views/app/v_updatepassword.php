@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     var validpassword = false ;
     var confirmedpassword = false ; 
 
-    // No permitidas
+    // Claves No permitidas
     var bannedpasswords = 
     [
         '123',
@@ -88,7 +88,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         var enoughRegex = new RegExp("(?=.{6,}).*", "g");
         if (false == enoughRegex.test( pval )) {
                 $('#passinfo').css('color' , '#ce4444');
-                $('#passinfo').text('Mas characteres!');
+                $('#passinfo').text('Más caracteres!');
                 $("#pbar").css('background-color' , '#ce4444' ) ;
                 $("#pbar").transition({ width: '25%' } , 100) ;
                 $("#s-newp").attr('class' , 'glyphicon glyphicon-remove');

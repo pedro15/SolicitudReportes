@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     <input type = "text"  maxlength = "45" name = "sedename" class = "form-control" value = "<?php echo $currentsede->nombre; ?>" required = "" >
                 </div>
                 <div class = "col-md-5">
-                    <label>Ubicacion Sede</label>
+                    <label>Ubicación Sede</label>
                     <input type = "text"  maxlength = "45" name = "sedelocation" class = "form-control" value = "<?php echo $currentsede->ubicacion; ?>" required = "" >
                 </div>
             </div>

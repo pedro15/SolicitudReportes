@@ -71,12 +71,12 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
     function validate_edit()
     {
-        return confirm("Desea editar este laboratorio?");
+        return confirm("Desea editar este laboratorio ?");
     }
 
     function validate_delete()
     {
-        return confirm("Desea ELIMINAR este laboratorio?");
+        return confirm("Desea ELIMINAR este laboratorio ?");
     }
 
     $(document).ready(function() 

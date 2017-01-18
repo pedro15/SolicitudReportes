@@ -10,11 +10,11 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         <div class = "form-signin">
             <div class = "alert alert-warning" > 
                 <span class = "glyphicon glyphicon-exclamation-sign" aria-hidden = "true"  ></span>
-                Usted tiene activada pregunta de seguridad en su perfil, debera responderla para continuar. 
+                Usted tiene activada pregunta de seguridad en su perfil, deberá responderla para continuar. 
             </div>
             
             <?php if (isset($errormsg)){ ?>
-            <div class = "alert alert-warning" > 
+            <div class = "alert alert-danger" > 
                 <span class = "glyphicon glyphicon-error" aria-hidden = "true"  ></span>
                 <?php echo $errormsg ; ?> 
             </div>

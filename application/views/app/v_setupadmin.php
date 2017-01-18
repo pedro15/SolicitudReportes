@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             <div class = "alert alert-warning" > 
                 <span class = "glyphicon glyphicon-exclamation-sign" aria-hidden = "true"  ></span>
                 Debe agregar una cuenta de administrador para poder usar el sistema.
-                Tome en cuenta que una vez registrado la clave inicialmente es la cedula, luego se puede cambiar una vez ingresado al sistema.
+                Tome en cuenta que una vez registrado la clave inicialmente es la cédula, luego se puede cambiar una vez ingresado al sistema.
             </div>
             <div class = "page-header">
                 <h3>Agregar cuenta de administrador</h3>
@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     <input type = "text" class = "form-control" name = "admin_name" required ="" >
                 </div>
                 <div class = "form-group">
-                    <label>Cedula de identidad</label>
+                    <label>Cédula de identidad</label>
                     <input type = "text" class = "form-control" name = "admin_ci"  onkeypress="return isNumberKey(event);" maxlength="11" >
                 </div>
                 <div class = "form-group">

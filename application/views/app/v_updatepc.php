@@ -30,12 +30,12 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 </div>
 
                 <div class = "col-md-5">
-                    <label>Tarjeta Madre</label>
+                    <label>Tarjeta madre</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_motherboard" value = "<?php echo $pc_tm ;  ?>">
                 </div>
 
                 <div class = "col-md-5">
-                    <label>Tarjeta de video</label>
+                    <label>Tarjeta gráfica</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_video" value = "<?php echo $pc_gpu ;  ?>">
                 </div>
 
@@ -71,7 +71,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             </div>
             <div class = "row">
                 <div class = "col-md-5">
-                    <label>Sede ( actual : <?php echo $sede_name ; ?> )</label>
+                    <label>Sede ( actual: <?php echo $sede_name ; ?> )</label>
                     <?php 
                         if (isset($sedes) && count($sedes) > 0)
                         {

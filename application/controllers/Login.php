@@ -45,12 +45,12 @@ class Login extends CI_Controller
 							}
 						}else 
 						{
-							$data['message'] = "Usted se encuentra desabilitado en el sistema.";
+							$data['message'] = "Usted se encuentra deshabilitado en el sistema.";
 							$this->load->view('app/v_login.php', $data);
 						}	
 					}else 
 					{
-						$data['message'] = "No existe un usuario con la cedula: " . $ci;
+						$data['message'] = "No existe un usuario con la cédula: " . $ci;
 						$this->load->view('app/v_login.php', $data);
 					}
 				}else 

@@ -20,7 +20,7 @@
                  </div>
 
                  <div class = "col-md-5">
-                    <label>Tarjeta grafica</label>
+                    <label>Tarjeta gráfica</label>
                     <div class="input-group">
                     <span class="input-group-addon">
                     <input type="checkbox" id = "ch_gpu" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro"  >
@@ -30,7 +30,7 @@
                  </div>
                  
                  <div class = "col-md-5">
-                    <label>Memoria Ram:</label>
+                    <label>Memoria RAM:</label>
                     <div class="input-group">
                     <span class="input-group-addon">
                     <input type="checkbox" id = "ch_ram" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
@@ -70,7 +70,7 @@
                  </div>
 
                  <div class = "col-md-5">
-                    <label>Monitor</label>
+                    <label>Monitor:</label>
                     <div class="input-group">
                     <span class="input-group-addon">
                     <input type="checkbox" id = "ch_monitor" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
@@ -162,7 +162,7 @@
                     <th>Sede</th>
                     <th>Laboratorio</th>
                     <th>Procesador</th>
-                    <th>Tarjeta grafica</th>
+                    <th>Tarjeta gráfica</th>
                     <th>Memoria ram</th>
                     <th>Disco duro</th>
                     <th>Tarjeta madre</th>
@@ -519,12 +519,12 @@ function populate(xjson)
 
 function validate_edit()
 {
-    return confirm("Desea editar este equipo?"); 
+    return confirm("Desea editar este equipo ?"); 
 }
 
 function validate_delete()
 {
-    return confirm("Desea eliminar este equipo?");
+    return confirm("Desea ELIMINAR este equipo ?");
 }
 
 function updatehtml(xjson)

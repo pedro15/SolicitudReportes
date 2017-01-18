@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 ?>
 <div class = "container" >
     <div class = "page-header">
-        <h3>Estadisticas</h3>
+        <h3>Estadísticas</h3>
     </div>
     <form action = "#" method = "POST" name = "radioform">
        <div class = "form-group">
@@ -39,10 +39,10 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             <label>Tipo</label>
             <div class = "row">
                 <div class = "col-md-3">
-                     <input type = "radio" id = "radio-falla" name = "tipo-busqueda" value = "falla-comun" checked > <label>Falla mas comun</label>
+                     <input type = "radio" id = "radio-falla" name = "tipo-busqueda" value = "falla-comun" checked > <label>Falla más común:</label>
                 </div>
                 <div class = "col-md-3">
-                     <input type = "radio" if = "radio-equipo"  name = "tipo-busqueda" value = "equipo-comun"> <label>Equipo con mas fallas</label>
+                     <input type = "radio" if = "radio-equipo"  name = "tipo-busqueda" value = "equipo-comun"> <label>Equipo con más fallas:</label>
                 </div>
             </div>
        </div>
@@ -207,20 +207,20 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             var opctxt = "" ; 
             if (opcselected == 'falla-comun')
             {
-                opctxt = "falla mas comun" ;
+                opctxt = "falla más común" ;
             }else if (opcselected == 'equipo-comun')
             {
-                opctxt = "equipos con mas fallas" ; 
+                opctxt = "equipos con más fallas" ; 
             }
             var xhtml =
             '<div class = "row">' + 
             '<div class = "col-md-6">' +
             '<img alt="Membrete" src="<?php echo base_url("")?>images/MembreteFundacite.png">' +
             '</div></div>' + 
-            '<div class = "page-header"><h4>Estadisticas (' + opctxt + ') </h4>' + 
+            '<div class = "page-header"><h4>Estadísticas (' + opctxt + ') </h4>' + 
             '<p>Fecha: ' + "<?php echo date('Y-m-d'); ?>" + '</p>' + 
-            '<p>Fecha inicio estadistica: ' + $("#date-start").val() + '</p>' + 
-            '<p>Fecha fin estadistica: ' + $("#date-end").val() + '</p>' + 
+            '<p>Fecha inicio estadística: ' + $("#date-start").val() + '</p>' + 
+            '<p>Fecha fin estadística: ' + $("#date-end").val() + '</p>' + 
             '<p>Sede: ' + $("#selectsede option:selected").text() + '</p></div>' ;
 
             $("#stats-header").html(xhtml);
@@ -244,7 +244,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                    // noPrintSelector : ".avoid-this",
 
                     // Add this on top
-                    append : "Estadisticas", 
+                    append : "Estadísticas", 
 
                     // Add this at bottom
                    // prepend : "OK",
@@ -259,7 +259,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     timeout: 250,
 
                     // Custom title
-                    title: 'Estadisticas',
+                    title: 'Estadísticas',
 
                     // Custom document type
                     doctype: '<!DOCTYPE html>'

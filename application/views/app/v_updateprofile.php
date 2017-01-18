@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 ?>
 <div class = "container" > 
     <div class = "page-header">
-        <h3>Actualizar informacion</h3>
+        <h3>Actualizar información</h3>
     </div>
     <form action = "#" method = "POST" >
         <div class = "form-group">

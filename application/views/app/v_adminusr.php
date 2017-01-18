@@ -38,8 +38,8 @@
                         </span>
                         <select id = "selecttype" class = "form-control">
                             <option value = "none">Seleccionar</option>
-                            <option value = "1">Participante/Instructor</option>
-                            <option value = "2">Tecnico</option>
+                            <option value = "1">Participante / Instructor</option>
+                            <option value = "2">Técnico</option>
                             <option value = "3">Administrador</option>
                         </select>
                     </div>
@@ -81,12 +81,12 @@ $('[data-toggle="tooltip"]').mouseout(function()
 
 function validate_delete()
 {
-    return confirm("Alerta ! si elimina permanentemente a este usuario, toda la informacion relacionada con el mismo tambien sera eliminada, desea eliminarlo?");
+    return confirm("Desea ELIMINAR a este usuario ?");
 }
 
 function validate_disable()
 {
-    return confirm("Desea desbilitar a este usuario en el sistema?");
+    return confirm("Desea deshabilitar a este usuario en el sistema ?");
 }
 
 function validate_hability()
@@ -216,7 +216,7 @@ function updatehtml(xjson)
 
             // Tecnico
             case "2" :
-                type = "Tecnico" ; 
+                type = "Técnico" ; 
             break ; 
 
             // Administrador

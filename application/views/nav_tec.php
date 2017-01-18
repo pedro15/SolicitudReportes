@@ -7,27 +7,27 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Soporte Tecnico<span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Soporte Técnico<span class="caret"></span></a>
                   <ul class="dropdown-menu">
                         <li><a href="<?php echo base_url('index.php/user/sendticket')?>">Enviar solicitud</a></li>
                         <li><a href="<?php echo base_url('index.php/user/admintickets')?>">Administrar solicitudes</a></li>
                   </ul>
                 </li>
             <!-- Estadisticas !-->
-            <li><a href="<?php echo base_url('index.php/user/stats')?>">Estadisticas</a></li>
+            <li><a href="<?php echo base_url('index.php/user/stats')?>">Estadísticas</a></li>
              <!-- Herramientas !-->
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Herramientas<span class="caret"></span></a>
                   <ul class="dropdown-menu">
                          <li><a href="<?php echo base_url('index.php/user/manual')?>">Manual de usuario</a></li>
-                         <li><a href="<?php echo base_url('index.php/user/credits')?>">Creditos</a></li>
+                         <li><a href="<?php echo base_url('index.php/user/credits')?>">Créditos</a></li>
                   </ul>
                 </li>
                 <!-- Perfil !-->
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Perfil<span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                         <li><a href="<?php echo base_url('index.php/user/updateprofile')?>">Actualizar informacion</a></li>
+                         <li><a href="<?php echo base_url('index.php/user/updateprofile')?>">Actualizar información</a></li>
                          <li><a href="<?php echo base_url('index.php/user/updatepassword')?>">Cambiar clave</a></li>
                   </ul>
                 </li>

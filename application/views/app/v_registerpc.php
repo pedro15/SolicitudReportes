@@ -30,7 +30,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 </div>
                 
                 <div class = "col-md-5">
-                    <label>Tarjeta de video</label>
+                    <label>Tarjeta gráfica</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_video">
                 </div>
 
@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 </div>
 
                 <div class = "col-md-5">
-                    <label>Lector CD/DVD</label>
+                    <label>Lector CD / DVD</label>
                     <input type = "text" class = "form-control" maxlength="45" name = "pc_dvd">
                 </div>
 

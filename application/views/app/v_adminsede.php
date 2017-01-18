@@ -6,7 +6,7 @@
         <h3>Administrar Sedes</h3>
     </div>
     <div class = "row">
-            <label>Filtrar:</label>
+            <label>Filtrar por:</label>
             <div classs = "row">
                     <div class = "col-md-6">
                         <label>Nombre</label>
@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class = "col-md-6">
-                        <label>Ubicacion</label>
+                        <label>Ubicación</label>
                         <div class = "input-group">
                             <span class = "input-group-addon">
                                 <input type = "checkbox" id = "ch_location" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
@@ -33,7 +33,7 @@
             <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th>Ubicacion</th>
+                    <th>Ubicación</th>
                 </tr>
             </thead>
             <tbody id = "tablecont">

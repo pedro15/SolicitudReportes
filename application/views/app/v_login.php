@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                  </div>
                  <div class ="text-center">
                  <img alt = "SASTEC" src = "<?php echo base_url('/')?>images/logo_SASTEC.png" width = "350" height = "200"/>
-                 <h3>Sistema Automatizado de Solicitud de Soporte Tecnico</h3>
+                 <h3>Sistema Automatizado de Solicitud de Soporte Técnico</h3>
                  <h4>Bienvenido</h4>
                  </div>
             </div>
@@ -31,8 +31,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                            <div class = "row">
                                <div class = "col-md-12">      
                                  <h2 class="form-signin-heading">Ingresar</h2>
-                                 <input type="text" maxlength="11" onkeypress="return isNumberKey(event);" class="form-control" style = "margin-top: 5px;" name="cilogin" placeholder="Cedula" required="" autofocus="" />
-                                 <input type="password" class="form-control" style = "margin-top: 5px;" name="passlogin" placeholder="Contraseña" required=""/>      
+                                 <input type="text" maxlength="11" onkeypress="return isNumberKey(event);" class="form-control" style = "margin-top: 5px;" name="cilogin" placeholder="Cédula" required="" autofocus="" />
+                                 <input type="password" class="form-control" style = "margin-top: 5px;" name="passlogin" placeholder="Clave" required=""/>      
                                  <button class="btn btn-lg btn-primary btn-block" type="submit" style = "margin-top: 10px;">Entrar</button>   
                                </div>
                            </div>

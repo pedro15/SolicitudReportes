@@ -15,7 +15,7 @@
     </div>
     <div class = "alert alert-warning" > 
         <span class = "glyphicon glyphicon-exclamation-sign" aria-hidden = "true"  ></span>
-        Seleccione un elemento de la lista de respaldos, luego haga click en el boton 'restaurar' para ejecutar la restauracion del mismo.
+        Seleccione un elemento de la lista de respaldos, luego haga clic en el botón 'restaurar' para ejecutar la restauración del mismo.
     </div>
     <form action = "#" method = "POST">
         <div class = "form-group">

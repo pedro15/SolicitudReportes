@@ -12,7 +12,7 @@ class User extends CI_Controller
     }
     
     /* carga el header, la cabezera , y la barra de navegacion.
-    =================================================*/
+    ==========================================================*/
     function start_page()
     {
         $this->load->view('head.php');
@@ -617,7 +617,7 @@ class User extends CI_Controller
                 $sec_question = "" ;
                 if ($this->usr->register($_ci , $_name , $default_pw , $sec_question , $type , $_email))
                 {
-                    $this->load_alert("Usuario registrado correctamente ! <strong>la clave inicialmente es la Cedula</strong>, puede cambiarla una vez que ingrese en la seccion de : 'Perfil/Cambiar clave' " , "SUCCESS");
+                    $this->load_alert("Usuario registrado correctamente ! <strong>la clave inicialmente es la cédula</strong>, puede cambiarla una vez que ingrese en la sección de: 'Perfil/Cambiar clave' " , "SUCCESS");
                 }
             }
             $this->load->view('app/v_registerusr.php');
@@ -671,11 +671,11 @@ class User extends CI_Controller
                         {
                             if ($this->usr->change_state($ci , 0)) // 0 Es desabilitado
                             {
-                                $this->load_alert("Usuario desabilitado correctamente" , "SUCCESS");
+                                $this->load_alert("Usuario deshabilitado correctamente" , "SUCCESS");
                             }
                         }else 
                         {
-                            $this->load_alert("No se puede desabilitar: Debe existir al menos 1 administrador habilitado en el sistema" , "DANGER");    
+                            $this->load_alert("No se puede deshabilitar: Debe existir al menos 1 administrador habilitado en el sistema" , "DANGER");    
                         }
                     break;
 
@@ -725,11 +725,11 @@ class User extends CI_Controller
                     switch($row_data['tipo'])
                     {
                         case 1 : 
-                            $data['tipo'] = "Participante/Instructor" ; 
+                            $data['tipo'] = "Participante / Instructor" ; 
                         break;
                         
                         case 2 :
-                            $data['tipo'] = "Tecnico" ;
+                            $data['tipo'] = "Técnico" ;
                         break;
 
                         case 3 : 
@@ -867,7 +867,7 @@ class User extends CI_Controller
             if (isset($sql))
             {
                 $this->syshelper->restore_database($sql);
-                $this->load_alert("Operacion ejecutada correctamente" , "SUCCESS");
+                $this->load_alert("Operación ejecutada correctamente" , "SUCCESS");
             }
             $this->load->view('app/v_restoredb.php');
             // pie de pagina
@@ -996,7 +996,7 @@ class User extends CI_Controller
     {
         if ($this->canload_module(array(1,2,3)))
         {
-            
+            $this->load->view('app/v_credits.php') ;
             // pie de pagina
             $this->end_page();
         }
