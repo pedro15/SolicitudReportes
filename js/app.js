@@ -28,3 +28,9 @@ function validadesharp(evt)
     return ( (charCode >= 48 && charCode <= 122) && (charCode != 58 ) && (charCode != 59 ) && (charCode != 61 ) && (charCode != 63 ) && (charCode != 91 ) && (charCode != 93 )   
     ) || (charCode == 8 ) || (charCode == 32) || (charCode == 37) || (charCode == 39)  ; 
 }
+
+function validatespace(evt)
+{
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      return validadesharp(evt) && charCode != 32 ;
+}

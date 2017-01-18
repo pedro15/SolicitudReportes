@@ -30,7 +30,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                         ?>
                     </select>
                     <Label>Respuesta de seguridad:</Label>
-                    <input type = "text" name = "question" class = "form-control" value = "<?php echo $respuesta ; ?>" >
+                    <input type = "text" name = "question" onkeypress = "return validatespace(event);" class = "form-control" value = "<?php echo $respuesta ; ?>" >
                 </div>
             </div>
         </div>

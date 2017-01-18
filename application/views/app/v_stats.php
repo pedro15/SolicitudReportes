@@ -63,8 +63,12 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         <div class = "container">
             <div id = "stats-header">
             </div>
+        </div>
+        <div class = "container">
             <div class = "ct-golden-section ct-chart" >
             </div>
+        </div>
+        <div class = "container">
             <div id = "stats-body">
             </div>
         </div>

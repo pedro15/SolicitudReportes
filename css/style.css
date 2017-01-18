@@ -195,6 +195,12 @@
 /* Cuerpo
 ============================================== */ 
 
+.ct-golden-section > svg
+{
+	position: relative;
+}
+
+
 html 
 {
   position: relative;
