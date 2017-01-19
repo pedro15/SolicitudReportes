@@ -113,6 +113,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
      var labels_chart = [] ; 
      var series_chart = [] ;
+     var chart ; 
 
       function orderarr()
       {
@@ -171,7 +172,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
           if (labels_chart.length > 0 && series_chart.length > 0 )
           {
-            new Chartist.Bar('.ct-chart', 
+            chart = new Chartist.Bar('.ct-chart', 
             {
               labels: labels_chart,
               series: [series_chart]
@@ -203,6 +204,10 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
       $("#printbtn").click(function()
       {
+            if (chart != undefined)
+            {
+                chart.update();
+            }
             var opcselected = $('input[name="opcurr"]').val(); 
             var opctxt = "" ; 
             if (opcselected == 'falla-comun')
@@ -238,16 +243,10 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                    // stylesheet : "", 
 
                     //Print in a hidden iframe
-                    iframe : true, 
+                    iframe : false, 
 
                     // Don't print this
                    // noPrintSelector : ".avoid-this",
-
-                    // Add this on top
-                    append : "Estadísticas", 
-
-                    // Add this at bottom
-                   // prepend : "OK",
 
                     // Manually add form values
                     manuallyCopyFormValues: true,

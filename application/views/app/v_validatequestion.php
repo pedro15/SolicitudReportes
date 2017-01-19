@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             <form method = "POST" action = "#" > 
                 <div class = "form-group">
                     <label><?php echo $question; ?></label>
-                    <input type = "text" name = "user_a" class = "form-control" required autocomplete = "off" >
+                    <input type = "text" name = "user_a" class = "form-control" onkeypress = "return validatespace(event);" required autocomplete = "off" >
                 </div>
                 <input type = "submit" class = "btn btn-lg btn-primary btn-block" value = "Continuar" >
             </form>
