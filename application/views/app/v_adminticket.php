@@ -237,10 +237,10 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         var sedeval = $(this).val();
         $.ajax
         ({
-            url: "<?php echo base_url('index.php/user/getall_labs'); ?>",
+            url: "<?php echo base_url('index.php/user/ajax_getall_labs'); ?>",
             type: "POST" ,
             dataType: 'json' ,
-            data: {} ,
+            data: {request: true} ,
             success: function (data){
                 var json = data.filter(function(value)
                 {
@@ -304,7 +304,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     {
         $.ajax
         ({
-            url: "<?php echo base_url('index.php/user/getallreportsjson'); ?>" ,
+            url: "<?php echo base_url('index.php/user/ajax_getallreports'); ?>" ,
             type: "POST" , 
             dataType: 'json',
             data: {idfalla: id },
@@ -325,7 +325,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             {
                 $.ajax
                 ({
-                    url: "<?php echo base_url('index.php/user/requestchangereportstate'); ?>" ,
+                    url: "<?php echo base_url('index.php/user/ajax_changereportstate'); ?>" ,
                     type: "POST" ,
                     dataType: 'json',
                     data:  {reportid: id , newvalue: val },
@@ -346,7 +346,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     {
         $.ajax
         ({
-            url: "<?php echo base_url('index.php/user/getpcinfojson'); ?>" ,
+            url: "<?php echo base_url('index.php/user/ajax_getpcinfo'); ?>" ,
             type: "POST" ,
             dataType: 'json',
             data:  {pcid: id},
@@ -385,7 +385,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         {
             $.ajax
             ({
-                url: "<?php echo base_url('index.php/user/requestdeletereport'); ?>" ,
+                url: "<?php echo base_url('index.php/user/ajax_deletereport'); ?>" ,
                 type: "POST" , 
                 data: {reportid: id},
                 success: function (data)
@@ -432,7 +432,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     {
         $.ajax
         ({
-            url: "<?php echo base_url('index.php/user/getallticketsjson'); ?>" ,
+            url: "<?php echo base_url('index.php/user/ajax_getalltickets'); ?>" ,
             type: "POST",
             dataType : 'json' , 
             data: {request: true } ,
@@ -559,7 +559,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
                     doc.text( titulo , getxcenter(titulo,doc) , 30);
                 
-                    var subtitulo = 'Solicitud de soporte técnico' ;
+                    var subtitulo = 'Planilla de solicitud' ;
                 
                     doc.text( subtitulo , getxcenter(subtitulo,doc) , 45);
                 
@@ -576,6 +576,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     doc.line(10, 70 , 200, 70);
                 
                     doc.text('Enviado por: ' + curr.usuarioactual.nombre , 10 , 77  );
+                    
+                    doc.text('CI: ' + curr.usuarioactual.cedula_usuario , 100 , 77  );
                 
                     doc.line(10, 80 , 200, 80);
                 

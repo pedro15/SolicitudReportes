@@ -107,9 +107,9 @@
         (
             {
                 type : "POST" ,
-                url: "<?php echo base_url('index.php/user/getallsedes'); ?>",
+                url: "<?php echo base_url('index.php/user/ajax_getallsedes'); ?>",
                 datatype: 'json',
-                data: {},
+                data: {request: true},
                 success:
                 function (res)
                 {

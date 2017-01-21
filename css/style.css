@@ -179,6 +179,25 @@
 	}
 }
 
+/* Tooltips de alerta */
+
+.popover-danger
+{
+	background-color: #ce4444;
+	color: #f4f4f4;
+	font-family: sans-serif;
+	font-size: 12pt;
+	font-weight: 600 ;
+}
+
+.popover-danger.left > .arrow:after { 
+  border-left-color:  #ce4444;
+}
+
+.popover-danger.top > .arrow:after  {
+  border-top-color:  #ce4444;
+}
+
 /* Paneles emergentes de dialogo  */
 
 .ui-widget-overlay {
@@ -249,6 +268,11 @@ footer p
 .navbar-static-top 
 {
   margin-bottom: 19px;
+}
+
+.navbar-nav .open .dropdown-menu , .navbar-toggle
+{
+	background-color: #f2f2f2;
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus 

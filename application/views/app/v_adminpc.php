@@ -205,9 +205,8 @@ $("#select_sede").change(function()
     (
         {
             type: "POST" ,
-            url: "<?php echo base_url('index.php/user/getlabsbysede'); ?>",
-            datatype : 'json', 
-            data: { id_sede_json: _value },
+            url: "<?php echo base_url('index.php/user/ajax_getlabsbysede'); ?>",
+            data: { id_sede: _value },
             success: 
             function (res)
             {
@@ -345,8 +344,8 @@ function updatetable()
     (
         {
             type : "POST",
-            url: "<?php echo base_url('index.php/user/getallpcs'); ?>", 
-            data: {} ,
+            url: "<?php echo base_url('index.php/user/ajax_getallcomputers'); ?>", 
+            data: {request: true} ,
             success:
             function (res)
             {

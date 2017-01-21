@@ -42,7 +42,7 @@ function validate_ci()
         $.ajax(
         {
             type : "POST",
-            url: "<?php echo base_url('index.php/user/usr_ci_validation'); ?>", 
+            url: "<?php echo base_url('index.php/user/ajax_usr_ci_validation'); ?>", 
             data: { cedula_user: civalue } ,
             success:
             function (res)

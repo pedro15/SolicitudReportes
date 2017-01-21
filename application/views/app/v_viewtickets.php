@@ -167,7 +167,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         var sedeval = $(this).val();
         $.ajax
         ({
-            url: "<?php echo base_url('index.php/user/getall_labs'); ?>",
+            url: "<?php echo base_url('index.php/user/ajax_getall_labs'); ?>",
             type: "POST" ,
             dataType: 'json' ,
             data: {} ,
@@ -207,7 +207,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     {
         $.ajax
         ({
-            url: "<?php echo base_url('index.php/user/getallticketsjson'); ?>" ,
+            url: "<?php echo base_url('index.php/user/ajax_getalltickets'); ?>" ,
             type: "POST",
             dataType : 'json' , 
             data: {request: true } ,

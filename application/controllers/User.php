@@ -1,8 +1,21 @@
 <?php
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
+/* 
+    ----------------------------------------------------------------------------
+    |***                      USUARIO                                       ***|
+    ----------------------------------------------------------------------------
+    |                                                                          |
+    |                                                                          |
+    | Incluye los modulos correspondientes al usuario.                         |
+    |--------------------------------------------------------------------------|
+*/
+
 class User extends CI_Controller 
 {    
+    /* Inicializacion: carga la libreria de encryptacion
+       usada para el modulo de pregunta de seguridad en el perfil de el usuario
+    ============================================================================*/
     function __construct()
     {
         parent::__construct();
@@ -10,15 +23,39 @@ class User extends CI_Controller
         $this->encryption->initialize(
         array('cipher' => 'aes-256'));
     }
-    
-    /* carga el header, la cabezera , y la barra de navegacion.
-    ==========================================================*/
+
+    /* se inicia por defecto al ingresar al sistema:
+    -Verifica que este ingresado al sistema con los
+    datos correspondientes, caso contrario lo redirecciona
+    fuera del menu de usuario.
+    ========================================================*/
+    public function index()
+	{
+        if ($this->loginsystem->isloggedin() === false )
+        {
+            redirect('/');
+        }else
+        {
+            $this->start_page();
+            $this->load->view('app/v_default.php');
+            $this->end_page();
+        }
+    }
+
+     /* Inicializacion: Carga las cabeceras y las barras de navegacion segun 
+     nivel de usuario
+    ============================================================================*/
     function start_page()
     {
+        // Carga la vista de la cabecera
         $this->load->view('head.php');
+        // Carga el membrete 
         $this->load->view('letterhead.php');
+        // Obtiene la informacion del usuario
         $usr_data = $this->loginsystem->getuserdata();
+        // Obtiene el tipo de usuario
         $usr_type = $usr_data['usuario_tipo'];
+        // Carga la barra de navegacion correspondiente a cada nivel de usuario
         switch($usr_type)
         {
             case 1 :
@@ -43,6 +80,7 @@ class User extends CI_Controller
             break;
 
             default:
+                // El caso que no este entre los niveles de usuarios especificados, sale del sistema.
                 $this->loginsystem->logout();
             break;
         }
@@ -55,8 +93,7 @@ class User extends CI_Controller
         $this->load->view('footer.php');
     }
 
-    /* devuelve TRUE si el nivel de acceso actual corresponde
-    a los niveles de acceso especificados
+    /* Verifica nivel de acceso al usuario 
     =================================================*/
     function canload_module( $permisionlevels = array() )
     {
@@ -77,7 +114,10 @@ class User extends CI_Controller
             }
         }
     }
+    
 
+    /* Carga un mensaje de alerta con un mensaje especifico
+    =======================================================*/
     function load_alert($message , $type)
     {
         $data['message'] = $message;
@@ -85,26 +125,267 @@ class User extends CI_Controller
         $this->load->view('alert.php' , $data ); 
     }
 
-    /* se inicia por defecto al ingresar al sistema
-    =================================================*/
-    public function index()
-	{
-        if ($this->loginsystem->isloggedin() === false )
+    /* 
+        -------------------------------------------------------------------
+        | Llamadas AJAX                                                   |
+        -------------------------------------------------------------------
+        | Se usan En los formularios para cargar informacion dinamicamente| 
+        | desde Javascript.  Y procesa la informacion en JSON.            |
+        |-----------------------------------------------------------------|
+    */
+
+    /* Obtiene la informacion de los equipos registrados 
+    =====================================================*/
+    public function ajax_getallcomputers()
+    {
+        $request = $this->input->post('request');
+        if (isset($request) && $request == true )
         {
-            redirect('/');
-        }else
+            $rows = $this->computer->get_all();
+            foreach($rows as $key => $row)
+            {
+                $_labdata = $this->laboratory->get_lab($rows[$key]['id_laboratorio']);
+                if (isset($_labdata))
+                {
+                     $rows[$key]['labname'] = $_labdata->descripcion;
+                     $currsede = $this->sede->get_sede($_labdata->id_sede);
+                     $rows[$key]['sedename'] = $currsede->nombre;
+                }
+            }
+            echo json_encode($rows);
+        }else 
         {
-            $this->start_page();
-            $this->load->view('app/v_default.php');
-            $this->end_page();
+            $this->logout();
         }
     }
 
-    /*  *** MODULOS DE EL SISTEMA *** */
+    /* verifica la existencia del numero de pc de un equipo segun el 
+    laboratorio al que se va a registrar. 
+    =================================================================*/
+    public function ajax_validatepc()
+    {
+        $pcid = $this->input->post('pcid');
+        $labid = $this->input->post('labid');
+        if (isset($pcid) && isset($labid) )
+        {
+            $result = $this->computer->isindb($labid , $pcid);
+            echo json_encode($result);
+        }else 
+        {
+            $this->logout();
+        }
+    }
 
-    /* ==============================
-    Solicitudes de soporte tecnico
-    =================================*/ 
+    /* Obtiene todos los laboratorios de una sede especifica.
+    =================================================================*/
+    public function ajax_getlabsbysede()
+    {
+        $id_sede = $this->input->post('id_sede');
+        if (isset($id_sede))
+        {
+            $data = $this->laboratory->find_by_sede($id_sede);
+            echo json_encode($data);
+        }else 
+        {
+            $this->logout();
+        }
+    }
+
+    /* Obtiene los equipos segun un laboratorio especifico
+    =======================================================*/
+    public function ajax_getpcsbylab()
+    {
+        $labid = $this->input->post('laboratoryid');
+        if (isset($labid))
+        {
+            $pcs = $this->computer->getby_lab ($labid);
+            echo json_encode($pcs);
+        }else 
+        {
+            $this->logout();
+        }
+    }
+
+    // Devuelve la lista de todos los laboratorios en un json
+    public function ajax_getall_labs()
+    {
+        $request = $this->input->post('request');
+        if (isset($request) && $request == true )
+        {
+            $labs = $this->laboratory->get_all();
+            foreach ($labs as $key => $row)
+            {
+                $currsede = $this->sede->get_sede($labs[$key]->id_sede);
+                $labs[$key]->sedename = $currsede->nombre; 
+            }
+            echo json_encode($labs);
+        }else 
+        {
+            $this->logout();
+        }
+    }
+
+    public function ajax_getallsedes()
+    {
+        $request = $this->input->post('request');
+        if (isset($request) && $request == true )
+        {
+            $sedes = $this->sede->get_all();
+            echo json_encode($sedes);
+        }else 
+        {
+            $this->logout();
+        }
+    }
+
+
+    public function ajax_getallreports()
+    {
+        $id_falla = $this->input->post('idfalla');
+        if (isset($id_falla))
+        {
+            $data = $this->support->get_reports($id_falla);
+            echo json_encode($data);
+        }else 
+        {
+            $this->logout();
+        }
+    }
+
+    public function ajax_changereportstate()
+    {
+        $id = $this->input->post('reportid');
+        $newvalue = $this->input->post('newvalue'); 
+        if (isset($id) && isset($newvalue))
+        {
+            $ci = $this->loginsystem->getuserdata()['usuario_ci'];
+            $result = $this->support->updatereport($id , $newvalue , $ci);
+            echo json_encode($result);
+        }else 
+        {
+            $this->logout();
+        }
+    }
+
+    public function ajax_getalltickets()
+    {
+        $request = $this->input->post('request');
+        if (isset($request))
+        {
+           $data = $this->support->get_all();
+           echo json_encode($data);
+        }
+    }
+
+    // Devuelve todas las solicitudes de soporte tecnico en un JSON 
+
+    public function ajax_getpcinfo()
+    {
+        $pcid = $this->input->post('pcid');
+        if (isset($pcid))
+        {
+            $result = $this->computer->get_pc_info($pcid);
+            echo json_encode($result);
+        }else 
+        {
+            $this->logout();
+        }
+    }
+
+    public function ajax_deletereport()
+    {
+        $id = $this->input->post('reportid');
+        if (isset($id))
+        {
+            $result = $this->support->remove($id);
+            echo json_encode($result);
+        }else 
+        {
+            $this->logout();
+        }
+    }
+    
+    public function ajax_remove_backup()
+    {
+        $id = $this->input->post('id');
+        if (isset($id))
+        {
+            $result = $this->syshelper->delete_backup($id);
+            echo json_encode($result);
+        }else 
+        {
+            $this->logout();
+        }
+    }
+
+    public function ajax_canchange_pc()
+    {
+        $labid = $this->input->post('lab_id'); 
+        $pcname = $this->input->post('pc_name');
+        $ignoreid = $this->input->post('ignoreid');
+
+        if (isset($labid) && isset($pcname))
+        {
+            $pc_id = $labid . "pc_" . $pcname ;  
+            echo json_encode($this->computer->isindb_ignoring($pc_id , $ignoreid));
+        }else 
+        {
+            echo json_encode(false);
+        }
+    }
+
+    // obtiene todos los tecnicos y los devuelve en un json
+    public function ajax_getallusers()
+    {
+        $data = $this->usr->get_all();
+        echo json_encode($data);
+    }
+
+    public function ajax_usr_ci_validation()
+    {
+        $ci_info = $this->input->post('cedula_user');
+        if ($this->usr->is_in_database($ci_info))
+        {
+            echo json_encode(true) ;
+        }else 
+        {
+            echo json_encode(false) ;
+        }
+    }
+
+    public function ajax_get_backups()
+    {
+        $request = $this->input->post('request');
+        if (isset($request) && $request )
+        {
+            echo json_encode($this->syshelper->get_backups_file_list());
+        }else 
+        {
+            echo json_encode(false);
+        }
+    }
+
+    public function ajax_restorebackup()
+    {
+        $id = $this->input->post('id');
+        if (isset($id))
+        {
+            $result = $this->syshelper->restore_from_backup($id);
+            echo json_encode($result);
+        }else 
+        {
+            $this->logout();
+        }
+    }
+
+
+     /* 
+        |---------------------------------------|
+        | Modulos del sistema                   |
+        |---------------------------------------|
+        | Solicitud de soporte tecnico          |
+        |---------------------------------------|
+    */
 
     /* Enviar Solicitud
     =================================================*/
@@ -135,16 +416,6 @@ class User extends CI_Controller
         }
     }
 
-    public function getpcsbylab()
-    {
-        $labid = $this->input->post('laboratoryid');
-        if (isset($labid))
-        {
-            $pcs = $this->computer->getby_lab ($labid);
-            echo json_encode($pcs);
-        }
-    }
-
     /* Administrar solicitudes
     =================================================*/
     public function admintickets()
@@ -159,6 +430,8 @@ class User extends CI_Controller
         }
     }
 
+    /* Administrar solicitudes
+    =================================================*/
     public function viewtickets()
     {
         if ($this->canload_module(array(1,2,3))) 
@@ -169,60 +442,6 @@ class User extends CI_Controller
             $this->load->view('app/v_viewtickets.php' , $data);
             // pie de pagina
             $this->end_page();
-        }
-    }
-
-    // Devuelve todas las solicitudes de soporte tecnico en un JSON 
-
-    public function getpcinfojson()
-    {
-        $pcid = $this->input->post('pcid');
-        if (isset($pcid))
-        {
-            $result = $this->computer->get_pc_info($pcid);
-            echo json_encode($result);
-        }
-    }
-
-    public function getallticketsjson()
-    {
-        $request = $this->input->post('request');
-        if (isset($request))
-        {
-           $data = $this->support->get_all();
-           echo json_encode($data);
-        }
-    }
-
-    public function getallreportsjson()
-    {
-        $id_falla = $this->input->post('idfalla');
-        if (isset($id_falla))
-        {
-            $data = $this->support->get_reports($id_falla);
-            echo json_encode($data);
-        }
-    }
-
-    public function requestchangereportstate()
-    {
-        $id = $this->input->post('reportid');
-        $newvalue = $this->input->post('newvalue'); 
-        if (isset($id) && isset($newvalue))
-        {
-            $ci = $this->loginsystem->getuserdata()['usuario_ci'];
-            $result = $this->support->updatereport($id , $newvalue , $ci);
-            echo json_encode($result);
-        }
-    }
-
-    public function requestdeletereport()
-    {
-        $id = $this->input->post('reportid');
-        if (isset($id))
-        {
-            $result = $this->support->remove($id);
-            echo json_encode($result);
         }
     }
 
@@ -303,12 +522,6 @@ class User extends CI_Controller
         }
     }
 
-    public function getallsedes()
-    {
-        $sedes = $this->sede->get_all();
-        echo json_encode($sedes);
-    }
-
     /* ========================
     Laboratorios
     ==========================*/ 
@@ -381,17 +594,7 @@ class User extends CI_Controller
         }
     }
 
-    // Devuelve la lista de todos los laboratorios en un json
-    public function getall_labs()
-    {
-        $labs = $this->laboratory->get_all();
-        foreach ($labs as $key => $row)
-        {
-            $currsede = $this->sede->get_sede($labs[$key]->id_sede);
-            $labs[$key]->sedename = $currsede->nombre; 
-        }
-        echo json_encode($labs);
-    }
+   
 
     /* ========================
     Equipos
@@ -439,16 +642,7 @@ class User extends CI_Controller
         }
     }
     
-    // debuelve los laboratorios en un json segun una variable post asignada a esta url .. se usa en el formulario registrar equipo. 
-    public function getlabsbysede()
-    {
-        $id_sede = $this->input->post('id_sede_json');
-        if (isset($id_sede))
-        {
-            $data = $this->laboratory->find_by_sede($id_sede);
-            echo json_encode($data);
-        }
-    }
+   
 
     /* Administrar Equipo 
     =================================================*/
@@ -564,38 +758,7 @@ class User extends CI_Controller
         }
     }
 
-    public function canchange_pc()
-    {
-        $labid = $this->input->post('lab_id'); 
-        $pcname = $this->input->post('pc_name');
-        $ignoreid = $this->input->post('ignoreid');
-
-        if (isset($labid) && isset($pcname))
-        {
-            $pc_id = $labid . "pc_" . $pcname ;  
-            echo json_encode($this->computer->isindb_ignoring($pc_id , $ignoreid));
-        }else 
-        {
-            echo json_encode(false);
-        }
-    }
-
-    // obtiene todas las pcs y las devuelve en un json
-    public function getallpcs()
-    {
-        $rows = $this->computer->get_all();
-        foreach($rows as $key => $row)
-        {
-            $_labdata = $this->laboratory->get_lab($rows[$key]['id_laboratorio']);
-            if (isset($_labdata))
-            {
-                 $rows[$key]['labname'] = $_labdata->descripcion;
-                 $currsede = $this->sede->get_sede($_labdata->id_sede);
-                 $rows[$key]['sedename'] = $currsede->nombre;
-            }
-        }
-        echo json_encode($rows);
-    }
+   
 
     /* ========================
     Usuarios
@@ -626,17 +789,7 @@ class User extends CI_Controller
         }
     }
 
-    public function usr_ci_validation()
-    {
-        $ci_info = $this->input->post('cedula_user');
-        if ($this->usr->is_in_database($ci_info))
-        {
-            echo json_encode(true) ;
-        }else 
-        {
-            echo json_encode(false) ;
-        }
-    }
+  
 
     /* Administrar usuarios
     =================================================*/
@@ -750,12 +903,7 @@ class User extends CI_Controller
         }
     }
 
-    // obtiene todos los tecnicos y los devuelve en un json
-    public function getalltecs()
-    {
-        $data = $this->usr->get_all();
-        echo json_encode($data);
-    }
+    
 
     /* Estadisticas de solicitud de soporte tecnico
     =================================================*/
@@ -872,38 +1020,6 @@ class User extends CI_Controller
             $this->load->view('app/v_restoredb.php');
             // pie de pagina
             $this->end_page();
-        }
-    }
-
-    public function get_backupsjson()
-    {
-        $request = $this->input->post('request');
-        if (isset($request) && $request )
-        {
-            echo json_encode($this->syshelper->get_backups_file_list());
-        }else 
-        {
-            echo json_encode(false);
-        }
-    }
-
-    public function call_backup()
-    {
-        $id = $this->input->post('id');
-        if (isset($id))
-        {
-            $result = $this->syshelper->restore_from_backup($id);
-            echo json_encode($result);
-        }
-    }
-
-    public function call_remove_backup()
-    {
-        $id = $this->input->post('id');
-        if (isset($id))
-        {
-            $result = $this->syshelper->delete_backup($id);
-            echo json_encode($result);
         }
     }
 

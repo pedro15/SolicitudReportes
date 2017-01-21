@@ -5,12 +5,12 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     <div class = "page-header">
         <h3>Registrar Equipo</h3>
     </div>
-    <form action = "#" method = "POST" >
+    <form name = "pcform" action = "#" method = "POST" >
         <div class = "form-group">
             <div class = "row">
                 <div class = "col-md-3">
                     <label>Numero Equipo*</label>
-                    <input type = "text" class = "form-control" maxlength="10" name = "pc_num" onkeypress = "return validadesharp(event);" required>
+                    <input type = "text" autocomplete = "off" class = "form-control" maxlength="10" name = "pc_num" onkeypress = "return validadesharp(event);" required>
                 </div>
                 <div class = "col-md-7">
                     <label>Procesador*</label>
@@ -105,6 +105,70 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     </form>
     <script type = "text/javascript">
         
+        var idlab ; 
+        var idpc ;
+        var cancontinue = false ;
+
+        $('form[name="pcform"]').submit(function(event)
+        {
+            if (!cancontinue)
+            {
+                event.preventDefault();
+            }
+        });
+
+        $('input[name="pc_num"]').popover(
+        {
+           template: '<div class="popover popover-danger" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>' ,
+           placement: 'top',
+           trigger: 'manual' ,
+           content: 'Este equipo ya se encuentra registrado'
+        });
+
+        function validatepc()
+        {
+            if (idlab != undefined && idpc != undefined )
+            {
+                console.log(idlab);
+                console.log(idpc);
+                $.ajax(
+                {
+                    type:"POST" ,
+                    url: "<?php echo site_url('/user/ajax_validatepc'); ?>" ,
+                    data: {pcid: idpc , labid: idlab },
+                    success: function(data)
+                    {
+                        var json = JSON.parse(data);
+                        cancontinue = !json;
+                        if (!cancontinue)
+                        {
+                              $('input[name="pc_num"]').popover('show');
+                        }else 
+                        {
+                            $('input[name="pc_num"]').popover('hide');
+                        }
+                    }
+                });
+            }else 
+            {
+                cancontinue = false ;
+            }
+        }
+
+        $('input[name="pc_num"]').keyup(function()
+        {
+            idpc = $(this).val(); 
+            validatepc();
+            
+        });
+
+        $("#select_lab").change(function()
+        {
+            idlab = $(this).val();
+            validatepc();
+        });
+
+
         $("#select_sede").change(function()
         {
             var _value = $("#select_sede").val();
@@ -112,9 +176,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             (
                 {
                     type: "POST" ,
-                    url: "<?php echo base_url('index.php/user/getlabsbysede'); ?>",
-                    datatype : 'json', 
-                    data: { id_sede_json: _value },
+                    url: "<?php echo base_url('index.php/user/ajax_getlabsbysede'); ?>", 
+                    data: { id_sede: _value },
                     success: 
                     function (res)
                     {

@@ -96,7 +96,7 @@
     {
         $.ajax
         ({
-            url: "<?php echo base_url('index.php/user/get_backupsjson'); ?>" ,
+            url: "<?php echo base_url('index.php/user/ajax_get_backups'); ?>" ,
             type: "POST" ,
             data: {request: true },
             success: 
@@ -124,7 +124,7 @@
         {
             $.ajax
             ({
-                 url: "<?php echo base_url('index.php/user/call_backup'); ?>" ,
+                 url: "<?php echo base_url('index.php/user/ajax_restorebackup'); ?>" ,
                  type: "POST" ,
                  data: {id: xid },
                  success:
@@ -154,7 +154,7 @@
         {
             $.ajax
             ({
-                 url: "<?php echo base_url('index.php/user/call_remove_backup'); ?>" ,
+                 url: "<?php echo base_url('index.php/user/ajax_remove_backup'); ?>" ,
                  type: "POST" ,
                  data: {id: xid },
                  success:

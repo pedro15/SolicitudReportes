@@ -75,8 +75,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             (
                 {
                     type: "POST" ,
-                    url: "<?php echo base_url('index.php/user/getlabsbysede'); ?>",
-                    data: { id_sede_json: _value },
+                    url: "<?php echo base_url('index.php/user/ajax_getlabsbysede'); ?>",
+                    data: { id_sede: _value },
                     success: 
                     function (res)
                     {
@@ -99,7 +99,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             $.ajax
             ({
                 type: "POST",
-                url: "<?php echo base_url('index.php/user/getpcsbylab'); ?>" ,
+                url: "<?php echo base_url('index.php/user/ajax_getpcsbylab'); ?>" ,
                 datatype : 'json', 
                 data: { laboratoryid: labval },
                 success:

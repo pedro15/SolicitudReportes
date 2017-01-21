@@ -109,8 +109,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         $.ajax
         ({
             type: "POST",
-            url: "<?php echo base_url('index.php/user/getall_labs'); ?>",
-            data: {},
+            url: "<?php echo base_url('index.php/user/ajax_getall_labs'); ?>",
+            data: {request: true},
             success:
             function (res)
             {
