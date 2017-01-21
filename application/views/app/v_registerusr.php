@@ -16,7 +16,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 </div>
                 <div class = "col-md-5">
                     <label>Cédula:</label> 
-                    <label id = "alertlabel" class = "fieldalert" ></label>
                     <input id = "cifield" autocomplete = "off" type = "text" onkeypress="return isNumberKey(event);"  name = "userci" class = "form-control" required>
                 </div>
                 <div class = "col-md-5">
