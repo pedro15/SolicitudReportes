@@ -225,6 +225,8 @@ class User extends CI_Controller
         }
     }
 
+    /* Obtiene todas las sedes
+    =======================================================*/
     public function ajax_getallsedes()
     {
         $request = $this->input->post('request');
@@ -238,7 +240,8 @@ class User extends CI_Controller
         }
     }
 
-
+    /* Obtiene todos los estados de una falla  especifica
+    =======================================================*/
     public function ajax_getallreports()
     {
         $id_falla = $this->input->post('idfalla');
@@ -252,6 +255,8 @@ class User extends CI_Controller
         }
     }
 
+    /*  Cambia  un estado de una falla especifica
+    =======================================================*/
     public function ajax_changereportstate()
     {
         $id = $this->input->post('reportid');
@@ -267,6 +272,8 @@ class User extends CI_Controller
         }
     }
 
+    /* Obtiene todas las fallas
+    =======================================================*/
     public function ajax_getalltickets()
     {
         $request = $this->input->post('request');
@@ -277,8 +284,8 @@ class User extends CI_Controller
         }
     }
 
-    // Devuelve todas las solicitudes de soporte tecnico en un JSON 
-
+    /* Obtiene las caracteristicas de un equipo
+    =======================================================*/
     public function ajax_getpcinfo()
     {
         $pcid = $this->input->post('pcid');
@@ -292,6 +299,8 @@ class User extends CI_Controller
         }
     }
 
+    /* Elimina una falla especifica
+    =======================================================*/
     public function ajax_deletereport()
     {
         $id = $this->input->post('reportid');
@@ -305,6 +314,8 @@ class User extends CI_Controller
         }
     }
     
+    /* Elimina un archivo de respaldo especifico
+    =======================================================*/
     public function ajax_remove_backup()
     {
         $id = $this->input->post('id');
@@ -318,6 +329,9 @@ class User extends CI_Controller
         }
     }
 
+    /* Valida si se puede cambiar el numero de un equipo 
+    en un laboratorio especifico
+    =======================================================*/
     public function ajax_canchange_pc()
     {
         $labid = $this->input->post('lab_id'); 
@@ -334,13 +348,17 @@ class User extends CI_Controller
         }
     }
 
-    // obtiene todos los tecnicos y los devuelve en un json
+    /* Obtiene todos los usuarios
+    =======================================================*/
     public function ajax_getallusers()
     {
         $data = $this->usr->get_all();
         echo json_encode($data);
     }
 
+    /* Valida la cedula de un usuario a registrar si ya se 
+    encuentra en el sistema o no.
+    =======================================================*/
     public function ajax_usr_ci_validation()
     {
         $ci_info = $this->input->post('cedula_user');
@@ -353,6 +371,9 @@ class User extends CI_Controller
         }
     }
 
+    /* Obtiene la lista de los respaldos creados por el 
+    usuario
+    =======================================================*/
     public function ajax_get_backups()
     {
         $request = $this->input->post('request');
@@ -365,6 +386,8 @@ class User extends CI_Controller
         }
     }
 
+    /* Restaura desde un archivo de respaldo especifico.
+    =======================================================*/
     public function ajax_restorebackup()
     {
         $id = $this->input->post('id');
@@ -377,7 +400,6 @@ class User extends CI_Controller
             $this->logout();
         }
     }
-
 
      /* 
         |---------------------------------------|
@@ -838,6 +860,13 @@ class User extends CI_Controller
                             $this->load_alert("Usuario habilitado correctamente" , "SUCCESS");
                         }
                     break;
+
+                    case "resetpw" : 
+                        if ($this->usr->change_password($ci , $ci))
+                        {
+                             $this->load_alert("Clave reiniciada correctamente" , "SUCCESS");
+                        }
+                    break;
                 }
             }
 
@@ -846,6 +875,7 @@ class User extends CI_Controller
             $this->end_page();
         }
     }
+
     // Cambiar privilegio de usuario
     public function changetype()
     {
@@ -1089,6 +1119,8 @@ class User extends CI_Controller
             $this->end_page();
         }
     }
+
+   
 
     /* ========================
     Extras

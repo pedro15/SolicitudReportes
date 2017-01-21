@@ -94,6 +94,11 @@ function validate_hability()
     return confirm("Desea habilitar a este usuario en el sistema?");
 }
 
+function validate_resetpw()
+{
+    return confirm("Desea reinicar la clave para este usuario ?");
+}
+
 var m_json = "";
 
 $(document).ready(function()
@@ -196,6 +201,8 @@ function populate(xjson)
     });
 }
 
+
+
 function updatehtml(xjson)
 {
     var _html = "" ;
@@ -203,7 +210,7 @@ function updatehtml(xjson)
     {
         var _t = xjson[data].habilitado > 0 ? '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Habilitado' :  '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Desabilitado' ;
         var _h = xjson[data].habilitado > 0 ? 
-        "<th>" + '<a class = "btn btn-danger" onclick="return validate_disable();"  href = "<?php echo current_url()?>?ci=' + xjson[data].cedula_usuario + '&action=disable"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Desabilitar</a> ' + "</th>" 
+        "<th>" + '<a class = "btn btn-danger" onclick="return validate_disable();"  href = "<?php echo current_url()?>?ci=' + xjson[data].cedula_usuario + '&action=disable"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Deshabilitar</a> ' + "</th>" 
         : "<th>" + '<a class = "btn btn-success" onclick="return validate_hability();"  href = "<?php echo current_url()?>?ci=' + xjson[data].cedula_usuario + '&action=enable"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Habilitar</a> ' + "</th>" ;
         var type = "" ;
         var currt = xjson[data].tipo;
@@ -233,6 +240,7 @@ function updatehtml(xjson)
         _h  +
         "<th>" + '<a class = "btn btn-danger" onclick="return validate_delete();"  href = "<?php echo current_url()?>?ci=' + xjson[data].cedula_usuario + '&action=remove"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</a> ' + "</th>" +
         "<th>" + '<a class = "btn btn-primary" onclick ="" href = "<?php echo base_url('index.php/user/changetype')?>?ci=' + xjson[data].cedula_usuario + '"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Cambiar privilegio</a></th>' + 
+        "<th>" + '<a class = "btn btn-primary" onclick ="return validate_resetpw();" href = "<?php echo current_url()?>?ci=' + xjson[data].cedula_usuario + '&action=resetpw"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Reiniciar clave</a></th>' + 
         "</tr>" ;
     }
     $("#tablecont").html(_html); 

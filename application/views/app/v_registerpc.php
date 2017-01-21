@@ -129,8 +129,6 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         {
             if (idlab != undefined && idpc != undefined )
             {
-                console.log(idlab);
-                console.log(idpc);
                 $.ajax(
                 {
                     type:"POST" ,
