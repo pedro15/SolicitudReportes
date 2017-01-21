@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 <div class = "col-md-5">
                     <label>Cédula:</label> 
                     <label id = "alertlabel" class = "fieldalert" ></label>
-                    <input id = "cifield" type = "text" onkeypress="return isNumberKey(event);"  name = "userci" class = "form-control" required>
+                    <input id = "cifield" autocomplete = "off" type = "text" onkeypress="return isNumberKey(event);"  name = "userci" class = "form-control" required>
                 </div>
                 <div class = "col-md-5">
                     <label>Nivel de privilegio</label> 
@@ -50,13 +50,11 @@ function validate_ci()
                 var isin_database = JSON.parse(res);
                 if (isin_database)
                 {
-                    $("#cifield").css("background-color" , "#ffdbdb"); 
-                    $("#alertlabel").text("Ya existe un usuario registrado con esta cédula"); 
+                     $('#cifield').popover('show');
                     cansend = false ;
                 }else 
                 {
-                    $("#cifield").css("background-color" , "white");
-                    $("#alertlabel").text("");
+                     $('#cifield').popover('hide');
                     cansend = true ;
                 }
             }
@@ -73,6 +71,14 @@ $("#cifield").change(function()
 {
     validate_ci();
 });
+
+ $('#cifield').popover(
+ {
+    template: '<div class="popover popover-danger" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>' ,
+    placement: 'top',
+    trigger: 'manual' ,
+    content: 'Ya existe un usuario registrado con esta cédula'
+ });
 
 $("#formuser").on('submit',function()
 {

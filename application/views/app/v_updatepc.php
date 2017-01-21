@@ -5,13 +5,12 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     <div class = "page-header">
         <h3>Editar Equipo</h3>
     </div>
-    <form action = "#" method = "POST" >
+    <form name = "sendfrm" action = "#" method = "POST" >
         <div class = "form-group">
             <div class = "row">
                 <div class = "col-md-3">
                     <label>Numero Equipo</label>
                     <input type = "text" class = "form-control" maxlength="10" id = "pcnum" name = "pc_num" value = "<?php echo $pc_num ; ?>" autocomplete="off" required=""> 
-                    <label id = "labelalert" class = "fieldalert" ></label>
                 </div>
                 <div class = "col-md-7">
                     <label>Procesador</label>
@@ -111,9 +110,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             (
                 {
                     type: "POST" ,
-                    url: "<?php echo base_url('index.php/user/ajax_getlabsbysede'); ?>",
-                    datatype : 'json', 
-                    data: { id_sede_json: _value },
+                    url: "<?php echo base_url('index.php/user/ajax_getlabsbysede'); ?>", 
+                    data: { id_sede: _value },
                     success: 
                     function (res)
                     {
@@ -146,6 +144,14 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         });
         var cansend = true;
 
+        $('input[name="pc_num"]').popover(
+        {
+           template: '<div class="popover popover-danger" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>' ,
+           placement: 'top',
+           trigger: 'manual' ,
+           content: 'Ya existe un equipo con este numero'
+        });
+
         function validate_pcnumber()
         {
             var labid = $("#select_lab").val() != "none" ? $("#select_lab").val() : 
@@ -163,17 +169,23 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                    var m_exists = JSON.parse(res);
                    if (m_exists)
                    {
-                       $("#labelalert").text("Ya existe un equipo registrado con este numero");
-                       $("#pcnum").css("background-color" , "#ffdbdb"); 
-
+                       $('input[name="pc_num"]').popover('show');
                    }else 
                    {
-                        $("#pcnum").css("background-color" , "white"); 
-                        $("#labelalert").text("");
+                       $('input[name="pc_num"]').popover('hide');
                    }
                    cansend = !m_exists; 
                 }
             });
         }
+
+        $('form[name="sendfrm"]').submit(function(event)
+        {
+            if (!cansend)
+            {
+                event.preventDefault();
+            }
+        });
+        
     </script>
 </div>
