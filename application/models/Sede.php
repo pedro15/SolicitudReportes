@@ -1,9 +1,29 @@
 <?php
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
+/* 
+    ----------------------------------------------------------------------------
+    |***                      Modelo de las sedes                           ***|
+    ----------------------------------------------------------------------------
+    |                                                                          |
+    |                                                                          |
+    | Inlcuye los metodos correspondientes a las sedes.                        |
+    |--------------------------------------------------------------------------|
+*/
+
 class Sede extends CI_Model
 {
-    public function get_all()
+
+   /* Inicializacion del modelo
+  =================================================*/
+  function  __construct()
+  {
+      parent::__construct();
+  }
+
+   /* Obtiene todas las sedes almacenadas en la base de datos
+  ===========================================================*/
+  public function get_all()
     {
         $db = $this->load->database('default' , TRUE);
         $sql = "SELECT * FROM `sede` ;";
@@ -12,6 +32,8 @@ class Sede extends CI_Model
         return $rows;
     }
 
+     /* Registra una nueva sede en la base de datos
+    =================================================*/
     public function register($id,$name,$place)
     {
         $db = $this->load->database('default' , TRUE);
@@ -26,6 +48,8 @@ class Sede extends CI_Model
         }
     }
 
+     /* Inicializacion del modelo
+    =================================================*/
     public function get_sede($id)
     {
         $db = $this->load->database('default' , TRUE);
@@ -34,6 +58,9 @@ class Sede extends CI_Model
         return $query->row();
     }
 
+     /* Verifica que una sede se encuentre registrada 
+     en la base de datos
+    =================================================*/
     public function isin_db($id)
     {
         $curr = $this->get_sede($id);
@@ -46,6 +73,8 @@ class Sede extends CI_Model
         }
     }
 
+     /* Actualiza la informacion de una sede en la base de datos
+    =============================================================*/
     public function edit($id , $newname , $newlocation)
     {
         $db = $this->load->database('default' , TRUE);
@@ -60,6 +89,8 @@ class Sede extends CI_Model
         }
     }
 
+     /* Elimina una sede de la base de datos
+    =================================================*/
     public function delete($id)
     {
         if ($this->isin_db($id))

@@ -47,40 +47,31 @@ class User extends CI_Controller
     ============================================================================*/
     function start_page()
     {
-        // Carga la vista de la cabecera
         $this->load->view('head.php');
-        // Carga el membrete 
         $this->load->view('letterhead.php');
-        // Obtiene la informacion del usuario
         $usr_data = $this->loginsystem->getuserdata();
-        // Obtiene el tipo de usuario
         $usr_type = $usr_data['usuario_tipo'];
-        // Carga la barra de navegacion correspondiente a cada nivel de usuario
         switch($usr_type)
         {
             case 1 :
-                // barra navegacion usuario
                 $data['nombre_usuario'] = $usr_data['usuario_nombre'] ; 
                 $this->load->view('nav_user.php' , $data);
                 $this->load->view('timerscript.php');
             break;
 
             case 2 :
-                // barra navegacion tecnico
                 $data['nombre_usuario'] = $usr_data['usuario_nombre'] ; 
                 $this->load->view('nav_tec.php' , $data);
                 $this->load->view('timerscript.php');
             break;
 
             case 3 :
-                 // barra navegacion administrador
                  $data['nombre_usuario'] = $usr_data['usuario_nombre'] ; 
                  $this->load->view('nav_admin.php' , $data);
                  $this->load->view('timerscript.php');
             break;
 
             default:
-                // El caso que no este entre los niveles de usuarios especificados, sale del sistema.
                 $this->loginsystem->logout();
             break;
         }
@@ -100,11 +91,11 @@ class User extends CI_Controller
         if ($this->loginsystem->isloggedin() === false )
         {
             redirect('/');
-        }else
+        }else 
         {
             $this->start_page();
             $usr_type = $this->loginsystem->getuserdata()['usuario_tipo'];
-            if (in_array($usr_type , $permisionlevels))
+            if (in_array($usr_type , $permisionlevels)) // Verifica si su niel de acceso se encuetra en los especificados
             {
                 return true ;
             }else 
@@ -115,7 +106,6 @@ class User extends CI_Controller
         }
     }
     
-
     /* Carga un mensaje de alerta con un mensaje especifico
     =======================================================*/
     function load_alert($message , $type)
@@ -206,7 +196,8 @@ class User extends CI_Controller
         }
     }
 
-    // Devuelve la lista de todos los laboratorios en un json
+    /* Devuelve todos los laboratorios 
+    =================================================*/
     public function ajax_getall_labs()
     {
         $request = $this->input->post('request');
@@ -405,9 +396,15 @@ class User extends CI_Controller
         |---------------------------------------|
         | Modulos del sistema                   |
         |---------------------------------------|
-        | Solicitud de soporte tecnico          |
-        |---------------------------------------|
     */
+
+
+
+    /* ================================================
+    | Solicitudes de soporte tecnico
+    ===================================================*/
+
+
 
     /* Enviar Solicitud
     =================================================*/
@@ -467,9 +464,11 @@ class User extends CI_Controller
         }
     }
 
-    /* ========================
-    Sedes
-    ==========================*/ 
+
+    /* ================================================
+    | Sedes
+    ===================================================*/ 
+
 
     /* Agregar sede
     =================================================*/
@@ -544,9 +543,11 @@ class User extends CI_Controller
         }
     }
 
-    /* ========================
-    Laboratorios
-    ==========================*/ 
+
+    /* ================================================
+    | Laboratorios
+    ===================================================*/
+
 
     /* Registrar laboratorio
     =================================================*/
@@ -574,11 +575,13 @@ class User extends CI_Controller
         }
     }
 
+
+
     /* Administrar laboratorio
     =================================================*/
     public function adminlab()
     {
-        if ($this->canload_module(array(2,3)))
+        if ($this->canload_module(array(3)))
         {
             $data['sedes'] = $this->sede->get_all();
             $opc = $this->input->get('action');
@@ -616,11 +619,11 @@ class User extends CI_Controller
         }
     }
 
-   
 
-    /* ========================
-    Equipos
-    ==========================*/ 
+    /* ================================================
+    | Equipo
+    ===================================================*/ 
+
 
     /* Registrar equipo ---
     =================================================*/
@@ -780,11 +783,9 @@ class User extends CI_Controller
         }
     }
 
-   
-
-    /* ========================
-    Usuarios
-    ==========================*/ 
+    /* ================================================
+    | Usuarios
+    ===================================================*/
 
     /* Registrar Usuario
     =================================================*/
@@ -810,8 +811,6 @@ class User extends CI_Controller
             $this->end_page();
         }
     }
-
-  
 
     /* Administrar usuarios
     =================================================*/
@@ -876,7 +875,8 @@ class User extends CI_Controller
         }
     }
 
-    // Cambiar privilegio de usuario
+     /* Cambia privilegio del ususario
+    =================================================*/
     public function changetype()
     {
         if ($this->canload_module(array(3)))
@@ -1007,9 +1007,10 @@ class User extends CI_Controller
         }
     }
 
-    /* ========================
-    Respaldo y restuauracion
-    ==========================*/ 
+
+     /* ================================================
+    | Respaldo y restauracion 
+    ===================================================*/
 
     /* Respaldo de base de datos
     =================================================*/
@@ -1053,9 +1054,9 @@ class User extends CI_Controller
         }
     }
 
-    /* ========================
-    Perfil 
-    ===========================*/
+     /* ================================================
+    | Perfil
+    ===================================================*/
 
     /* Actualizar informacion
     ==================================================*/
@@ -1119,9 +1120,7 @@ class User extends CI_Controller
             $this->end_page();
         }
     }
-
-   
-
+    
     /* ========================
     Extras
     ==========================*/ 

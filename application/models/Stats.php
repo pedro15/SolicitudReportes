@@ -1,13 +1,28 @@
 <?php
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
+/*
+    ----------------------------------------------------------------------------
+    |***                     Modulo de las estadisticas                     ***|
+    ----------------------------------------------------------------------------
+    |                                                                          |
+    |                                                                          |
+    | Inlcuye los metodos correspondientes a las estadisticas.                 |
+    |--------------------------------------------------------------------------|
+*/
+
 class Stats extends CI_Model
 {
+    /* Inicializacion del modelo
+    ===============================================*/
     public function __construct()
     {
         parent::__construct();
     }
 
+    /* Obtiene la lista de las solicitudes segun rango 
+    de fechas. 
+    ======================================================*/
     public function get_reports($fecha_inicio , $fecha_fin)
     {
         $db = $this->load->database('default' , TRUE);
@@ -16,6 +31,9 @@ class Stats extends CI_Model
         return $query->result_array();
     }
 
+    /* Obtiene la cantidad de las solicitudes de un equipo en especifico
+    ubicado en una sede.
+    ==================================================================*/
     public function count_reports_pc($pcid , $sedeid)
     {
         $db = $this->load->database('default' , TRUE);
@@ -35,6 +53,9 @@ class Stats extends CI_Model
         return count($cleanarr);
     }
 
+    /*  Obtiene la cantidad de las solicitudes segun una categoria especifica
+    ubicada en una sede.
+    =======================================================================*/
     public function count_reports_category($categorynum , $sedeid)
     {
         $db = $this->load->database('default' , TRUE);

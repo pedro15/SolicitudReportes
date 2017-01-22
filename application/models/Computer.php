@@ -1,8 +1,27 @@
 <?php
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
+/* 
+    ----------------------------------------------------------------------------
+    |***                      Modelo de los equipos                         ***|
+    ----------------------------------------------------------------------------
+    |                                                                          |
+    |                                                                          |
+    | Inlcuye los metodos correspondientes a los equipos.                      |
+    |--------------------------------------------------------------------------|
+*/
+
 class Computer extends CI_Model
 {
+     /* Inicializacion del modelo
+    =================================================*/
+    function  __construct()
+    {
+        parent::__construct();
+    }
+
+    /*  Registra un nuevo equipo en la base de datos
+    =================================================*/
     public function register($num,$cpu,$video,$ram,$hdd,$motherboard,$fuente,$monitor,$teclado,$mouse,$lector_dvd,$sistema_operativo,$lab_id)
     {
         if (!$this->isindb($lab_id , $num))
@@ -26,6 +45,9 @@ class Computer extends CI_Model
          }
     }
 
+    /* Obtiene todos los equipos registrados en la 
+    base de datos
+    =================================================*/
     public function get_all()
     {
         $db = $this->load->database('default' , TRUE);
@@ -34,6 +56,9 @@ class Computer extends CI_Model
         return $query->result_array();
     }
 
+    /* Obtiene todos los equipos registrados en un 
+    laboratorio especifico.
+    =================================================*/
     public function getby_lab($lab_id)
     {
         $db = $this->load->database('default' , TRUE);
@@ -42,12 +67,18 @@ class Computer extends CI_Model
         return $query->result();    
     }
     
+    /* Verifica si un equipo esta registrado en un
+    laboratorio especifico segun el Numero.
+    =================================================*/
     public function isindb($lab_id , $num)
     {
         $pc_id = $lab_id . "pc_" .$num ; 
         return $this->isindb_byid($pc_id);
     }
 
+    /*  Verifica si un equipo esta registrado en la 
+    base de datos segun su id.
+    =================================================*/
     public function isindb_byid($id)
     { 
         $db = $this->load->database('default' , TRUE);
@@ -62,6 +93,11 @@ class Computer extends CI_Model
         }
     }
 
+     /*  Verifica si un equipo esta registrado en la 
+    base de datos ignorando un id especifico, se 
+    utiliza a la hora de editar equipo cuando se quiere
+    mover un equipo de un laboratorio a otro.
+    =================================================*/
     public function isindb_ignoring($id , $ignoringid)
     { 
         $db = $this->load->database('default' , TRUE);
@@ -76,6 +112,8 @@ class Computer extends CI_Model
         }
     }
 
+     /*  Actualiza la informacion de un equipo registrado en la base de datos
+    ==========================================================================*/
     public function editpc ($pcnum , $lab_id , $newcpu , $newvideo , $newram , $newhdd , $newmotherboard , $newfuente , $newmonitor , $newteclado , $newmouse , $newdvd , $newso , $newlabid , $newnumpc)
     {
         
@@ -113,6 +151,8 @@ class Computer extends CI_Model
         }
     }
 
+     /*  Elimina un equipo especifico de la base de datos
+    =======================================================*/
     public function deletepc( $pcnum )
     {
         $db = $this->load->database('default', TRUE);
@@ -135,7 +175,9 @@ class Computer extends CI_Model
             return false ;
         }
     }
-    
+
+    /* Obtiene toda la informacion de un equipo especifico  
+    =======================================================*/
     public function get_pc_info($pcnum)
     {
         $db = $this->load->database('default', TRUE);
@@ -144,3 +186,4 @@ class Computer extends CI_Model
         return $query->row();
     }
 }
+?>

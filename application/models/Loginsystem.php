@@ -1,8 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
+/* 
+    ----------------------------------------------------------------------------
+    |***                    Modelo del sistema de login                     ***|
+    ----------------------------------------------------------------------------
+    |                                                                          |
+    |                                                                          |
+    | Inlcuye los metodos correspondientes a los equipos.                      |
+    |--------------------------------------------------------------------------|
+*/
+
 class Loginsystem extends CI_Model
 {
+    /*  Inicializacion del modelo
+    =================================================*/
     function __construct()
     {
         parent::__construct();
@@ -12,6 +24,8 @@ class Loginsystem extends CI_Model
         array('cipher' => 'aes-256'));
     }
     
+    /*  Ingresa al sistema 
+    =================================================*/
     public function login_internal($ci , $pass)
     {
         $user_data = $this->get_user_data($ci);
@@ -42,6 +56,8 @@ class Loginsystem extends CI_Model
         }
     }
 
+    /*  Guarda la informacion de usuario en la session
+    =================================================*/
     public function set_user_data($ci)
     {
         $user_data = $this->get_user_data($ci);
@@ -59,6 +75,8 @@ class Loginsystem extends CI_Model
         $this->session->set_userdata($data);
     }
 
+    /* Valida la clave de un usuario especifico 
+    =================================================*/
     public function verify_password($ci , $pass )
     {
         $user_data = $this->get_user_data($ci);
@@ -72,6 +90,9 @@ class Loginsystem extends CI_Model
         }
     }
 
+    /* Verifica si tiene la pregunta de seguridad
+    activada 
+    =================================================*/
     public function has_user_question($ci)
     {
         $usr = $this->get_user_data($ci); 
@@ -87,6 +108,8 @@ class Loginsystem extends CI_Model
         }
     }
 
+    /*  Obtiene la pregunta de seguridad de un usuario 
+    =================================================*/
     public function get_user_question($ci)
     {
          $usr = $this->get_user_data($ci); 
@@ -100,6 +123,8 @@ class Loginsystem extends CI_Model
         }
     }
     
+    /* Valida la respuesta de seguridad de un usuario
+    =================================================*/
     function verify_user_answer( $ci , $answer )
     {
         $usr = $this->get_user_data($ci);
@@ -118,6 +143,8 @@ class Loginsystem extends CI_Model
         }
     }
     
+    /*  Verifica si esta deshabilitado un usuario
+    =================================================*/
     function is_disabled($ci)
     {
         $row = $this->get_user_data($ci);
@@ -136,12 +163,16 @@ class Loginsystem extends CI_Model
         }
     }
 
+      /*  Verifica si existe un usuario en la base de datos
+    =======================================================*/
     public function user_exists($ci)
     {
         $row = $this->get_user_data($ci);
         return isset($row);
     }
 
+    /*  Obtiene la informacion de un usuario especifico
+    ====================================================*/
     function get_user_data($ci)
     {
         $db = $this->load->database('default' , TRUE);
@@ -150,6 +181,8 @@ class Loginsystem extends CI_Model
         return $query->row(); 
     }
     
+    /*  Desconecta a un usuario del sistema
+    =================================================*/
     public function logout()
     {
         if ($this->isloggedin())
@@ -161,6 +194,8 @@ class Loginsystem extends CI_Model
         redirect('/');
     }
 
+    /*  Verifica si un usuario esta ingresado al sistema
+    ====================================================*/
     public function isloggedin()
     {
         $logged = $this->session->logged;
@@ -173,6 +208,8 @@ class Loginsystem extends CI_Model
         }
     }
 
+    /*  obtiene la informacion del usuario conectaco a la session
+    =============================================================*/
     public function getuserdata()
     {
         return array

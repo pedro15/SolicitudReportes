@@ -1,8 +1,23 @@
 <?php
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
+
+/* 
+    ----------------------------------------------------------------------------
+    |***                   Ingresar al sistema                              ***|
+    ----------------------------------------------------------------------------
+    |                                                                          |
+    |                                                                          |
+    |  Incluye los modulos de validacion de usuario y sessiones                |
+    |--------------------------------------------------------------------------|
+*/
+
+
 class Login extends CI_Controller 
 {
+	/* Inicializacion: Carga la libreria de redireccionar y del validacion de 
+	usuario. 
+    ============================================================================*/
 	function __construct()
 	{
 		parent::__construct();
@@ -10,6 +25,10 @@ class Login extends CI_Controller
 		$this->load->model('loginsystem');
 	}
 
+	/* Se inicia por defecto: 
+	Carga la interaz de ingresar al sistema o de configuracion del mismo dependiendo  del 
+	estado de la base de datos.
+    =======================================================================================*/
 	public function index()
 	{
 		$this->load->view('head.php');
@@ -67,6 +86,9 @@ class Login extends CI_Controller
 		}
 	}
 
+	/*	Carga la instalacion del sistema; ya sea insalacion de base de datos 
+	o instalacion del administrador. 
+    ============================================================================*/
 	public function install()
 	{
 		$this->load->view('head.php');
@@ -106,6 +128,8 @@ class Login extends CI_Controller
 		}
 	}
 
+	/*	Carga la pregunta de seguridad si el usuario la tiene activada
+    ============================================================================*/
 	public function securityquestion()
 	{
 		$ci = $this->input->get('ci') ; 

@@ -1,8 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
+/* 
+    ----------------------------------------------------------------------------
+    |***                     Modelo de Soporte tecnico                      ***|
+    ----------------------------------------------------------------------------
+    |                                                                          |
+    |                                                                          |
+    | Inlcuye los metodos correspondientes a las solicitudes de soporte tecnico|
+    |--------------------------------------------------------------------------|
+*/
+
     class Support extends CI_Model
     {
+        /* Inicializacion del modelo
+        ===============================================*/
         function __construct()
         {
             parent::__construct();
@@ -11,27 +23,17 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             $this->load->model('laboratory');
         }
 
+        /* Obtiene las credenciales del correo electronico
+        servidor.
+        ==================================================*/
         public function get_mail_credentials()
         {
             $this->config->load('emailconf',TRUE);
             return $this->config->item('emailcredentials' , 'emailconf');
         }
 
-        function isconn()
-        {
-            $response = null;
-            system("ping -c 1 google.com", $response);
-            
-            if($response == 0)
-            {
-                return true ;
-            }else 
-            {
-                return false ;
-            }
-        }
-
-        // Tipo = Categoria
+        /* Envia una solicitud de soporte tecnico
+        ===============================================*/
         public function send_ticket($id_equipo , $descripcion , $tipo , $ci_user)
         {
             $db = $this->load->database('default' , TRUE); 
@@ -110,6 +112,9 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             }   
         }
 
+        /* Obtiene la cantidad de los estados segun 
+        una solicitud especifica.
+        ===============================================*/
         public function get_reports($id_falla)
         {
             $db = $this->load->database('default' , TRUE); 
@@ -141,6 +146,9 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             return $allreports;
         }
 
+        /* Obtiene todas las solicitudes de soporte 
+        tecnico
+        ===============================================*/
         public function get_all()
         {
             $sql_falla = "SELECT * FROM `falla` ;" ;
@@ -171,6 +179,9 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             return $results; 
         }
 
+        /* Cambia y agrega el estado de una solicitud 
+        de soporte tecnico.
+        ===============================================*/
         public function updatereport($id_falla , $estado , $ci_user)
         {
              $db = $this->load->database('default' , TRUE); 
@@ -186,6 +197,9 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
              }
         }
 
+        /* Elimina una solicitud de soporte tecnico 
+        especifica
+        ===============================================*/
         public function remove($id)
         {
              $db = $this->load->database('default' , TRUE); 
@@ -200,6 +214,9 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
              }
         }
 
+        /* Obtiene una solicitud de soporte tecnico 
+        especifica
+        ===============================================*/
         public function get_falla($id_falla)
         {
             $db = $this->load->database('default' , TRUE); 
@@ -208,12 +225,19 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
             return $query->row();
         }
 
+        /* Obtiene la lista de las categoria de soporte 
+        tecnico desde el archivo de configuracion 
+        ubicado en : application/config/categories.php
+        ===============================================*/
         public function get_categories()
         {
             $this->config->load('categories',TRUE);
             return $this->config->item('computer_categories' , 'categories');
         }
 
+        /* Obtiene una categoria especifica desde la 
+        lista de categorias de soporte tecnico.
+        ===============================================*/
         public function get_categorie_name($categorieindex)
         {
             $cats = $this->get_categories();

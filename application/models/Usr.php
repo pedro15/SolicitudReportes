@@ -1,8 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
-// Modulos para los usuarios
+
+/* 
+    ----------------------------------------------------------------------------
+    |***                      Modelo del usuario                            ***|
+    ----------------------------------------------------------------------------
+    |                                                                          |
+    |                                                                          |
+    | Incluye todos los metodos correspondientes a los usuarios en el sistema  |
+    |--------------------------------------------------------------------------|
+*/
+
 class Usr extends CI_Model
 {
+    /* Inicializacion del modelo
+    =================================================*/
     function __construct()
     {
         parent::__construct();
@@ -11,6 +23,8 @@ class Usr extends CI_Model
         array('cipher' => 'aes-256'));
     }
     
+    /* devuelve todos los usuarios del sistema
+    =================================================*/
     public function get_all()
     {
         $db = $this->load->database('default' , TRUE);
@@ -19,6 +33,8 @@ class Usr extends CI_Model
         return $query->result();
     }
     
+    /* Registra una nueva sede en la base de datos
+    =================================================*/
     public function getsendmails()
     {
          $db = $this->load->database('default' , TRUE);
@@ -36,6 +52,8 @@ class Usr extends CI_Model
          return $mailsarr;
     }
 
+     /* Registra una nueva sede en la base de datos
+    =================================================*/
     public function remove( $ci )
     {
         if($this->is_in_database($ci))
@@ -56,6 +74,8 @@ class Usr extends CI_Model
         }
     }
 
+     /* Habilita o deshabilita un usuario en el sistema
+    ====================================================*/
     public function change_state($ci , $new_state)
     {
         if($this->is_in_database($ci))
@@ -76,6 +96,8 @@ class Usr extends CI_Model
         }
     }
 
+     /* Cambia el nivel de privilegio de un usuario.
+    =================================================*/
     public function change_type($ci , $newtype)
     {
         if($this->is_in_database($ci))
@@ -96,6 +118,8 @@ class Usr extends CI_Model
         }
     }
 
+     /* Actualiza la informacion de un usuario.
+    =================================================*/
     function update_profile($ci , $new_name , $new_email , $new_questionid , $new_question , $questionenabled )
     {
          if($this->is_in_database($ci))
@@ -118,6 +142,8 @@ class Usr extends CI_Model
         }
     }
 
+     /* Actualiza la clave de un usuario
+    =================================================*/
     function change_password($ci , $new_password)
     {
         if($this->is_in_database($ci))
@@ -139,7 +165,8 @@ class Usr extends CI_Model
         }
     }
     
-
+     /* Registra un usuario en la base de datos
+    =================================================*/
     function register($ci , $name , $pw , $security_question , $type , $email  )
     {
         if (!$this->is_in_database($ci))
@@ -161,6 +188,8 @@ class Usr extends CI_Model
         }
     }
 
+     /* Verifica si un usuario se encuentra registrado en la base de datos
+    =======================================================================*/
     public function is_in_database($ci)
     {
         $db = $this->load->database('default' , TRUE);
@@ -176,6 +205,8 @@ class Usr extends CI_Model
         }
     }
 
+     /* Verficia si un usuario en especifico es administrador
+    ==========================================================*/
     public function is_admin($ci)
     {
         $db = $this->load->database('default' , TRUE);
@@ -197,6 +228,9 @@ class Usr extends CI_Model
         }
     }
 
+     /* Verifica si puede eliminar a un usuario de 
+     la base de datos
+    =================================================*/
     public function can_remove($ci)
     {
         if ($this->is_admin($ci))
@@ -218,6 +252,9 @@ class Usr extends CI_Model
         }
     }
 
+     /* Verficia si existen administradores en la 
+     base de datos
+    =================================================*/
     public function has_admins()
     {
          $db = $this->load->database('default' , TRUE); 
@@ -227,6 +264,9 @@ class Usr extends CI_Model
          return isset($row); 
     }
 
+     /* Obtiene la informacion de un usuario en 
+     especifico
+    =================================================*/
     public function get_data($ci)
     {
         $db = $this->load->database('default' , TRUE);
@@ -235,12 +275,17 @@ class Usr extends CI_Model
         return $query->row_array();
     }
     
+     /* Obtiene las preguntas de seguridad predefinidas
+     desde el archivo: application/config/categories.php
+    =====================================================*/
     public function get_questions()
     {
         $this->config->load('categories',TRUE);
         return $this->config->item('security_questions' , 'categories');
     }
 
+     /* Obtiene una pregunta de  seguridad especifica
+    =================================================*/
     public function get_question_name($id)
     {
         $questions = $this->get_questions();

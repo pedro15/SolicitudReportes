@@ -1,6 +1,16 @@
 <?php
     defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
+/* 
+    ----------------------------------------------------------------------------
+    |***                  Vista agregar laboratorio                         ***|
+    ----------------------------------------------------------------------------
+    |                                                                          |
+    |                                                                          |
+    |  Interfaz de usuario correspondiente a agregar laboratorio               |
+    |--------------------------------------------------------------------------|
+*/
 ?>
+
 <div class = "container">
     <div class = "page-header">
         <h3>Créditos del sistema</h3>
@@ -44,6 +54,13 @@
                     <td>19848049</td>
                     <td><a href="mailto:yasbellrosales15@gmail.com">yasbellrosales15@gmail.com</a></td>
                     <td>0412-6900970</td>
+                </tr>
+
+                 <tr>
+                    <td>Rivera R. Javier I.</td>
+                    <td>8046113</td>
+                    <td><a href="mailto:javierri@fundacite-merida.gob.ve">javierri@fundacite-merida.gob.ve</a></td>
+                    <td>0416-6025406</td>
                 </tr>
 
             </tbody>

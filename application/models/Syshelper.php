@@ -1,6 +1,17 @@
 <?php 
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
 
+/* 
+    ----------------------------------------------------------------------------
+    |***                      Modelo del sistema                            ***|
+    ----------------------------------------------------------------------------
+    |                                                                          |
+    |                                                                          |
+    | Incluye todos los metodos correspondientes a respaldo,restauracion de    |
+    | base de datos.                                                           |
+    |--------------------------------------------------------------------------|
+*/
+
 class Syshelper extends CI_Model
 {
     private $dbutility;

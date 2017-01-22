@@ -1,6 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
+
+/* 
+    ----------------------------------------------------------------------------
+    |***                  Vista agregar laboratorio                         ***|
+    ----------------------------------------------------------------------------
+    |                                                                          |
+    |                                                                          |
+    |  Interfaz de usuario correspondiente a agregar laboratorio               |
+    |--------------------------------------------------------------------------|
+*/
 ?>
+
 <div class = "container">
     <div class = "page-header">
         <h3>Registrar Laboratorio</h3>
@@ -11,11 +22,13 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                 <div class = "col-md-5">
                     <label>Sede:</label>
                     <?php 
+                        // Obtiene y verifica que existan sedes registradas
                        if (isset($rows_sedes) && count($rows_sedes) > 0 )
                        {
                     ?>
                     <select name = "sedeopc" class = "form-control" >
                         <?php
+                            // Agrega las sedes en el combobox
                             foreach( $rows_sedes as $sede )
                             {
                                 $opc = '<option value = "' . $sede->id_sede . '">' . $sede->nombre . ' - ' . $sede->ubicacion . '</option>' ; 

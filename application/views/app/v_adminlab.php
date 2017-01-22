@@ -1,5 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
+/* 
+    ----------------------------------------------------------------------------
+    |***                  Vista administrar laboratorios                    ***|
+    ----------------------------------------------------------------------------
+    |                                                                          |
+    |                                                                          |
+    |  Interfaz de usuario correspondiente a administrar los laboratorios.     |
+    |--------------------------------------------------------------------------|
+*/
 ?>
 <div class = "container">
     <div class = "page-header">
@@ -27,6 +36,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                         <select id = "txt_sedename" class = "form-control">
                             <option value = "none">Seleccionar</option>
                             <?php 
+                                 // Carga las sedes registradas en la base de datos en el combobox  
                                  foreach($sedes as $sede)
                                  {
                                      $opc = '<option value ="' . $sede->id_sede . '">' . $sede->nombre . '</option>' ; 
@@ -56,7 +66,9 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     </div>
 </div>
 <script type = "text/javascript">
+    // --- Script que permine administrar y filtrar la informacion de los laboratorios
 
+    // Tooltips de los filtros de informacion 
     $('[data-toggle="tooltip"]').mouseenter(function()
     {
         $(this).tooltip('show');
@@ -66,9 +78,8 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
     {
         $(this).tooltip('hide');
     });
-    
-    var json  = "" ; 
 
+    // Mensajes de validacion 
     function validate_edit()
     {
         return confirm("Desea editar este laboratorio ?");
@@ -79,6 +90,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         return confirm("Desea ELIMINAR este laboratorio ?");
     }
 
+    // Actualiza la informacion en la tabla 
     $(document).ready(function() 
     {
         get_data();
@@ -104,16 +116,21 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         get_data();
     });
 
+    // Variable usada para almacenar la infomacion de los laboratorios obtenidos desde la base de datos 
+    var json  = "" ; 
+
+    // Se usa para obtener la informacion de los laboratorios desde la base de datos
     function get_data()
     {
         $.ajax
         ({
             type: "POST",
-            url: "<?php echo base_url('index.php/user/ajax_getall_labs'); ?>",
+            url: "<?php echo base_url('index.php/user/ajax_getall_labs'); ?>", // url de la  funcion que devuelve la informacion de los laboratorios  
             data: {request: true},
             success:
             function (res)
             {
+                // Filtro por nombre de laboratorio
                 json = JSON.parse(res);   
                 var labchecked = $("#check_labname").is(':checked');
                 if (labchecked)
@@ -125,7 +142,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     });
                     json = lab_arr;
                 }
-
+                // Filtro por Sede
                 var sedechecked = $("#check_sedename").is(':checked');
                 if (sedechecked)
                 {
@@ -137,12 +154,14 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     });
                     json = sede_arr ;
                 }
+                // Actualiza la informacion en la interfaz
                 populate(json);
             }
 
         });    
     }
 
+// Realiza al paginacion 
 function populate(xjson)
 {
     updatehtml(xjson);
@@ -158,6 +177,7 @@ function populate(xjson)
     });
 }
 
+// Carga la informacion correspondiente en la tabla
 function updatehtml(xjson)
 {
     var _html = "" ;

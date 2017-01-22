@@ -1,5 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
+
+/* 
+    ----------------------------------------------------------------------------
+    |***                  Vista agregar sede                                ***|
+    ----------------------------------------------------------------------------
+    |                                                                          |
+    |                                                                          |
+    |  Interfaz de usuario correspondiente a agregar las sedes.                |
+    |--------------------------------------------------------------------------|
+*/
+
 ?>
 <div class = "container">
     <div class = "page-header">

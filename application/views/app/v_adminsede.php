@@ -47,6 +47,7 @@
 
 <script type = "text/javascript">
 
+    // Carga los tooltips 
     $('[data-toggle="tooltip"]').mouseenter(function()
     {
         $(this).tooltip('show');
@@ -58,6 +59,8 @@
     });
 
     var json = "" ;
+
+    // Valida los mensajes de confirmacion 
     function validate_delete()
     {
         return confirm("Desea eliminar esta sede?, toda la infomacion relacionada con la misma sera eliminada.");

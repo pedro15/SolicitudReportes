@@ -342,6 +342,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         }
     }
 
+    // Muestra la informacion de un equipo especifico.
     function showpcinfo(id)
     {
         $.ajax
@@ -379,6 +380,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         });
     }
 
+    // Elimina una solicitud de soporte tenico
     function removeticket(id)
     {
         if (confirm("Desea ELIMINAR esta solicitud ?"))
@@ -400,6 +402,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         }
     }
 
+    // Pagina las solicitudes de soporte tecnico
     function paginatetickets(json)
     {
         filltickets(json);
@@ -414,6 +417,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         });
     }
 
+    // Pagina el historial de estados de una solicitud de soporte tecnico
     function paginatestates(json)
     {
         filltabledialogs(json);
@@ -428,6 +432,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         });
     }
 
+    //Actualiza la infomacion de las solicitudes de soporte tecnico desde la base de datos
     function updateticketdata()
     {
         $.ajax
@@ -508,12 +513,13 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         $("#table-dialog-fill").html(html);
     }
 
+    // Agrega una imagen al pdf 
     function addimagefromurl(url, callback) 
     {
     	var img = new Image, data, ret={data: null, pending: true};
     	img.onError = function() 
         {
-    		throw new Error('Cannot load image: "'+url+'"');
+    		throw new Error('No se puede cargar imagen: "'+url+'"');
     	}
     	img.src = url;
     	img.onload = function() {
@@ -541,6 +547,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         return (doc.internal.pageSize.width - textWidth) / 2;
     }
 
+    // Genera el pdf con la informacion actual
     function downloadpdf(xid)
     {
         updateticketdata();
@@ -556,7 +563,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
                     doc.setLineWidth(0.5);
 
                     var titulo = 'Sistema de solicitud de soporte técnico (SASSTEC)' ; 
-
+                    
                     doc.text( titulo , getxcenter(titulo,doc) , 30);
                 
                     var subtitulo = 'Planilla de solicitud' ;
@@ -611,6 +618,7 @@ defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
         }
     }
 
+    // Carga las solicitudes de soporte tenico en la vista 
     function filltickets(xjson)
     {
             var html = "";

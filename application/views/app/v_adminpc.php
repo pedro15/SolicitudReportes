@@ -1,5 +1,14 @@
 <?php
     defined('BASEPATH') OR exit('No esta permitido el acceso directo al script.');
+/* 
+    ----------------------------------------------------------------------------
+    |***                  Vista administrar equipos                         ***|
+    ----------------------------------------------------------------------------
+    |                                                                          |
+    |                                                                          |
+    |  Interfaz de usuario correspondiente a administrar los equipos.          |
+    |--------------------------------------------------------------------------|
+*/
 ?>
 <div class = "container">
     <div class = "page-header">
@@ -116,12 +125,14 @@
                         <input type="checkbox" id = "ch_sede" name = "canfiltrername" data-toggle="tooltip" data-placement="top" title="Activar/Desactivar filtro" >
                         </span>
                         <?php 
+                            // Verifica las sedes registradas en la base de datos
                             if (isset($sedes))
                             {
                         ?>
                         <select id = "select_sede" class = "form-control" > 
                             <option>Seleccionar</option>
                             <?php 
+                                // Carga las sedes registradas en la base de datos en un combobox
                                 foreach($sedes as $sede)
                                 {
                                     $opc = '<option value ="' . $sede->id_sede . '">' . $sede->nombre . '</option>' ; 
@@ -183,6 +194,7 @@
     </div>
 <script type = "text/javascript">
 
+// Tooltips de filtros de busqueda
 $('[data-toggle="tooltip"]').mouseenter(function()
 {
     $(this).tooltip('show');
@@ -193,11 +205,13 @@ $('[data-toggle="tooltip"]').mouseout(function()
     $(this).tooltip('hide');
 });
 
+ // Actualiza la informacion en la tabla 
 $(document).ready(function()
 {
     updatetable();
 });
 
+// Carga los laboratorios en el combobox correspondiente segun la sede seleccionada
 $("#select_sede").change(function()
 {
     var _value = $("#select_sede").val();
@@ -222,6 +236,8 @@ $("#select_sede").change(function()
     );
     updatetable();
 });
+
+// Filtros de informacion 
 
 $("#select_lab").change(function()
 {
@@ -338,13 +354,14 @@ $("#txt_power").keyup(function()
     updatetable();
 });
 
+// Carga la informacion de los equipos desde la base de datos
 function updatetable()
 {
     $.ajax
     (
         {
             type : "POST",
-            url: "<?php echo base_url('index.php/user/ajax_getallcomputers'); ?>", 
+            url: "<?php echo base_url('index.php/user/ajax_getallcomputers'); ?>", // url de la funcion que devuelve la informacion de los equipos
             data: {request: true} ,
             success:
             function (res)
@@ -501,6 +518,7 @@ function updatetable()
     );
 }
 
+// Realiza al paginacion 
 function populate(xjson)
 {
     updatehtml(xjson);
@@ -526,6 +544,7 @@ function validate_delete()
     return confirm("Desea ELIMINAR este equipo ?");
 }
 
+// Carga la informacion correspondiente en la tabla
 function updatehtml(xjson)
 {
     var _html = "" ;
